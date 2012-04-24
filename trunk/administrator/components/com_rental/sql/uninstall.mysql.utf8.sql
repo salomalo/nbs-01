@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS `#__rental_apartments`
+DROP TABLE IF EXISTS `#__rental_amenities`
+DROP TABLE IF EXISTS `#__retal_apartment_amenities`
+DROP TABLE IF EXISTS `#__retal_apartment_images`
+DROP TABLE IF EXISTS `#__retal_user_favourite_apartments`
+DROP TABLE IF EXISTS `#__retal_user_saved_search`
+DROP TABLE IF EXISTS `#__retal_agents`
+DROP TABLE IF EXISTS `#__retal_user_reviews`
+DROP TABLE IF EXISTS `#__retal_location`

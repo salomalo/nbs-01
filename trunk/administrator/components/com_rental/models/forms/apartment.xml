@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!-- $Id: banner.xml 21329 2011-05-11 04:15:59Z eddieajau $ -->
+<form>
+	<fieldset name="details"
+		addfieldpath="/administrator/components/com_rental/models/fields"
+	>
+		<field name="id" type="text" default="0"
+			readonly="true" class="readonly"
+			label="JGLOBAL_FIELD_ID_LABEL" 	description ="JGLOBAL_FIELD_ID_DESC" />
+			
+		
+		<field name="title" type="text"
+			label="COM_RENTAL_FIELD_TITLE_LABEL" 
+			description ="COM_RENTAL_FIELD_TITLE_DESC" 
+			 />
+
+		<field name="alias" type="text"
+			label="COM_RENTAL_FIELD_ALIAS_LABEL" 
+			description ="COM_RENTAL_FIELD_ALIAS_DESC" 
+			 />
+
+		<field name="bedrooms" type="text"
+			label="COM_RENTAL_FIELD_BEDROOMS_LABEL" 
+			description ="COM_RENTAL_FIELD_BEDROOMS_DESC" 
+			required="true"  />
+
+		<field name="bathrooms" type="text"
+			label="COM_RENTAL_FIELD_BATHROOMS_LABEL" 
+			description ="COM_RENTAL_FIELD_BATHROOMS_DESC" 
+			 />
+
+		<field name="square_ft" type="text"
+			label="COM_RENTAL_FIELD_SQUARE_FT_LABEL" 
+			description ="COM_RENTAL_FIELD_SQUARE_FT_DESC" 
+			 />
+
+		<field name="listed_for" type="text"
+			label="COM_RENTAL_FIELD_LISTED_FOR_LABEL" 
+			description ="COM_RENTAL_FIELD_LISTED_FOR_DESC" 
+			 />
+
+		<field name="available_on" type="calendar"
+			label="COM_RENTAL_FIELD_AVAILABLE_ON_LABEL" 
+			description ="COM_RENTAL_FIELD_AVAILABLE_ON_DESC" 
+			format="%Y-%m-%d" size="22" filter="server_utc"  />
+
+		<field name="pets" type="textarea"
+			label="COM_RENTAL_FIELD_PETS_LABEL" 
+			description ="COM_RENTAL_FIELD_PETS_DESC" 
+			 />
+
+		<field name="description" type="editor"
+			label="COM_RENTAL_FIELD_DESCRIPTION_LABEL" 
+			description ="COM_RENTAL_FIELD_DESCRIPTION_DESC" 
+			 />
+
+		<field name="address" type="text"
+			label="COM_RENTAL_FIELD_ADDRESS_LABEL" 
+			description ="COM_RENTAL_FIELD_ADDRESS_DESC" 
+			 />
+
+		<field name="address_2" type="text"
+			label="COM_RENTAL_FIELD_ADDRESS_2_LABEL" 
+			description ="COM_RENTAL_FIELD_ADDRESS_2_DESC" 
+			 />
+
+		<field name="city" type="text"
+			label="COM_RENTAL_FIELD_CITY_LABEL" 
+			description ="COM_RENTAL_FIELD_CITY_DESC" 
+			 />
+
+		<field name="portal_code" type="text"
+			label="COM_RENTAL_FIELD_PORTAL_CODE_LABEL" 
+			description ="COM_RENTAL_FIELD_PORTAL_CODE_DESC" 
+			 />
+
+		<field name="country" type="text"
+			label="COM_RENTAL_FIELD_COUNTRY_LABEL" 
+			description ="COM_RENTAL_FIELD_COUNTRY_DESC" 
+			 />
+
+		<field name="location_id" type="rentalcustomlocationid"
+			label="COM_RENTAL_FIELD_LOCATION_ID_LABEL" 
+			description ="COM_RENTAL_FIELD_LOCATION_ID_DESC" 
+			 />
+
+		<field name="agent_id" type="rentalcustomagentid"
+			label="COM_RENTAL_FIELD_AGENT_ID_LABEL" 
+			description ="COM_RENTAL_FIELD_AGENT_ID_DESC" 
+			 />
+
+		<field name="price" type="text"
+			label="COM_RENTAL_FIELD_PRICE_LABEL" 
+			description ="COM_RENTAL_FIELD_PRICE_DESC" 
+			required="true"  />
+
+		
+		<field name="state" type="list"
+			label="JSTATUS" description="COM_RENTAL_FIELD_STATE_DESC"
+			class="inputbox" size="1" default="1" >
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+			<option value="2">JARCHIVED</option>
+			<option value="-2">JTRASHED</option>
+		</field>
+		
+		<field name="language" type="contentlanguage" label="JFIELD_LANGUAGE_LABEL"
+			description="COM_RENTAL_FIELD_LANGUAGE_DESC" class="inputbox"
+		>
+			<option value="*">JALL</option>
+		</field>
+		
+		<field name="description" type="textarea" class="inputbox"
+			rows="3" cols="30" label="JGLOBAL_DESCRIPTION"
+			description="COM_RENTAL_FIELD_DESCRIPTION_DESC" />
+	</fieldset>
+
+	<fieldset name="publish"
+		label="COM_RENTAL_GROUP_LABEL_PUBLISHING_DETAILS"
+	>
+
+		<field name="created" type="calendar"
+			label="COM_RENTAL_FIELD_CREATED_LABEL" description="COM_RENTAL_FIELD_CREATED_DESC"
+			class="inputbox" size="22" format="%Y-%m-%d %H:%M:%S"
+			filter="user_utc" />
+
+		<field name="publish_up" type="calendar"
+			label="COM_RENTAL_FIELD_PUBLISH_UP_LABEL" description="COM_RENTAL_FIELD_PUBLISH_UP_DESC"
+			class="inputbox" format="%Y-%m-%d %H:%M:%S" size="22"
+			filter="user_utc" />
+
+		<field name="publish_down" type="calendar"
+			label="COM_RENTAL_FIELD_PUBLISH_DOWN_LABEL" description="COM_RENTAL_FIELD_PUBLISH_DOWN_DESC"
+			class="inputbox" format="%Y-%m-%d %H:%M:%S" size="22"
+			filter="user_utc" />
+
+	</fieldset>
+
+	<fieldset name="metadata"
+		label="JGLOBAL_FIELDSET_METADATA_OPTIONS"
+	>
+
+		<field name="metakey" type="textarea" class="inputbox"
+			rows="3" cols="30" label="JFIELD_META_KEYWORDS_LABEL"
+			description="COM_RENTAL_FIELD_METAKEYWORDS_DESC" />
+
+		<field name="metadesc" type="textarea"
+			label="JFIELD_META_DESCRIPTION_LABEL" description="JFIELD_META_DESCRIPTION_DESC"
+			class="inputbox" rows="3" cols="30" />
+
+	</fieldset>
+
+</form>
