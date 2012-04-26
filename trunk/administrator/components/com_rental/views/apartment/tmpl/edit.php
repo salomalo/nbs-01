@@ -31,12 +31,21 @@ JHtml::_('behavior.formvalidation');
 			<legend><?php echo empty($this->item->id) ? JText::_('COM_RENTAL_NEW_APARTMENT') : JText::sprintf('COM_RENTAL_APARTMENT_DETAILS', $this->item->id); ?></legend>
 			<ul class="adminformlist">
 				
-				
+				<?php /*
 				<li><?php echo $this->form->getLabel('title'); ?>
 				<?php echo $this->form->getInput('title'); ?></li>
 				
 				<li><?php echo $this->form->getLabel('alias'); ?>
 				<?php echo $this->form->getInput('alias'); ?></li>
+				*/ ?>
+				<li><?php echo $this->form->getLabel('location_id'); ?>
+				<?php echo $this->form->getInput('location_id'); ?></li>
+				
+				<li><?php echo $this->form->getLabel('agent_id'); ?>
+				<?php echo $this->form->getInput('agent_id'); ?></li>
+				
+				<li><?php echo $this->form->getLabel('price'); ?>
+				<?php echo $this->form->getInput('price'); ?></li>		
 				
 				<li><?php echo $this->form->getLabel('bedrooms'); ?>
 				<?php echo $this->form->getInput('bedrooms'); ?></li>
@@ -56,9 +65,6 @@ JHtml::_('behavior.formvalidation');
 				<li><?php echo $this->form->getLabel('pets'); ?>
 				<?php echo $this->form->getInput('pets'); ?></li>
 				
-				<li><?php echo $this->form->getLabel('description'); ?>
-				<?php echo $this->form->getInput('description'); ?></li>
-				
 				<li><?php echo $this->form->getLabel('address'); ?>
 				<?php echo $this->form->getInput('address'); ?></li>
 				
@@ -74,25 +80,18 @@ JHtml::_('behavior.formvalidation');
 				<li><?php echo $this->form->getLabel('country'); ?>
 				<?php echo $this->form->getInput('country'); ?></li>
 				
-				<li><?php echo $this->form->getLabel('location_id'); ?>
-				<?php echo $this->form->getInput('location_id'); ?></li>
-				
-				<li><?php echo $this->form->getLabel('agent_id'); ?>
-				<?php echo $this->form->getInput('agent_id'); ?></li>
-				
-				<li><?php echo $this->form->getLabel('price'); ?>
-				<?php echo $this->form->getInput('price'); ?></li>
-				
+						
 				
 				<li><?php echo $this->form->getLabel('state'); ?>
 				<?php echo $this->form->getInput('state'); ?></li>
-				
-				<li><?php echo $this->form->getLabel('language'); ?>
-				<?php echo $this->form->getInput('language'); ?></li>
 
 				<li><?php echo $this->form->getLabel('id'); ?>
 				<?php echo $this->form->getInput('id'); ?></li>
 			</ul>
+			<div class="clr"> </div>
+			<?php echo $this->form->getLabel('description'); ?>
+			<div class="clr"> </div>
+			<?php echo $this->form->getInput('description'); ?>
 			<div class="clr"> </div>
 
 		</fieldset>

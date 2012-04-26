@@ -46,8 +46,9 @@ class JFormFieldRentalcustomlocationid extends JFormFieldList
 		$query	= $db->getQuery(true);
 		
 		$query->select('id As value, title As text');
-		$query->from('#__rental_location AS a');
+		$query->from('#__retal_location AS a');
 		$query->order('a.title');
+		$query->where('a.state = 1');
 
 		// Get the options.
 		$db->setQuery($query);

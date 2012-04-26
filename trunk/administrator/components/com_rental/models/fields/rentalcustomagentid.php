@@ -45,9 +45,10 @@ class JFormFieldRentalcustomagentid extends JFormFieldList
 		$db		= JFactory::getDbo();
 		$query	= $db->getQuery(true);
 		
-		$query->select('id As value, first_name As text');
-		$query->from('#__rental_agents AS a');
+		$query->select('id As value, CONCAT(first_name, " ", last_name) As text');
+		$query->from('#__retal_agents AS a');
 		$query->order('a.first_name');
+		$query->where('a.state = 1');
 
 		// Get the options.
 		$db->setQuery($query);

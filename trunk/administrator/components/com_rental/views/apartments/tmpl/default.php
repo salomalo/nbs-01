@@ -66,19 +66,13 @@ $saveOrder	= $listOrder=='ordering';
 					<?php echo JHtml::_('grid.sort',  'COM_RENTAL_HEADING_SQUARE_FT', '#__rental_apartments.square_ft', $listDirn, $listOrder); ?>
 				</th>
 				<th>
-					<?php echo JHtml::_('grid.sort',  'COM_RENTAL_HEADING_LISTED_FOR', '#__rental_apartments.listed_for', $listDirn, $listOrder); ?>
-				</th>
-				<th>
 					<?php echo JHtml::_('grid.sort',  'COM_RENTAL_HEADING_AVAILABLE_ON', '#__rental_apartments.available_on', $listDirn, $listOrder); ?>
 				</th>
 				<th>
 					<?php echo JHtml::_('grid.sort',  'COM_RENTAL_HEADING_PETS', '#__rental_apartments.pets', $listDirn, $listOrder); ?>
 				</th>
 				<th>
-					<?php echo JHtml::_('grid.sort',  'COM_RENTAL_HEADING_RETAL_AGENTS_0_FIRST_NAME', 'retal_agents_0_first_name', $listDirn, $listOrder); ?>
-				</th>
-				<th>
-					<?php echo JHtml::_('grid.sort',  'COM_RENTAL_HEADING_RETAL_AGENTS_0_LAST_NAME', 'retal_agents_0_last_name', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort',  'COM_RENTAL_HEADING_RETAL_AGENTS_NAME', 'retal_agents_0_first_name', $listDirn, $listOrder); ?>
 				</th>
 				
 				<th width="5%">
@@ -135,21 +129,14 @@ $saveOrder	= $listOrder=='ordering';
 					<?php echo $this->escape($item->square_ft); ?>
 				</td>
 				<td class="center">
-					<?php echo $this->escape($item->listed_for); ?>
-				</td>
-				<td class="center">
 					<?php echo $this->escape($item->available_on); ?>
 				</td>
 				<td class="center">
 					<?php echo $this->escape($item->pets); ?>
 				</td>
 				<td class="center">
-					<?php echo $this->escape($item->retal_agents_0_first_name); ?>
-				</td>
-				<td class="center">
-					<?php echo $this->escape($item->retal_agents_0_last_name); ?>
-				</td>
-				
+					<?php echo $this->escape($item->retal_agents_0_first_name) . ' ' . $this->escape($item->retal_agents_0_last_name); ?>
+				</td>				
 				<td class="center">
 					<?php echo JHtml::_('jgrid.published', $item->state, $i, 'apartments.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
 				</td>

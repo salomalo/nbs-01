@@ -34,17 +34,12 @@
 			description ="COM_RENTAL_FIELD_SQUARE_FT_DESC" 
 			 />
 
-		<field name="listed_for" type="text"
-			label="COM_RENTAL_FIELD_LISTED_FOR_LABEL" 
-			description ="COM_RENTAL_FIELD_LISTED_FOR_DESC" 
-			 />
-
 		<field name="available_on" type="calendar"
 			label="COM_RENTAL_FIELD_AVAILABLE_ON_LABEL" 
 			description ="COM_RENTAL_FIELD_AVAILABLE_ON_DESC" 
 			format="%Y-%m-%d" size="22" filter="server_utc"  />
 
-		<field name="pets" type="textarea"
+		<field name="pets" type="text"
 			label="COM_RENTAL_FIELD_PETS_LABEL" 
 			description ="COM_RENTAL_FIELD_PETS_DESC" 
 			 />
@@ -82,11 +77,13 @@
 		<field name="location_id" type="rentalcustomlocationid"
 			label="COM_RENTAL_FIELD_LOCATION_ID_LABEL" 
 			description ="COM_RENTAL_FIELD_LOCATION_ID_DESC" 
+			required="true"
 			 />
 
 		<field name="agent_id" type="rentalcustomagentid"
 			label="COM_RENTAL_FIELD_AGENT_ID_LABEL" 
 			description ="COM_RENTAL_FIELD_AGENT_ID_DESC" 
+			required="true"
 			 />
 
 		<field name="price" type="text"

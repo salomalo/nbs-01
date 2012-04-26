@@ -116,7 +116,7 @@ $saveOrder	= $listOrder=='ordering';
 					<?php endif; ?>
 				</td>
 				<td class="center">
-					<?php echo $this->escape($item->title); ?>
+					<?php echo $this->escape($item->id); ?>
 				</td>
 			</tr>
 			<?php endforeach; ?>
