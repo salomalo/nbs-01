@@ -39,7 +39,35 @@ JHtml::_('behavior.formvalidation');
 				<?php echo $this->form->getInput('alias'); ?></li>
 				*/ ?>
 				<li><?php echo $this->form->getLabel('location_id'); ?>
-				<?php echo $this->form->getInput('location_id'); ?></li>
+				<?php echo $this->form->getInput('location_id'); ?>
+				
+					<?php if($this->item->images && JEUtil::is_serialized($this->item->images)): ?>
+						<div style="float:right; background: #FAFAFA; padding: 5px;">
+							<?php 
+								$images = unserialize($this->item->images);
+							?>
+							<table cellpadding="0" cellspacing="1">
+								<tr>
+									<th width="120" style="padding-bottom: 10px;">Image Uploaded</th>
+									<th style="padding-bottom: 10px;">Del</th>
+								</tr>
+								<?php foreach ($images as $key => $img): ?>
+								<tr>
+									<td>
+										<a href="../images/je_products/upload/<?php echo $img; ?>" class="modal">
+											<img src="../images/je_products/upload/<?php echo $img; ?>" style="width: 100px; margin: 0;" />
+										</a>
+									</td>
+									<td valign="top">
+										<input type="checkbox" name="jform[del_image][]" value="<?php echo $img; ?>" />
+									</td>
+								</tr>
+								<?php endforeach; ?>
+							</table>
+						</div>
+					<?php endif; ?>
+					
+				</li>
 				
 				<li><?php echo $this->form->getLabel('agent_id'); ?>
 				<?php echo $this->form->getInput('agent_id'); ?></li>
@@ -80,10 +108,11 @@ JHtml::_('behavior.formvalidation');
 				<li><?php echo $this->form->getLabel('country'); ?>
 				<?php echo $this->form->getInput('country'); ?></li>
 				
-						
-				
 				<li><?php echo $this->form->getLabel('state'); ?>
 				<?php echo $this->form->getInput('state'); ?></li>
+				
+				<li><?php echo $this->form->getLabel('images'); ?>
+				<?php echo $this->form->getInput('images'); ?></li>
 
 				<li><?php echo $this->form->getLabel('id'); ?>
 				<?php echo $this->form->getInput('id'); ?></li>

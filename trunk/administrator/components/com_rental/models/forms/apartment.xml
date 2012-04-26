@@ -18,6 +18,14 @@
 			label="COM_RENTAL_FIELD_ALIAS_LABEL" 
 			description ="COM_RENTAL_FIELD_ALIAS_DESC" 
 			 />
+			 
+		<field name="images"
+			type="upload"
+			label="COM_RENTAL_FIELD_IMAGE_LABEL"
+			description="COM_RENTAL_FIELD_IMAGE_DESC"
+			class="inputbox"
+			size="30"
+		/>
 
 		<field name="bedrooms" type="text"
 			label="COM_RENTAL_FIELD_BEDROOMS_LABEL" 
