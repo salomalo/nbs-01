@@ -47,21 +47,9 @@ $saveOrder	= $listOrder=='ordering';
 				<th width="1%">
 					<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
 				</th>
-				<th width="1%" class="nowrap">
-					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ID', '#__rental_amenities.id', $listDirn, $listOrder); ?>
-				</th>
-				
-				
 				<th>
 					<?php echo JHtml::_('grid.sort',  'COM_RENTAL_HEADING_TITLE', '#__rental_amenities.title', $listDirn, $listOrder); ?>
-				</th>
-				<th>
-					<?php echo JHtml::_('grid.sort',  'COM_RENTAL_HEADING_ALIAS', '#__rental_amenities.alias', $listDirn, $listOrder); ?>
-				</th>
-				<th>
-					<?php echo JHtml::_('grid.sort',  'COM_RENTAL_HEADING_DESCRIPTION', '#__rental_amenities.description', $listDirn, $listOrder); ?>
-				</th>
-				
+				</th>				
 				<th width="5%">
 					<?php echo JHtml::_('grid.sort', 'JSTATUS', 'state', $listDirn, $listOrder); ?>
 				</th>
@@ -71,7 +59,9 @@ $saveOrder	= $listOrder=='ordering';
 						<?php echo JHtml::_('grid.order',  $this->items, 'filesave.png', 'amenities.saveorder'); ?>
 					<?php endif;?>
 				</th>
-				
+				<th width="1%" class="nowrap">
+					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ID', '#__rental_amenities.id', $listDirn, $listOrder); ?>
+				</th>
 			</tr>
 		</thead>
 		<tfoot>
@@ -93,29 +83,17 @@ $saveOrder	= $listOrder=='ordering';
 				<td class="center">
 					<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 				</td>
-				<td class="center">
+				<td class="left">
 					<?php if ($item->checked_out) : ?>
 						<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'amenities.', $canCheckin); ?>
 					<?php endif; ?>
 					<?php if ($canEdit) : ?>
 						<a href="<?php echo JRoute::_('index.php?option=com_rental&task=amenitie.edit&id='.(int) $item->id); ?>">
-							<?php echo $this->escape($item->id); ?></a>
+							<?php echo $this->escape($item->title); ?></a>
 					<?php else : ?>
-							<?php echo $this->escape($item->id); ?>
+							<?php echo $this->escape($item->title); ?>
 					<?php endif; ?>
-				</td>
-				
-				
-				<td class="center">
-					<?php echo $this->escape($item->title); ?>
-				</td>
-				<td class="center">
-					<?php echo $this->escape($item->alias); ?>
-				</td>
-				<td class="center">
-					<?php echo $this->escape($item->description); ?>
-				</td>
-				
+				</td>				
 				<td class="center">
 					<?php echo JHtml::_('jgrid.published', $item->state, $i, 'amenities.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
 				</td>
@@ -135,6 +113,9 @@ $saveOrder	= $listOrder=='ordering';
 					<?php else : ?>
 						<?php echo $item->ordering; ?>
 					<?php endif; ?>
+				</td>
+				<td class="center">
+					<?php echo $this->escape($item->id); ?>
 				</td>
 			</tr>
 			<?php endforeach; ?>

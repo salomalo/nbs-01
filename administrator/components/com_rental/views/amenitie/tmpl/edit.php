@@ -35,23 +35,12 @@ JHtml::_('behavior.formvalidation');
 				<li><?php echo $this->form->getLabel('title'); ?>
 				<?php echo $this->form->getInput('title'); ?></li>
 				
-				<li><?php echo $this->form->getLabel('alias'); ?>
-				<?php echo $this->form->getInput('alias'); ?></li>
-				
-				<li><?php echo $this->form->getLabel('description'); ?>
-				<?php echo $this->form->getInput('description'); ?></li>
-				
-				
 				<li><?php echo $this->form->getLabel('state'); ?>
 				<?php echo $this->form->getInput('state'); ?></li>
-				
-				<li><?php echo $this->form->getLabel('language'); ?>
-				<?php echo $this->form->getInput('language'); ?></li>
 
 				<li><?php echo $this->form->getLabel('id'); ?>
 				<?php echo $this->form->getInput('id'); ?></li>
 			</ul>
-			<div class="clr"> </div>
 
 		</fieldset>
 	</div>
@@ -68,17 +57,7 @@ JHtml::_('behavior.formvalidation');
 			<?php endforeach; ?>
 			</ul>
 		</fieldset>
-
-	<?php echo JHtml::_('sliders.panel',JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS'), 'metadata'); ?>
-		<fieldset class="panelform">
-			<ul class="adminformlist">
-				<?php foreach($this->form->getFieldset('metadata') as $field): ?>
-					<li><?php echo $field->label; ?>
-						<?php echo $field->input; ?></li>
-				<?php endforeach; ?>
-			</ul>
-		</fieldset>
-
+		
 	<?php echo JHtml::_('sliders.end'); ?>
 	<input type="hidden" name="task" value="" />
 	<?php echo JHtml::_('form.token'); ?>
