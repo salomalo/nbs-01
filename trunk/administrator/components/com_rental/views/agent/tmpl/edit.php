@@ -31,7 +31,6 @@ JHtml::_('behavior.formvalidation');
 			<legend><?php echo empty($this->item->id) ? JText::_('COM_RENTAL_NEW_AGENT') : JText::sprintf('COM_RENTAL_AGENT_DETAILS', $this->item->id); ?></legend>
 			<ul class="adminformlist">
 				
-				
 				<li><?php echo $this->form->getLabel('user_id'); ?>
 				<?php echo $this->form->getInput('user_id'); ?></li>
 				
@@ -54,14 +53,10 @@ JHtml::_('behavior.formvalidation');
 				<?php echo $this->form->getInput('city'); ?></li>
 				
 				<li><?php echo $this->form->getLabel('country'); ?>
-				<?php echo $this->form->getInput('country'); ?></li>
-				
+				<?php echo $this->form->getInput('country'); ?></li>				
 				
 				<li><?php echo $this->form->getLabel('state'); ?>
 				<?php echo $this->form->getInput('state'); ?></li>
-				
-				<li><?php echo $this->form->getLabel('language'); ?>
-				<?php echo $this->form->getInput('language'); ?></li>
 
 				<li><?php echo $this->form->getLabel('id'); ?>
 				<?php echo $this->form->getInput('id'); ?></li>
