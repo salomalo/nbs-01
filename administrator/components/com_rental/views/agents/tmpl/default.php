@@ -51,7 +51,6 @@ $saveOrder	= $listOrder=='ordering';
 					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ID', '#__retal_agents.id', $listDirn, $listOrder); ?>
 				</th>
 				
-				
 				<th>
 					<?php echo JHtml::_('grid.sort',  'COM_RENTAL_HEADING_FIRST_NAME', '#__retal_agents.first_name', $listDirn, $listOrder); ?>
 				</th>
