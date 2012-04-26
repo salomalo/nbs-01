@@ -47,11 +47,6 @@ $saveOrder	= $listOrder=='ordering';
 				<th width="1%">
 					<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
 				</th>
-				<th width="1%" class="nowrap">
-					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ID', '#__retal_location.id', $listDirn, $listOrder); ?>
-				</th>
-				
-				
 				<th>
 					<?php echo JHtml::_('grid.sort',  'COM_RENTAL_HEADING_TITLE', '#__retal_location.title', $listDirn, $listOrder); ?>
 				</th>
@@ -65,7 +60,9 @@ $saveOrder	= $listOrder=='ordering';
 						<?php echo JHtml::_('grid.order',  $this->items, 'filesave.png', 'locations.saveorder'); ?>
 					<?php endif;?>
 				</th>
-				
+				<th width="1%" class="nowrap">
+					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ID', '#__retal_location.id', $listDirn, $listOrder); ?>
+				</th>				
 			</tr>
 		</thead>
 		<tfoot>
@@ -87,23 +84,17 @@ $saveOrder	= $listOrder=='ordering';
 				<td class="center">
 					<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 				</td>
-				<td class="center">
+				<td class="left">
 					<?php if ($item->checked_out) : ?>
 						<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'locations.', $canCheckin); ?>
 					<?php endif; ?>
 					<?php if ($canEdit) : ?>
 						<a href="<?php echo JRoute::_('index.php?option=com_rental&task=location.edit&id='.(int) $item->id); ?>">
-							<?php echo $this->escape($item->id); ?></a>
+							<?php echo $this->escape($item->title); ?></a>
 					<?php else : ?>
-							<?php echo $this->escape($item->id); ?>
+							<?php echo $this->escape($item->title); ?>
 					<?php endif; ?>
 				</td>
-				
-				
-				<td class="center">
-					<?php echo $this->escape($item->title); ?>
-				</td>
-				
 				<td class="center">
 					<?php echo JHtml::_('jgrid.published', $item->state, $i, 'locations.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
 				</td>
@@ -123,6 +114,9 @@ $saveOrder	= $listOrder=='ordering';
 					<?php else : ?>
 						<?php echo $item->ordering; ?>
 					<?php endif; ?>
+				</td>
+				<td class="center">
+					<?php echo $this->escape($item->title); ?>
 				</td>
 			</tr>
 			<?php endforeach; ?>
