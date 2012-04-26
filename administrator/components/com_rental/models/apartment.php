@@ -30,11 +30,7 @@ class RentalModelApartment extends JModelAdmin
 	 * @since	1.6
 	 */
 	protected $text_prefix = 'COM_RENTAL_APARTMENT';
-
 	
-	
-	
-
 	/**
 	 * Returns a reference to the a Table object, always creating it.
 	 *
@@ -123,5 +119,143 @@ class RentalModelApartment extends JModelAdmin
 		
 		$condition[] = 'state >= 0';
 		return $condition;
+	}
+	
+	public function getItem()
+	{
+		$item = parent::getItem();
+		
+		$item->images = null;
+		
+		return $item;
+	}
+	
+	private function _getImages($apartmentId)
+	{
+		$db = JFactory::getDbo();
+		
+		$query = $db->getQuery(true);
+		
+		$query->select('*')
+				->from('#__retal_apartment_images')
+				->where('apartment_id=' . (int) $apartmentId)
+			;
+	}
+	
+	public function save($data)
+	{
+		$result = parent::save($data);
+		
+		$itemId = $this->getState($this->getName().'.id');
+		$record = $this->getItem($itemId);
+		
+		if ($result)
+		{
+			$post = JRequest::get('post');
+			
+			$uploadPath 		= JPATH_ROOT . DS . 'images' . DS . 'com_rental' . DS . 'upload' . DS;
+				
+			//upload file
+			$imagesUpload = $this->uploadFiles('img-' . $record->id, $uploadPath);
+				
+			$delImage = isset($post['jform']['del_image']) ? $post['jform']['del_image'] : null;
+				
+			//get old images
+			$oldImages = unserialize($record->images);
+				
+			if(is_array($oldImages) && is_array($delImage))
+			{
+				foreach ($delImage as $img)
+				{
+					if(in_array($img, $oldImages))
+					{
+						//search key by value
+						$delKey = array_search($img, $oldImages);
+			
+						//remove image
+						@unlink($uploadPath . $img);
+			
+						//unset in old image
+						unset($oldImages[$delKey]);
+					}
+				}
+			}
+				
+			$oldImages = (is_array($oldImages)) ? $oldImages : array();
+				
+			//set image to update
+			$images = (is_array($imagesUpload)) ? array_merge($oldImages, $imagesUpload) : $oldImages;
+				
+			//save image
+			$query = "UPDATE #__je_products SET images = '".serialize($images)."' WHERE id = " . (int) $record->id;
+			$db->setQuery($query);
+				
+			$db->query();
+		}
+		
+		return $result;
+	}
+	
+	function uploadFiles($fileName, $uploadPath)
+	{
+		//require upload file
+		require_once JPATH_ROOT . '/jelibs/classes/upload.class.php';
+	
+		//define upload path
+		$uploadPathMore = date('Y') . DS . date('m') . DS . date('d') . DS;
+		$uploadPath .= $uploadPathMore;
+	
+		//echo $uploadPath; die;
+	
+		$files = JRequest::get('files');
+		$post = JRequest::get('post');
+	
+		$files = $files['jform'];
+		$arrOrder = $post['jform']['images']['order'];
+	
+		$arr_1 = array();
+		$arr_2 = array();
+	
+		foreach ($arrOrder as $key => $order)
+		{
+			if(!$order)
+				$arr_1[$key] = '';
+			else
+				$arr_2[$key] = $order;
+		}
+	
+		asort($arr_2);
+	
+		$arrOrder = $arr_1 + $arr_2;
+	
+		$name = array();
+		$data = array();
+	
+		foreach ($arrOrder as $key => $order)
+		{
+				
+			if($files['name']['images'][$key] != '' && !$files['error']['images'][$key])
+			{
+				//set image name
+				$imageName = $fileName . '-' . time() . '.' . end(explode('.', $files['name']['images'][$key]));
+	
+				//upload file
+				$upload = upload::file($files, 'images', $uploadPath, $imageName, $key, false);
+	
+				//if upload OK
+				if(is_array($upload) && $upload['result'] == 'OK')
+				{
+					$data[] = str_replace(DS, '/', $uploadPathMore) . $upload['file_name'];
+				}
+				else
+				{
+					JError::raiseNotice('UPLOAD_ERROR', 'Upload Error');
+				}
+			}
+		}
+	
+		//$data = serialize($data);
+	
+		return $data;
 	}
 }
