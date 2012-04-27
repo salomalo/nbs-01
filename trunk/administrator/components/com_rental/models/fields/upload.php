@@ -60,17 +60,26 @@ class JFormFieldUpload extends JFormFieldList
 		$html .= '<table>
 					<tr>
 						<th>'.JText::_('COM_RENTAL_LABEL_SELECT_FILE').'</th>
-						<th>'.JText::_('COM_RENTAL_LABEL_ORDERING').'</th>
+						<th>'.JText::_('COM_RENTAL_LABEL_IMAGE_TYPE').'</th>
 						<th>&nbsp;</th>
 					</tr>';
 		$html .= '	<tr>	
 						<td><input type="file" name="'.$this->name.'[]" /></td>
-						<td><input type="text" size="5" name="'.$this->name.'[order][]" />
+						<td><select name="'.$this->name.'[type][]">
+								<option value="images">Images</option>
+								<option value="floor_plan">Floor Plan</option>
+							</select>
+						</td>
 						<td>&nbsp;</td>
 					</tr>';
 		$html .= '	<tr id="tmpl-row" style="display: none;">	
 						<td><input type="file" name="'.$this->name.'[]" /></td>
-						<td><input type="text" size="5" name="'.$this->name.'[order][]" />
+						<td>
+							<select name="'.$this->name.'[type][]">
+								<option value="images">Images</option>
+								<option value="floor_plan">Floor Plan</option>
+							</select>
+						</td>
 						<td><button type="button" class="del-upload-file" style="font-size: 10px;">'.JText::_('COM_RENTAL_LABEL_REMOVE').'</button></td>
 					</tr>';
 		$html .= '</table>';

@@ -46,20 +46,24 @@ JHtml::_('behavior.formvalidation');
 							<?php 
 								$images = unserialize($this->item->images);
 							?>
-							<table cellpadding="0" cellspacing="1">
+							<table cellpadding="3" cellspacing="0">
 								<tr>
-									<th width="120" style="padding-bottom: 10px;">Image Uploaded</th>
+									<th width="50" style="padding-bottom: 10px;">Type</th>
+									<th style="padding-bottom: 10px;" nowrap="nowrap">Uploaded</th>
 									<th style="padding-bottom: 10px;">Del</th>
 								</tr>
 								<?php foreach ($images as $key => $img): ?>
 								<tr>
+									<td valign="top">
+										<?php echo ($img['type'] == 'images') ? 'Images' : 'Plan'; ?>
+									</td>
 									<td>
-										<a href="../images/je_products/upload/<?php echo $img; ?>" class="modal">
-											<img src="../images/je_products/upload/<?php echo $img; ?>" style="width: 100px; margin: 0;" />
+										<a href="../images/com_rental/upload/<?php echo $img['image']; ?>" class="modal">
+											<img src="../images/com_rental/upload/<?php echo $img['image']; ?>" style="width: 50px; margin: 0;" />
 										</a>
 									</td>
 									<td valign="top">
-										<input type="checkbox" name="jform[del_image][]" value="<?php echo $img; ?>" />
+										<input type="checkbox" name="jform[del_image][]" value="<?php echo $img['image']; ?>" />
 									</td>
 								</tr>
 								<?php endforeach; ?>
@@ -107,6 +111,9 @@ JHtml::_('behavior.formvalidation');
 				
 				<li><?php echo $this->form->getLabel('country'); ?>
 				<?php echo $this->form->getInput('country'); ?></li>
+				
+				<li><?php echo $this->form->getLabel('amenities'); ?>
+				<?php echo $this->form->getInput('amenities'); ?></li>
 				
 				<li><?php echo $this->form->getLabel('state'); ?>
 				<?php echo $this->form->getInput('state'); ?></li>
