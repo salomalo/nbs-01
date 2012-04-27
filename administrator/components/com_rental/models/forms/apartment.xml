@@ -26,6 +26,11 @@
 			class="inputbox"
 			size="30"
 		/>
+		
+		<field name="amenities" type="amenities"
+			label="COM_RENTAL_FIELD_AMENITIES_LABEL" 
+			description ="COM_RENTAL_FIELD_AMENITIES_DESC" 
+			 />
 
 		<field name="bedrooms" type="text"
 			label="COM_RENTAL_FIELD_BEDROOMS_LABEL" 

@@ -40,11 +40,6 @@ class RentalHelper
 				$vName == 'amenities'
 			);
 			JSubMenuHelper::addEntry(
-				JText::_('COM_RENTAL_SUBMENU_IMAGES'),
-				'index.php?option=com_rental&view=images',
-				$vName == 'images'
-			);
-			JSubMenuHelper::addEntry(
 				JText::_('COM_RENTAL_SUBMENU_AGENTS'),
 				'index.php?option=com_rental&view=agents',
 				$vName == 'agents'

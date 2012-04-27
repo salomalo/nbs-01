@@ -71,10 +71,6 @@ class RentalControllerApartment extends JControllerForm
 		$recordId	= (int) isset($data[$key]) ? $data[$key] : 0;
 		$categoryId = 0;
 
-		if ($recordId) {
-			$categoryId = (int) $this->getModel()->getItem($recordId)->catid;
-		}
-
 		if ($categoryId) {
 			// The category has been set. Check the category permissions.
 			return $user->authorise('core.edit', $this->option.'.category.'.$categoryId);

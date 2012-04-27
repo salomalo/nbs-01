@@ -19,6 +19,9 @@ if (!JFactory::getUser()->authorise('core.manage', 'com_rental')) {
 // Include dependancies
 jimport('joomla.application.component.controller');
 
+//require util class
+require_once JPATH_COMPONENT_ADMINISTRATOR . DS . 'helpers/util.class.php';
+
 // Execute the task.
 $controller	= JController::getInstance('Rental');
 $controller->execute(JRequest::getCmd('task'));
