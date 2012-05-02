@@ -14,20 +14,92 @@ defined('_JEXEC') or die;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
+$now = time();
+
+require_once(JPATH_COMPONENT_SITE . DS . 'helpers' . DS . 'simple-gmap-api' . DS . "simpleGMapAPI.php");
+require_once(JPATH_COMPONENT_SITE . DS . 'helpers' . DS . 'simple-gmap-api' . DS . "simpleGMapGeocoder.php");
+
+$map = new simpleGMapAPI();
+$geo = new simpleGMapGeocoder();
+
+$map->setWidth(400);
+$map->setHeight(400);
+$map->setBackgroundColor('#d0d0d0');
+$map->setMapDraggable(true);
+$map->setDoubleclickZoom(false);
+$map->setScrollwheelZoom(true);
+
+$map->showDefaultUI(false);
+$map->showMapTypeControl(true, 'DROPDOWN_MENU');
+$map->showNavigationControl(true, 'DEFAULT');
+$map->showScaleControl(true);
+$map->showStreetViewControl(true);
+
+$map->setZoomLevel(14); // not really needed because showMap is called in this demo with auto zoom
+$map->setInfoWindowBehaviour('SINGLE_CLOSE_ON_MAPCLICK');
+$map->setInfoWindowTrigger('CLICK');
+
+//$map->addMarkerByAddress("25 Toronto, NY", "Bloomfield, NY", "Gramacy, NY");
+$map->addMarkerByAddress("Universit‰tsstraﬂe 25, Bielefeld", "Universit‰t Bielefeld", "<a href=\"http://www.uni-bielefeld.de\" target=\"_blank\">http://www.uni-bielefeld.de</a>", "http://google-maps-icons.googlecode.com/files/university.png");
+$map->addMarker(52.0149436, 8.5275128, "Sparrenburg Bielefeld", "Sparrenburg, 33602 Bielefeld, Deutschland<br /><img src=\"http://www.bielefeld.de/ftp/bilder/sehenswuerdigkeiten/sehenswuerdigkeiten/sparrenburg-bielefeld-435.gif\"", "http://google-maps-icons.googlecode.com/files/museum-archeological.png");
+
+$opts = array('fillColor'=>'#0000dd', 'fillOpacity'=>0.2, 'strokeColor'=>'#000000', 'strokeOpacity'=>1, 'strokeWeight'=>2, 'clickable'=>true);
+$map->addCircle(52.0149436, 8.5275128, 1500, "1,5km Umgebung um die Sparrenburg", $opts);
+
 ?>
 
-<ul class="items">
-	<?php foreach($this->items as $item): ?>	
+<div id="list-items">
+	<ul class="items">
+		<?php 
+		foreach($this->items as $item): 
+			$aboutTime = ( $now - strtotime($item->created) ) / (24 * 60 * 60);
 		
-			<li>
-			<?php echo '<label>bedrooms</label>: '. $this->escape($item->bedrooms); ?>
-			</li>
-			<li>
-			<?php echo '<label>price</label>: '. $this->escape($item->price); ?>
-			</li>
-	<?php endforeach; ?>
-</ul>
+			if ($aboutTime < 1)
+				$time = round($aboutTime * 60) . ' hours';
+			else
+				$time = round($aboutTime) . ' days';
+			
+			//get defautl images
+			$images = @unserialize($item->images);
+			
+			$defaultImage = '';
+			
+			if (is_array($images))
+				$defaultImage = $images[0];
+			
+			$Itemid = JRequest::getInt('Itemid');
+		?>
+		<li>
+		<a href="<?php echo JRoute::_('index.php?option=com_rental&view=apartment&id=' . (int) $item->id . '&Itemid=' . $Itemid); ?>">
+			<?php echo $this->escape($item->bedrooms) . ', ' . $this->escape($item->retal_location_title) . ', $' . $this->escape($item->price); ?>
+		</a>		
+		<br>
+		Time on site: <?php echo $time; ?>
+		<br>
+		Agent: <?php echo $item->agent; ?>
+		<br>
+		
+		<?php if ($defaultImage): ?>
+		<img src="images/com_rental/upload/<?php echo $defaultImage['image']; ?>" width="100" />
+		<?php endif; ?>
+		
+		<div class="clr" style="clear: both;"></div>
+		
+		</li>
+		<?php endforeach; ?>
+	</ul>
+	
+	<div id="float-gmap">
+		<?php
+		$map->printGMapsJS();
+		
+		// showMap with auto zoom enabled
+		$map->showMap(true);
+		?>
+	</div>
+	
+	<div class="pagination">
+		<?php echo $this->pagination->getPagesLinks(); ?>
+	</div>
 
-<div class="pagination">
-	<?php echo $this->pagination->getPagesLinks(); ?>
 </div>

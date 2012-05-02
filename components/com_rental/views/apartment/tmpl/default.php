@@ -56,4 +56,24 @@ $item = $this->item;
 			<li>
 			<?php echo '<label>price</label>: '. $this->escape($item->price); ?>
 			</li>
+			<li>
+			<?php echo '<label>Amenities</label>: '. $this->escape($item->amenities); ?>
+			</li>
 </ul>
+
+<!-- gallery images -->
+
+Gallery
+<br>
+<?php foreach ($item->list_images as $img): ?>
+	<img src="<?php echo JURI::base() . 'images/com_rental/upload/' . $img['image']; ?>" width="100" />
+<?php endforeach; ?>
+
+<br>
+
+Floor Plan
+<br>
+<!-- floor plan -->
+<?php foreach ($item->list_floor_plan as $img): ?>
+	<img src="<?php echo JURI::base() . 'images/com_rental/upload/' . $img['image']; ?>" width="100" />
+<?php endforeach; ?>
