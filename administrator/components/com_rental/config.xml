@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Id: config.xml $ -->
 <config>
+	<fieldset name="component"
+		label="COM_RENTAL_FIELDSET_CONFIG_GMAP_OPTIONS_LABEL"
+		description="COM_RENTAL_FIELDSET_CONFIG_GMAP_OPTIONS_DESC">
+		<field
+			id="cfg_gmap_key"
+			name="cfg_gmap_key"
+			type="text"
+			label="COM_RENTAL_FIELD_CFG_GMAP_KEY_LABEL"
+			description="COM_RENTAL_FIELD_CFG_GMAP_KEY_DESC"
+			class="inputbox" />
+	</fieldset>
+	
 	<fieldset
 		name="permissions"
 		label="JCONFIG_PERMISSIONS_LABEL"
