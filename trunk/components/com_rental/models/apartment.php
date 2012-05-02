@@ -37,25 +37,66 @@ class RentalModelApartment extends JModel
 		$query		= $db->getQuery(true);
 		
 		$query->select(
-			'`#__rental_apartments`.id , #__rental_apartments.bedrooms, #__rental_apartments.bathrooms, #__rental_apartments.square_ft, #__rental_apartments.listed_for, #__rental_apartments.available_on, #__rental_apartments.description, #__rental_apartments.address, #__rental_apartments.address_2, #__rental_apartments.city, #__rental_apartments.portal_code, #__rental_apartments.country, #__rental_apartments.price'
+			'a.id , a.bedrooms, a.bathrooms, a.square_ft, a.listed_for, a.available_on, a.description, a.address, a.address_2, a.city, a.portal_code, a.country, a.price, a.images'
 		);
 		
-		$query->from('`#__rental_apartments`');
+		$query->from('`#__rental_apartments` a');
 		
 		// Join over the retal_agents
-$query->select('retal_agents_0.first_name AS retal_agents_0_first_name, retal_agents_0.last_name AS retal_agents_0_last_name');
-$query->join('INNER', '#__retal_agents AS retal_agents_0 ON retal_agents_0.id = #__rental_apartments.agent_id');
-
-
-
-		$query->where('`#__rental_apartments`.id = ' . $id);
+		$query->select('agent.first_name AS agent_first_name, agent.last_name AS agent_last_name');
+		$query->join('INNER', '#__retal_agents AS agent ON agent.id = a.agent_id');
+		
+		$query->where('a.id = ' . $id);
 		
 		$db->setQuery($query);
 		$record = $db->loadObject();
 		
-		if($record)
+		if ($record)
+		{
+			$amenities = $this->_getAmenities($record->id);
+			
+			$record->amenities = implode(', ', $amenities);
+			
+			//extract images
+			$images = @unserialize($record->images);
+			
+			$recImages = array();
+			$recFloorPlan = array();
+			
+			if (!empty($images))
+			{
+				foreach ($images as $img)
+				{
+					if ($img['type'] == 'images')
+						$recImages[] = $img;
+					else 
+						$recFloorPlan[] = $img;
+				}
+			}
+			
+			$record->list_images = $recImages;
+			$record->list_floor_plan = $recFloorPlan;
+			
 			return $record;
+		}
 			
 		return false;
+	}
+	
+	private function _getAmenities($apartmentId)
+	{
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+		
+		$query->select('a.title')
+			->from('#__retal_apartment_amenities aa')
+			->join('INNER', '#__rental_amenities a ON a.id = aa.amenities_id')
+			->where('aa.apartment_id = ' . (int) $apartmentId)
+			->order('a.title');
+		
+		$db->setQuery($query);
+		$amenities = $db->loadResultArray();
+		
+		return $amenities;
 	}
 }
