@@ -151,7 +151,10 @@ class RentalModelApartment extends JModelAdmin
 	{
 		$db = JFactory::getDbo();
 		
-		$amenities = $data['amenities'];
+		$amenities = array();
+		
+		if (isset($data['amenities']))
+			$amenities = $data['amenities'];
 		
 		//delete all amenities before save
 		$query = $db->getQuery(true);
@@ -165,21 +168,24 @@ class RentalModelApartment extends JModelAdmin
 		if ($db->getErrorMsg())
 			die($db->getErrorMsg());
 		
-		$query = $db->getQuery(true);
-		
-		//insert
-		$query->insert('#__retal_apartment_amenities (apartment_id, amenities_id)');
-		
-		foreach ($amenities as $amenity)
+		if (!empty($amenities))
 		{
-			$query->values($data['id'] . ',' . $amenity);
+			$query = $db->getQuery(true);
+			
+			//insert
+			$query->insert('#__retal_apartment_amenities (apartment_id, amenities_id)');
+			
+			foreach ($amenities as $amenity)
+			{
+				$query->values($data['id'] . ',' . $amenity);
+			}
+			
+			$db->setQuery($query);
+			$db->query();
+			
+			if ($db->getErrorMsg())
+				die($db->getErrorMsg());
 		}
-		
-		$db->setQuery($query);
-		$db->query();
-		
-		if ($db->getErrorMsg())
-			die($db->getErrorMsg());
 	}
 	
 	public function save($data)
