@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `#__retal_user_saved_search` (
   `publish_down` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `language` char(7) NOT NULL DEFAULT '',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='User saved search';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='User saved search';
 
 CREATE TABLE IF NOT EXISTS `#__retal_agents` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
