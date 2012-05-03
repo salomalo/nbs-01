@@ -35,16 +35,29 @@ $map->showNavigationControl(true, 'DEFAULT');
 $map->showScaleControl(true);
 $map->showStreetViewControl(true);
 
-$map->setZoomLevel(14); // not really needed because showMap is called in this demo with auto zoom
+$map->setZoomLevel(10); // not really needed because showMap is called in this demo with auto zoom
 $map->setInfoWindowBehaviour('SINGLE_CLOSE_ON_MAPCLICK');
 $map->setInfoWindowTrigger('CLICK');
 
-//$map->addMarkerByAddress("25 Toronto, NY", "Bloomfield, NY", "Gramacy, NY");
-$map->addMarkerByAddress("Universit‰tsstraﬂe 25, Bielefeld", "Universit‰t Bielefeld", "<a href=\"http://www.uni-bielefeld.de\" target=\"_blank\">http://www.uni-bielefeld.de</a>", "http://google-maps-icons.googlecode.com/files/university.png");
-$map->addMarker(52.0149436, 8.5275128, "Sparrenburg Bielefeld", "Sparrenburg, 33602 Bielefeld, Deutschland<br /><img src=\"http://www.bielefeld.de/ftp/bilder/sehenswuerdigkeiten/sehenswuerdigkeiten/sparrenburg-bielefeld-435.gif\"", "http://google-maps-icons.googlecode.com/files/museum-archeological.png");
+//$map->addMarkerByAddress("Toronto, NY");
+//$map->addMarkerByAddress("Bloomfield, NY");
+//$map->addMarkerByAddress("Gramacy, NY");
 
-$opts = array('fillColor'=>'#0000dd', 'fillOpacity'=>0.2, 'strokeColor'=>'#000000', 'strokeOpacity'=>1, 'strokeWeight'=>2, 'clickable'=>true);
-$map->addCircle(52.0149436, 8.5275128, 1500, "1,5km Umgebung um die Sparrenburg", $opts);
+//get geocode
+$geo_1 = $geo->getGeoCoords("Harrison, NY");
+$geo_2 = $geo->getGeoCoords("Mamaroneck, NY");
+
+
+//$map->addMarkerByAddress("Bronx, NewYork", "Universit‰t Bielefeld", "<a href=\"http://www.uni-bielefeld.de\" target=\"_blank\">http://www.uni-bielefeld.de</a>", "");
+//$map->addMarker(52.0149436, 8.5275128, "Sparrenburg Bielefeld", "Sparrenburg, 33602 Bielefeld, Deutschland<br /><img src=\"http://www.bielefeld.de/ftp/bilder/sehenswuerdigkeiten/sehenswuerdigkeiten/sparrenburg-bielefeld-435.gif\"", "http://google-maps-icons.googlecode.com/files/museum-archeological.png");
+
+
+//$map->addMarker(52.0149436, 8.5275128, "Sparrenburg Bielefeld", "Sparrenburg, 33602 Bielefeld, Deutschland<br /><img src=\"http://www.bielefeld.de/ftp/bilder/sehenswuerdigkeiten/sehenswuerdigkeiten/sparrenburg-bielefeld-435.gif\"", "http://google-maps-icons.googlecode.com/files/museum-archeological.png");
+
+$opts = array('fillColor'=>'#0000dd', 'fillOpacity'=>0.2, 'strokeColor'=>'#A6A1C4', 'strokeOpacity'=>1, 'strokeWeight'=>1, 'clickable'=>true);
+$map->addCircle($geo_1['lat'], $geo_1['lng'], 2000, "Test 1", $opts);
+
+$map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
 
 ?>
 
