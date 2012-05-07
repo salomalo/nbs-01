@@ -77,7 +77,7 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
 			
 			$defaultImage = '';
 			
-			if (is_array($images))
+			if (is_array($images) && !empty($images))
 				$defaultImage = $images[0];
 			
 			$Itemid = JRequest::getInt('Itemid');
