@@ -1,8 +1,8 @@
 -- 26/04/2012 - muinx - alter table location (add catid)
-ALTER TABLE  `jos_retal_location` ADD  `catid` INT NOT NULL AFTER  `alias`
+ALTER TABLE  `jos_retal_location` ADD  `catid` INT NOT NULL AFTER  `alias`;
 
 -- 27/04/2012 - muinx - alter table arpartment (add images field)
-ALTER TABLE  `jos_rental_apartments` ADD  `images` LONGTEXT NOT NULL AFTER  `ordering`
+ALTER TABLE  `jos_rental_apartments` ADD  `images` LONGTEXT NOT NULL AFTER  `ordering`;
 
 -- 27/04/2012 - muinx - delete all fields that not neccessary
 ALTER TABLE  `jos_retal_apartment_amenities` DROP  `id` ,
