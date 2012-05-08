@@ -59,7 +59,19 @@ $map->addCircle($geo_1['lat'], $geo_1['lng'], 2000, "Test 1", $opts);
 
 $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
 
+$moduleContents = '';
+$modules =& JModuleHelper::getModules('mod-rental-filter'); 
+
+foreach ($modules as $module) 
+{ 
+	$moduleContents .= JModuleHelper::renderModule($module); 
+}
+
 ?>
+
+<div id="rental-filter">
+	<?php echo $moduleContents; ?>
+</div>
 
 <div id="list-items">
 	<ul class="items">
