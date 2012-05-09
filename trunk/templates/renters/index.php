@@ -56,9 +56,9 @@ require_once dirname(__FILE__) .'/config.php';
 			  </a>
   			</div>
   			<div class="clear"></div>
-  			
+  			<?php if($isListingDetail && $this->countModules('siteNav')):?>
   			<jdoc:include type="modules" name="siteNav" />
-  			
+  			<?php endif;?>
   		</div><!-- close masthead -->
   		<div class="clear"></div>
   		
@@ -76,9 +76,11 @@ require_once dirname(__FILE__) .'/config.php';
             <jdoc:include type="component" />
 		</div>
 		
+		<?php if($isListingDetail && $this->countModules('siteNav')):?>
 		<!-- BEGIN Footer -->
   		<div id="footerWrapper" class="curve">
   		</div><!-- End: Footer -->
+  		<?php endif;?>
   		
   		<span class="copyright">&copy; Copyright JE Team 2012 <br> 
   			<a class="hud" href="/about/fair-housing">Fair Housing and Equal Opportunity</a><span class="madeinNYC"> Made in Ha Noi</span>

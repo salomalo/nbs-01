@@ -38,12 +38,13 @@ $view = JRequest::getCmd('view');
 $isHomePage = (isset($active->home) && $active->home >=1)?true:false;
 $isLoginPage = (false)?true:false; //TODO
 
+$isLoginPage = ($option=='com_rental'&&( $view=='signup' || $view=='login')) ? true : false;
 //option=com_rental&view=apartment
 $isListingDetail = ($option=='com_rental'&& $view=='apartment') ? true : false;
 
-$pageId = $isHomePage?'id="home"':'';
-$pageId = $isLoginPage?'id="login"':'';
-$pageId = $isListingDetail?'id="listingDetail"':'';
+if($isHomePage) $pageId ='id="home"';
+if($isLoginPage) $pageId ='id="login"';
+if($isListingDetail) $pageId ='id="listingDetail"';
 
 // check positions
 $hasLeftCol  = $this->countModules('left');
