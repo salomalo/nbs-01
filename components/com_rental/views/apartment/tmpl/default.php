@@ -14,52 +14,14 @@ defined('_JEXEC') or die;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
+$now = time();
+$Itemid = JRequest::getInt('Itemid');
+
 //get item
 $item = $this->item;
+$link = JRoute::_('index.php?option=com_rental&view=apartment&id=' . (int) $item->id . '&Itemid=' . $Itemid);
+$title = $this->escape($item->bedrooms) . 'br , ' . $this->escape($item->address) . ', '.$this->escape($item->city). ', $' . $this->escape($item->price);
 ?>
-
-<ul class="item">
-	
-			<li>
-			<?php echo '<label>bedrooms</label>: '. $this->escape($item->bedrooms); ?>
-			</li>
-			<li>
-			<?php echo '<label>bathrooms</label>: '. $this->escape($item->bathrooms); ?>
-			</li>
-			<li>
-			<?php echo '<label>square_ft</label>: '. $this->escape($item->square_ft); ?>
-			</li>
-			<li>
-			<?php echo '<label>listed_for</label>: '. $this->escape($item->listed_for); ?>
-			</li>
-			<li>
-			<?php echo '<label>available_on</label>: '. $this->escape($item->available_on); ?>
-			</li>
-			<li>
-			<?php echo '<label>description</label>: '. $this->escape($item->description); ?>
-			</li>
-			<li>
-			<?php echo '<label>address</label>: '. $this->escape($item->address); ?>
-			</li>
-			<li>
-			<?php echo '<label>address_2</label>: '. $this->escape($item->address_2); ?>
-			</li>
-			<li>
-			<?php echo '<label>city</label>: '. $this->escape($item->city); ?>
-			</li>
-			<li>
-			<?php echo '<label>portal_code</label>: '. $this->escape($item->portal_code); ?>
-			</li>
-			<li>
-			<?php echo '<label>country</label>: '. $this->escape($item->country); ?>
-			</li>
-			<li>
-			<?php echo '<label>price</label>: '. $this->escape($item->price); ?>
-			</li>
-			<li>
-			<?php echo '<label>Amenities</label>: '. $this->escape($item->amenities); ?>
-			</li>
-</ul>
 
 <!-- gallery images -->
 
@@ -77,3 +39,189 @@ Floor Plan
 <?php foreach ($item->list_floor_plan as $img): ?>
 	<img src="<?php echo JURI::base() . 'images/com_rental/upload/' . $img['image']; ?>" width="100" />
 <?php endforeach; ?>
+
+<div data-longitude="-73.9831041" data-latitude="40.7417246" data-id="734484" class="clearfix" id="listingContent">
+  <!--back link and social tools-->
+  <div id="top">    		
+    <span class="floatRight">
+      <span class="block nestio">
+        <a href="http://nestio.com/add" class="nestio-add-btn nestio-thin" style="position: relative; display: block; width: 77px; height: 20px; font-size: 1px; text-indent: -9999px; background-image: url(&quot;http://cdn.nestio.com/img/addbtn/button-thin.png&quot;); text-decoration: none; color: transparent;">Add to Nestio</a>
+        <script src="http://cdn.nestio.com/js/button.js" type="text/javascript"></script><div style="position: absolute; width: 157px; height: 33px; z-index: 999999; background-image: url(&quot;http://cdn.nestio.com/img/addbtn/tooltip.png&quot;); display: none;"></div>
+      </span>
+
+      <span class="block social">
+        <div class="shareButtons"><a target="new" rel="nofollow" class="shareButton facebook" href="http://www.facebook.com/sharer.php?u=http%253A%252F%252Fwww.nakedapartments.com%252Frental%252F734484-studio-lexington-avenue-midtown-center&amp;t=">&nbsp;</a><a target="new" rel="nofollow" class="shareButton twitter" href="http://twitter.com/share?url=http%3A%2F%2Fwww.nakedapartments.com%2Frental%2F734484-studio-lexington-avenue-midtown-center&amp;text=">&nbsp;</a><a target="new" rel="nofollow" class="shareButton linkedin" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Fwww.nakedapartments.com%2Frental%2F734484-studio-lexington-avenue-midtown-center&amp;title=">&nbsp;</a><a rel="nofollow" data-url="/share/emails/new?listing_id=734484&amp;url=http%3A%2F%2Fwww.nakedapartments.com%2Frental%2F734484-studio-lexington-avenue-midtown-center" class="shareButton email modal cboxElement" href="#">&nbsp;</a><span class="pinterest"><iframe scrolling="no" frameborder="0" src="http://pinit-cdn.pinterest.com/pinit.html?url=http%3A%2F%2Fwww.nakedapartments.com%2Frental%2F734484-studio-lexington-avenue-midtown-center&amp;media=http%3A%2F%2Fs3.amazonaws.com%2Fnakedapartments%2Fimages%2F8647916%2Flarge.jpg%3F1336492212&amp;layout=horizontal" style="border: medium none; width: 44px; height: 20px;"></iframe>
+        <script src="http://assets.pinterest.com/js/pinit.js" type="text/javascript"></script></span><iframe scrolling="no" frameborder="0" allowtransparency="true" style="border:none; overflow:hidden; width:100px; height:21px;" src="http://www.facebook.com/plugins/like.php?app_id=181832445204475&amp;href=http%3A%2F%2Fwww.nakedapartments.com%2Frental%2F734484-studio-lexington-avenue-midtown-center&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21"></iframe></div>
+      </span>
+    </span>
+        
+      <div class="subtle back"><a class="back hoverable" href="javascript:history.go(-1)">« Back to Search Results</a></div>
+
+    <div class="clear"></div>
+  </div>
+    	
+  <!--listing title and webid/special offers-->
+  <h1><?php echo $title;?></h1>
+  <span class="webID">(Web ID: na_1101882)</span>
+	
+
+  <!-- left column containing image/map widget, avg rent and other broker modules-->
+  <div id="leftCol">
+
+    <!-- favorite and flag-->
+    <div class="tools">   
+        <a title="Save to Favorites" class="faveBtn favorite naTool tooltip mouseover noBorder floatLeft infoModal cboxElement" href="#anonymousFavoriteListingModal"></a>
+        <a title="Report a problem with this listing" id="flagListing" class="button white flag medium tooltip mouseover noBorder cboxElement" href="#"><span>Report Error</span></a>    
+    </div>
+    
+    <!-- images/map --> 
+    <div id="listingDetailWidget" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+      <ul class="tabs clearfix ui-helper-reset ui-tabs-nav ui-helper-clearfix ui-widget-header ui-corner-all">
+        <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#images" id="viewImages" class=" ">Photos</a></li>
+        
+        <li class="ui-state-default ui-corner-top"><a href="#listingMapWrapper">Map</a></li>
+      </ul>
+      
+      <div class="mod clearfix">
+        <div class="content ui-tabs-panel ui-widget-content ui-corner-bottom" id="images">
+            <div class="galleria"><div class="galleria-container notouch" style="width: 590px; height: 420px;"><div class="galleria-stage" style="cursor: pointer;"><div class="galleria-images" style="position: relative; top: 0px; left: 0px; width: 100%; height: 100%;"><div class="galleria-image" style="overflow: hidden; position: absolute; top: 0px; left: 0px; -moz-transition: none 0s ease 0s ; opacity: 0; z-index: 0;"><div class="galleria-layer" style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; z-index: 2;"></div></div><div class="galleria-image" style="overflow: hidden; position: absolute; top: 0px; left: 0px; opacity: 1; width: 570px; height: 350px; -moz-transition: none 0s ease 0s ; z-index: 1;"><div class="galleria-layer" style="position: absolute; top: 42px; left: 85px; right: 0px; bottom: 0px; z-index: 2; display: none; width: 400px; height: 266px;"></div><img width="400" height="266" style="display: block; opacity: 1; width: 400px; height: 266px; position: absolute; top: 42px; left: 85px;" src="http://s3.amazonaws.com/nakedapartments/images/8647916/large.jpg?1336492212"></div></div><div class="galleria-loader" style="display: none; opacity: 0.4;"></div><div class="galleria-counter" style="position: absolute; left: -10000px; opacity: 0; -moz-transition: left 200ms cubic-bezier(0.25, 0.1, 0.25, 1) 0s, right 200ms cubic-bezier(0.25, 0.1, 0.25, 1) 0s, opacity 200ms cubic-bezier(0.25, 0.1, 0.25, 1) 0s;"><span class="galleria-current">1</span> / <span class="galleria-total">7</span></div><div class="galleria-image-nav"><div class="galleria-image-nav-right" style="right: -50px; -moz-transition: left 200ms cubic-bezier(0.25, 0.1, 0.25, 1) 0s, right 200ms cubic-bezier(0.25, 0.1, 0.25, 1) 0s;"></div><div class="galleria-image-nav-left" style="left: -50px; -moz-transition: left 200ms cubic-bezier(0.25, 0.1, 0.25, 1) 0s;"></div></div></div><div class="galleria-thumbnails-container"><div class="galleria-thumb-nav-left disabled"></div><div class="galleria-thumbnails-list" style="overflow: hidden; position: relative;"><div class="galleria-thumbnails" style="overflow: hidden; position: relative; width: 301px; height: 42px;"><div class="galleria-image active" style="overflow: hidden; position: relative; width: 42px; height: 42px;"><img width="42" height="42" style="display: block; opacity: 1; width: 42px; height: 42px; position: absolute; top: 0px; left: 0px;" src="http://s3.amazonaws.com/nakedapartments/images/8647916/mthumb.jpg?1336492212"></div><div class="galleria-image" style="overflow: hidden; position: relative; width: 42px; height: 42px;"><img width="42" height="42" style="display: block; opacity: 0.6; width: 42px; height: 42px; position: absolute; top: 0px; left: 0px;" src="http://s3.amazonaws.com/nakedapartments/images/8647919/mthumb.jpg?1336492200"></div><div class="galleria-image" style="overflow: hidden; position: relative; width: 42px; height: 42px;"><img width="42" height="42" style="display: block; opacity: 0.6; width: 42px; height: 42px; position: absolute; top: 0px; left: 0px;" src="http://s3.amazonaws.com/nakedapartments/images/8647921/mthumb.jpg?1336492202"></div><div class="galleria-image" style="overflow: hidden; position: relative; width: 42px; height: 42px;"><img width="42" height="42" style="display: block; opacity: 0.6; width: 42px; height: 42px; position: absolute; top: 0px; left: 0px;" src="http://s3.amazonaws.com/nakedapartments/images/8647923/mthumb.jpg?1336492204"></div><div class="galleria-image" style="overflow: hidden; position: relative; width: 42px; height: 42px;"><img width="42" height="42" style="display: block; opacity: 0.6; width: 42px; height: 42px; position: absolute; top: 0px; left: 0px;" src="http://s3.amazonaws.com/nakedapartments/images/8647925/mthumb.jpg?1336492207"></div><div class="galleria-image" style="overflow: hidden; position: relative; width: 42px; height: 42px;"><img width="42" height="42" style="display: block; opacity: 0.6; width: 42px; height: 42px; position: absolute; top: 0px; left: 0px;" src="http://s3.amazonaws.com/nakedapartments/images/8647926/mthumb.jpg?1336492209"></div><div class="galleria-image" style="overflow: hidden; position: relative; width: 42px; height: 42px;"><img width="42" height="42" style="display: block; opacity: 0.6; width: 42px; height: 42px; position: absolute; top: 0px; left: 0px;" src="http://s3.amazonaws.com/nakedapartments/images/8647927/mthumb.jpg?1336492211"></div></div></div><div class="galleria-thumb-nav-right disabled"></div></div><div class="galleria-info" style="display: none;"><div class="galleria-info-text"><div class="galleria-info-title" style="display: none;"></div><div class="galleria-info-description" style="display: none;"></div></div><div class="galleria-info-link"></div><div class="galleria-info-close"></div></div><div class="galleria-tooltip" style="opacity: 0;"></div></div></div>
+        </div>
+        
+        
+        <div id="listingMapWrapper" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+          <div style="width: 590px; height: 420px;" id="listingMap"></div>
+        </div>
+      </div>
+	  </div>	
+	  
+	<!-- description info -->
+	<div class="mod" id="description">
+	<?php echo $this->escape($item->description);?>
+	<br/>
+	</div>
+	 	  
+	  <!-- average rent --> 
+		  <div class="mod" id="average">
+		    <h4>average rent</h4>
+		    <p>
+		      <span class="focus">$2,461</span> is the average rent
+		      for a <strong>Studio </strong> in <strong> Midtown Center</strong>
+    	    with Elevator.
+		    </p>
+		  </div>
+
+      <!-- other brokers -->
+      <div class="mod hidden" id="otherBrokers">
+        <h4>Same priced apartments in this building: </h4>
+        <div id="dupes">
+          <ul>
+          </ul>
+        </div>
+      </div>
+  </div>
+		
+	<!-- begin right column -->
+	<div id="rightCol">
+    <div class="actions clearfix">
+      <div class="top clearfix">
+        <span class="buttonText">Interested in this apartment?</span>
+        <div class="buttonContainer">
+          <a rel="nofollow" data-location="details" data-listing-id="734484" data-broker-id="5532" class="button green large contactNow contactAgentBtn cboxElement" href="/renter/contacts/modal_request?broker_id=5532&amp;listing_id=734484"><span>Contact Now</span></a>
+        </div>
+        
+      </div>
+      <!--begin broker card -->
+<div class="brokerCard clearfix">
+  <div class="brokerPhoto">
+    <div class="noPhoto"></div>
+  </div>
+  <div class="brokerInfo">
+    
+    <a title="View this broker's profile" class="name" href="http://www.nakedapartments.com/a/profile/waseem-mehmood/5cs">Waseem Mehmood</a>
+      <span class="noRating"></span>
+    
+  </div>
+  
+  <br clear="all" class="marginTop20">
+  
+  <ul class="icons">
+    <li class="reviews hoverable" style="display: none;">
+      <a data-selector="#reviews_5532" class="title revealMore" href="#"><span class="image"></span>reviews</a> 
+      <div class="content hidden" id="reviews_5532">
+        <ul class="stacked">
+        </ul>
+        <a title="View this broker's profile" class="link" href="http://www.nakedapartments.com/a/profile/waseem-mehmood/5cs">� read all of Waseem's reviews</a>
+      </div>
+    </li>
+    
+    
+  </ul>
+</div>
+<!-- end broker card -->
+    </div>				
+			
+	  <div class="mod ui-tabs ui-widget ui-widget-content ui-corner-all" id="info">
+      <div class="infoBlock" id="overview">
+		<h4>Apartment Details</h4>
+        <div class="clearfix" id="specialOffers">
+        </div>
+        
+        <table id="listingOverview">
+          <tbody><tr>
+            <td>Bedrooms:</td>
+            <td><?php echo $this->escape($item->bedrooms);?></td>
+          </tr>
+          <tr>
+            <td>Bathrooms:</td>
+            <td><?php echo $this->escape($item->bathrooms);?></td>
+          </tr>
+          <tr>
+            <td>Listed for:</td>
+            <td>about 11 hours</td>
+          </tr>
+          <tr>
+            <td>Available on:</td>
+            <td><?php echo JHtml::_('date',$item->available_on,'M. d, Y'); ?></td>
+          </tr>
+          <tr>
+            <td>Pets:</td>
+            <td>No Pets</td>
+          </tr>
+        </tbody></table>
+     </div>
+
+          <div class="infoBlock" id="amenities">
+            <h4>amenities</h4>
+            <div class="amens">
+            	<?php echo $this->escape($item->amenities);?>
+			</div>
+          </div>
+          
+          <div class="infoBlock" id="transportation">
+            <h4>Nearby Subway Stations</h4>
+            <ul>
+              <li data-longitude="-73.984264" data-latitude="40.74307">
+                  <span class="line_4 subIcon">4</span>
+                  <span class="line_6 subIcon">6</span>
+                  <span class="line_5 subIcon">5</span>
+                28 St (0.12 mi)
+              </li>
+              <li data-longitude="-73.986599" data-latitude="40.739864">
+                  <span class="line_4 subIcon">4</span>
+                  <span class="line_6 subIcon">6</span>
+                  <span class="line_5 subIcon">5</span>
+                23 St (0.27 mi)
+              </li>
+              <li data-longitude="-73.982076" data-latitude="40.746081">
+                  <span class="line_4 subIcon">4</span>
+                  <span class="line_6 subIcon">6</span>
+                  <span class="line_5 subIcon">5</span>
+                33 St (0.31 mi)
+              </li>
+            </ul>
+          </div>
+    </div>   
+  </div>
+</div>
+<script type="text/javascript">ViewListing();</script>
+<div class="clear"></div>
