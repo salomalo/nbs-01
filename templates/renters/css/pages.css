@@ -1,0 +1,7 @@
+/*
+*	Home page
+*/
+#siteNav li#faves a {
+	text-indent: -9999em;
+	 padding-right: 25px;
+}

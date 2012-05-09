@@ -21,7 +21,7 @@ class JConfig {
 	public $secret = '278FoUbkimokVokq';
 	public $gzip = '0';
 	public $error_reporting = 'default';
-	public $helpurl = 'http://help.joomla.org/proxy/index.php?option=com_help&amp;keyref=Help{major}{minor}:{keyref}';
+	public $helpurl = 'http://help.joomla.org/proxy/index.php?option=com_help&keyref=Help16:{keyref}';
 	public $ftp_host = '127.0.0.1';
 	public $ftp_port = '21';
 	public $ftp_user = '';
@@ -35,8 +35,8 @@ class JConfig {
 	public $fromname = 'NBS 01';
 	public $sendmail = '/usr/sbin/sendmail';
 	public $smtpauth = '0';
-	public $smtpuser = '';
-	public $smtppass = '';
+	public $smtpuser = 'admin';
+	public $smtppass = 'admin';
 	public $smtphost = 'localhost';
 	public $smtpsecure = 'none';
 	public $smtpport = '25';
@@ -49,13 +49,19 @@ class JConfig {
 	public $MetaAuthor = '1';
 	public $MetaVersion = '0';
 	public $robots = '';
-	public $sef = '1';
+	public $sef = '0';
 	public $sef_rewrite = '0';
 	public $sef_suffix = '0';
 	public $unicodeslugs = '0';
 	public $feed_limit = '10';
 	public $log_path = 'D:\\xampp\\htdocs\\nbs-01/logs';
 	public $tmp_path = 'D:\\xampp\\htdocs\\nbs-01/tmp';
-	public $lifetime = '15';
+	public $lifetime = '90';
 	public $session_handler = 'database';
+	public $MetaRights = '';
+	public $sitename_pagetitles = '0';
+	public $force_ssl = '0';
+	public $feed_email = 'author';
+	public $cookie_domain = '';
+	public $cookie_path = '';
 }

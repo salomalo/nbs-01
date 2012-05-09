@@ -1,0 +1,494 @@
+/****************************************************************
+*
+*	IE6-specific styles
+*
+****************************************************************/      
+
+#planFreq .checkboxCont{
+                    height: 65px}
+
+
+
+#listingEdit .cancel, #listingPreview .cancel {
+width: 220px}
+
+        #bs-listings tr.featured td.flag{
+        background: url(/images/sprites/icons.gif) no-repeat 28px -136px}
+        
+        #bs-listings tr.featured td{
+        background-image: none}
+
+
+#account .contactUs{
+    top: 2px}
+
+.contactUs{
+    top: 13px}
+
+/* affects the pricing page plan titles */ 
+#pricing h3 em {
+vertical-align:1%}  
+
+        
+/* removes border problems on grid cells */ 
+        #pricing td.dark,  #pricing td.light,  #pricing td.pop, #pricing td.dark.pop  {
+        		border-top: 0px;
+        		border-bottom: 0px}
+
+
+
+#listingSERPTable tr.featured a{
+background-image: none}	
+
+
+#listingSERPTable tr.featured a{
+background-image: none}	
+        		 
+  /*listing page tweaks */ 
+#listingDetail .actions {
+    padding:15px 4px 0px 4px}
+
+
+div.actions   .button.green.large{
+    margin-left: 4px}  
+  
+  
+  #plans .button{
+    margin-left: -33px;
+  }
+  
+  #plans #starter{
+    position: relative
+  }
+  
+  
+  #choosePlan #starter {
+        max-height:480px;
+}
+  
+   .popup{
+        background: transparent url(/images/sprites/optin.gif) no-repeat 0px -113px;
+        max-height: 180px;
+        left: 360px;
+    }
+    
+    #modal-listingsFree.popup{
+        top: 80px;
+    }
+    
+    #modal-contacts.popup{
+        top: 130px;
+    }
+    
+    #modal-contactsDirect.popup{
+        top: 180px;
+    }
+    
+    #modal-listingsFeatured.popup{
+        top: 230px;
+    }
+    
+    #modal-track.popup{
+        top: 280px;
+    }
+    
+    #modal-listingsFreeS.popup{
+    left: 70px;
+    background: transparent url(/images/sprites/optin.gif) no-repeat -425px -113px;
+
+    }
+    
+    #choosePlan #plans #banner{
+        margin-left: -20px;
+        margin-top: 15px;
+        background: transparent url(/images/sprites/optin.gif) no-repeat -0px -366px;
+    }
+    
+        #closer ul#features li:hover {
+             background: transparent url(/images/sprites/optin.gif) no-repeat -1px -59px;
+        }
+
+        /* replaces png with gif, tweaks spacing on optin page  */
+	       #closer .button{
+	           background-position:  0px -509px
+	       } 
+	       
+	       #closer .button{
+	           background-position:   0px -509px
+	       } 
+	       
+	       #starter .button{
+	           background-position:  -279px -509px;
+	       }
+	       
+	       #closer #submitCloser.button{ 
+	           background-position:  0px -625px
+	       }
+        
+
+.attachBtnSm , .removeBtn  {
+margin-left:5px;
+
+}
+
+.faveBtn{
+    padding-left:8px;
+        }
+
+.legend{
+    border-top: 0px;
+}
+
+#links {
+	margin-top: 0px;
+}
+
+
+#links .tourLink {
+	PADDING-TOP: 30px;
+}
+
+#btn_signup {
+    height: 49px;
+	max-height: 49px;	
+}
+
+#details .actionBlock .note input {
+            margin:0px;
+    }
+
+
+#home #head{
+        background: transparent url(/images/home/h1.gif) no-repeat 0 0;
+}
+
+
+/* replaces png icon with gif in details pages   */
+        #details .actionBlock .contactInfo {
+            background: url(/images/icons/connected.gif) no-repeat 0 10px;
+        } 
+        
+        #details #subnav li.connected{
+            background: url(/images/icons/connected.gif) no-repeat 10px 1px #24597E;
+        }
+            
+
+
+/* fixes wierd button background coming into tab!    */
+        #contacts #subnav li.active {
+           background: #ffffff url();
+        }
+        
+        #details #subnav li.active {
+           background: #f7f7f7 ;
+        }
+        
+
+        #details .module{
+            height: 100%
+        }
+
+
+
+/* fixes the centering of the buttons on the offer detail page    */
+        #details .actionBlock .buttonContainer {
+            left:40%;
+        }
+
+
+/* float the tables on offer page    */  
+        #details table{
+            float: left
+        }
+
+
+
+/* tweaks the contacts filter subnav    */        
+        
+        #contacts ul#sub {
+           margin:-20px 0px 25px 28px; 
+        }
+        
+        #contacts ul#sub li.active {
+          background: none;
+        }
+        
+
+
+#activityDropDown{
+    margin-top: 0px;
+}
+
+
+/* so that the feedback button is positioned absolutely    */
+
+*html #feedback{
+    position: absolute
+}
+
+
+/* assigns a width to the inner search pane    */
+
+#searchWrapper{
+    width: 950px;
+    padding-bottom: 5px;
+}
+
+
+/* tweak to accept and decline buttons in RS inbox    */
+
+fieldset .minorNoLine{
+    padding-top: 5px;
+}
+
+
+/* tweak to search pane   */
+
+#searchWrapper div#neighborhood {
+    width:480px;
+}
+        
+
+
+/* tweaks to dummy acct page   */
+
+        #feed_login #sales #leftCol .box {
+        padding:10px;
+        }
+        
+        #sales .logo {
+        padding:8px 5px 0 0;
+        }
+
+
+#siteNav li.active a#offerTab {
+	padding-bottom: 7px;
+}
+
+#sales #rightCol .row{
+        padding: 20px 0px 5px 0px;
+    }
+
+        
+
+#profile #leftCol 	{width: 505px}
+#profile #rightCol 	{width: 425px}
+
+
+
+/* homepage.css tweaks  */
+
+        #benefits .row{
+                padding-bottom: 0px;
+            }
+      
+      
+       #third #testimonials{
+            width: 250px;
+            height: 310px;
+        }
+       
+       
+       #third #samples{
+            height: 310px;
+        }
+        
+        
+        #third #samples .listingBlock{
+            margin: 4px 0px;
+            padding-top: 2px;
+        }
+
+
+
+
+#leftCol #cardInfo{
+    position: relative;
+}
+
+
+#logoBlock{
+    position: absolute;
+    bottom: 30px;
+    left: 450px;
+}
+
+
+.saveInfoCont{
+    background-color: #fff
+}
+
+fieldset#cardInfo .block{
+        width: 170px;
+    }
+
+
+/* anon button padding  */
+
+
+
+.anonBtn:hover,  .anonBtn .active{
+    background: url(/images/buttons/anon_left.gif) no-repeat left top;
+    text-decoration: none
+}
+
+#anonNav .anonBtn { 
+    margin-top: 3px;
+
+}
+
+ #anonNav .anonBtn a {
+    padding: 0px 15px 40px 5px;
+    line-height: 20px;
+
+}
+
+
+/* defined widths on listing page  */
+
+        #listingDetailWidget{
+                width: 326px;
+        }
+        
+        #listingMapWrapper{
+            position: relative;
+            width: 323px;
+        }
+
+
+
+.padLeft{
+    padding-left: 5px;
+}
+
+
+/* making anon nav links work  */
+
+        #anonNav .block a{
+            line-height: 35px;
+        }
+        
+
+#userActions {
+  background: url(/images/bg/acct_left.gif) no-repeat left bottom;
+}
+
+
+
+/* hovering over the main tabs */
+
+        #siteNav li.active a:hover {
+	   background: url(/images/bg/tab_on.gif) repeat-x 0 0;
+        }
+
+
+
+.boroughs #filters{
+    padding-bottom:0px;
+}
+
+
+
+/* listing edit problem, where first fieldset was pushed down below image uploader; problem was rightcol had no defined width, just a left margin */
+
+        
+        #renter_signup .formActions {
+        	height:26px;
+        	overflow: visible
+        }
+        
+        #listingEdit #rightCol {
+            width: 553px;
+        }
+
+
+/* listing edit problem */
+
+        #filters{
+            padding-top: 5px;
+        }
+
+
+
+fieldset {
+	margin:10px 0px;
+}
+
+
+/* NA - Get rid of the bleeding fieldset background. */
+* html legend, *html .minor legend, html .minorLast legend {
+margin-top:-24px;
+position:fixed;
+line-height:18px;
+}
+
+* html legend, *html .minor legend, html .minorLast legend {
+    padding-top: 10px;
+}
+
+fieldset legend {
+    padding-left: 0px;
+}
+
+
+
+
+* html fieldset {
+margin-top:30px;
+}
+
+
+#masthead {
+    padding-bottom:0px;
+    height: 120px;}
+
+
+.attachBtn a {
+margin-left:4px;}
+
+
+#siteNav {
+	margin-top: 42px;
+	float: left;
+	list-style: none;
+}
+
+
+
+#searchWrapper  fieldset.minor legend{
+    margin-left: -5px;
+    padding-top: 0px;
+}
+
+
+
+#home #benefits li {
+    	padding: 0px;
+    	margin: 10px 0px 13px -6px;
+    	line-height: 13px;
+}
+
+
+#howitworks #idea a.link, #howitworks #benefits a.link, #howitworks #listings a.link, #howitworks  #sampleRenters  a.link{
+        clear: left;
+        position: static;
+        margin-top: 30px;
+        bottom:0px;
+}
+
+
+#howitworks #benefits a.link{
+        margin-top: 40px;
+}
+
+/* ensures search dropdown menus go on top of subnav */
+#subnav {
+  z-index: -1;
+}
+
+
+
+    #landing #contentAnon{
+        background: transparent url(/images/landing/popup.gif) no-repeat top right;
+    }
+

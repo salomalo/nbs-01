@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="template" version="2.5">
+	<name>renters</name>
+	<creationDate>04-May-2012</creationDate>
+	<author>neo hoang</author>
+	<authorEmail>thai@concept-web.eu</authorEmail>
+	<authorUrl>concept-web.eu</authorUrl>
+	<copyright>2012</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<version>1.0</version>
+	<description>Template for Rental site</description>
+	<files folder="site">
+		<folder>css</folder>
+		<folder>fonts</folder>
+		<folder>html</folder>
+		<folder>images</folder>
+		<folder>js</folder>
+		<folder>language</folder>
+		<filename>CHANGELOG.php</filename>
+		<filename>component.php</filename>
+		<filename>config.php</filename>
+		<filename>error.php</filename>
+		<filename>favicon.ico</filename>
+		<filename>index.php</filename>
+		<filename>template_preview.png</filename>
+		<filename>template_thumbnail.png</filename>
+	</files>
+	<params />
+	<config>
+		<fields name="params">
+			<fieldset name="advanced">
+				<field name="sitetitle" type="text" default=""
+					label="TPL_RENTERS_SITETITLE_LABEL" description="TPL_RENTERS_SITETITLE_DESC"
+					filter="string"></field>
+				<field name="sitedescription" type="text" default=""
+					label="TPL_RENTERS_SITEDESCRIPTION_LABEL" description="TPL_RENTERS_SITEDESCRIPTION_DESC"
+					filter="string"></field>
+			</fieldset>
+		</fields>
+	</config>
+	<positions>
+		<position>position-1</position>
+		<position>position-2</position>
+	</positions>
+</extension>
