@@ -15,6 +15,7 @@ defined('_JEXEC') or die;
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 $now = time();
+$Itemid = JRequest::getInt('Itemid');
 
 require_once(JPATH_COMPONENT_SITE . DS . 'helpers' . DS . 'simple-gmap-api' . DS . "simpleGMapAPI.php");
 require_once(JPATH_COMPONENT_SITE . DS . 'helpers' . DS . 'simple-gmap-api' . DS . "simpleGMapGeocoder.php");
@@ -48,7 +49,7 @@ $geo_1 = $geo->getGeoCoords("Harrison, NY");
 $geo_2 = $geo->getGeoCoords("Mamaroneck, NY");
 
 
-//$map->addMarkerByAddress("Bronx, NewYork", "Universit‰t Bielefeld", "<a href=\"http://www.uni-bielefeld.de\" target=\"_blank\">http://www.uni-bielefeld.de</a>", "");
+//$map->addMarkerByAddress("Bronx, NewYork", "Universit√§t Bielefeld", "<a href=\"http://www.uni-bielefeld.de\" target=\"_blank\">http://www.uni-bielefeld.de</a>", "");
 //$map->addMarker(52.0149436, 8.5275128, "Sparrenburg Bielefeld", "Sparrenburg, 33602 Bielefeld, Deutschland<br /><img src=\"http://www.bielefeld.de/ftp/bilder/sehenswuerdigkeiten/sehenswuerdigkeiten/sparrenburg-bielefeld-435.gif\"", "http://google-maps-icons.googlecode.com/files/museum-archeological.png");
 
 
@@ -73,58 +74,310 @@ foreach ($modules as $module)
 	<?php echo $moduleContents; ?>
 </div>
 
-<div id="list-items">
-	<ul class="items">
-		<?php 
-		foreach($this->items as $item): 
-			$aboutTime = ( $now - strtotime($item->created) ) / (24 * 60 * 60);
-		
-			if ($aboutTime < 1)
-				$time = round($aboutTime * 60) . ' hours';
-			else
-				$time = round($aboutTime) . ' days';
-			
-			//get defautl images
-			$images = @unserialize($item->images);
-			
-			$defaultImage = '';
-			
-			if (is_array($images) && !empty($images))
-				$defaultImage = $images[0];
-			
-			$Itemid = JRequest::getInt('Itemid');
-		?>
-		<li>
-		<a href="<?php echo JRoute::_('index.php?option=com_rental&view=apartment&id=' . (int) $item->id . '&Itemid=' . $Itemid); ?>">
-			<?php echo $this->escape($item->bedrooms) . ', ' . $this->escape($item->retal_location_title) . ', $' . $this->escape($item->price); ?>
-		</a>		
-		<br>
-		Time on site: <?php echo $time; ?>
-		<br>
-		Agent: <?php echo $item->agent; ?>
-		<br>
-		
-		<?php if ($defaultImage): ?>
-		<img src="images/com_rental/upload/<?php echo $defaultImage['image']; ?>" width="100" />
-		<?php endif; ?>
-		
-		<div class="clr" style="clear: both;"></div>
-		
-		</li>
-		<?php endforeach; ?>
-	</ul>
-	
-	<div id="float-gmap">
-		<?php
+<!-- BEGIN: filters -->
+<div class="curveBottom" id="searchWrapperOuter">
+  <div class="curveBottom" id="searchWrapper">
+    <form method="get" action="/renter/listings/search" enctype="application/x-www-form-urlencoded" id="search">
+      <input type="hidden" value="" name="broker_id" id="broker_id">
+      <div id="formContainer">
+        <div class="searchBox wide">
+          <label>Borough</label>
+          <div id="boroughDropdown" rel="#bid" class="fancyDropdown"> <span class="selected">All</span>
+            <div class="clear"></div>
+            <ul style="display: none;" class="fancyDropdownOptions">
+              <li data-id="0">All</li>
+              <li data-id="4">Bronx</li>
+              <li data-id="2">Brooklyn</li>
+              <li data-id="1">Manhattan</li>
+              <li data-id="3">Queens</li>
+              <li data-id="5">Staten Island</li>
+            </ul>
+            <input type="hidden" value="0" name="bid" id="bid">
+          </div>
+        </div>
+        <div class="searchBox wide">
+          <label>Neighborhood</label>
+          <div id="neighborhoodDropdown" rel="#nids" class="fancyDropdownMultiple"> <span class="selected">&nbsp;</span>
+            <div class="clear"></div>
+            <div style="display: none;" class="fancyDropdownMultiplePane">
+              <div class="fancyDropdownOptions">
+                <div class="buttons"> <span class="closeDropdown"><a href="#">Done/Close</a></span> <a class="button white noIcon medium selectAll" href="#"><span>Select All</span></a> <a class="button white noIcon medium unselectAll" href="#"><span>UnSelect All</span></a>
+                  <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+                <div id="neighborhoodOptions"></div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <input type="hidden" value="" name="nids" id="nids">
+          </div>
+        </div>
+        <div class="searchBox wide">
+          <label>Size</label>
+          <div id="apartmentSizeDropdown" rel="#aids" class="fancyDropdownMultiple"> <span class="selected">&nbsp;</span>
+            <div class="clear"></div>
+            <div style="display: none;" class="fancyDropdownMultiplePane">
+              <div class="fancyDropdownOptions">
+                <div class="buttons"> <span class="closeDropdown"><a href="#">Done/Close</a></span>
+                  <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+                <ul>
+                  <li>
+                    <input type="checkbox" value="1">
+                    Studio</li>
+                  <li>
+                    <input type="checkbox" value="2">
+                    Loft</li>
+                  <li>
+                    <input type="checkbox" value="3">
+                    1br</li>
+                  <li>
+                    <input type="checkbox" value="4">
+                    2br</li>
+                  <li>
+                    <input type="checkbox" value="5">
+                    3br</li>
+                  <li>
+                    <input type="checkbox" value="6">
+                    4br</li>
+                  <li>
+                    <input type="checkbox" value="7">
+                    5br</li>
+                  <li>
+                    <input type="checkbox" value="8">
+                    6br</li>
+                  <li>
+                    <input type="checkbox" value="9">
+                    7br</li>
+                  <li>
+                    <input type="checkbox" value="10">
+                    8br</li>
+                </ul>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <input type="hidden" value="0" name="aids" id="aids">
+          </div>
+        </div>
+        <div class="lastBox">
+          <label>Rent</label>
+          <input type="text" size="6" name="min_rent" id="minRent" default="$" class="idleField">
+          to </div>
+        <div class="searchBox wide">
+          <label>&nbsp;</label>
+          <input type="text" size="6" name="max_rent" id="maxRent" default="$" class="idleField">
+        </div>
+        <div class="searchBox wide">
+          <label>I want to move by</label>
+          <div style="width: 125px;">
+            <input type="text" size="13" name="move_date" id="dateAvailable" default="" class="w16em dateformat-m-sl-d-sl-Y text hasDatepicker idleField">
+          </div>
+        </div>
+        <div id="searchBoxRenter"> <a class="button search submitButton" href="#"><span>Search</span></a>
+          <div class="clear"></div>
+          <a class="close" href="/renter/listings/search">clear</a> </div>
+      </div>
+      
+      <!-- filters -->
+      <div class="clear"></div>
+      <fieldset class="searchFilters" id="renterFilters">
+        <div class="container1">
+          <div class="searchBox">
+            <input type="checkbox" value="1" name="photos" id="photos" class="field text">
+            Must have photos </div>
+          <div class="searchBox">
+            <input type="checkbox" value="1" name="no_fee" id="no_fee" class="field text">
+            No fee only </div>
+        </div>
+        <div class="container2">
+          <div class="searchBox menu">
+            <label>Amenities</label>
+            <div id="amenityDropdown" rel="#amids" class="fancyDropdownMultiple"> <span class="selected">&nbsp;</span>
+              <div class="clear"></div>
+              <div style="display: none;" class="fancyDropdownMultiplePane">
+                <div class="fancyDropdownOptions">
+                  <div class="buttons"> <span class="closeDropdown"><a href="#">Done/Close</a></span>
+                    <div class="clear"></div>
+                  </div>
+                  <div class="clear"></div>
+                  <ul id="amenities">
+                    <li>
+                      <input type="checkbox" value="12">
+                      Balcony</li>
+                    <li>
+                      <input type="checkbox" value="17">
+                      Dishwasher</li>
+                    <li>
+                      <input type="checkbox" value="1">
+                      Doorman</li>
+                    <li>
+                      <input type="checkbox" value="2">
+                      Elevator</li>
+                    <li>
+                      <input type="checkbox" value="8">
+                      Garage</li>
+                    <li>
+                      <input type="checkbox" value="6">
+                      Gym</li>
+                    <li>
+                      <input type="checkbox" value="14">
+                      In-Unit Laundry</li>
+                    <li>
+                      <input type="checkbox" value="3">
+                      Laundry Room</li>
+                    <li>
+                      <input type="checkbox" value="7">
+                      Outdoor Space</li>
+                    <li>
+                      <input type="checkbox" value="15">
+                      Parking</li>
+                    <li>
+                      <input type="checkbox" value="11">
+                      Terrace</li>
+                  </ul>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <input type="hidden" value="0" name="amids" id="amids">
+            </div>
+          </div>
+          <div style="margin-left: 55px;" class="searchBox menu">
+            <label>Pets</label>
+            <div id="petsDropdown" rel="#pets" class="fancyDropdownMultiple"> <span class="selected">All</span>
+              <div class="clear"></div>
+              <div style="display: none;" class="fancyDropdownMultiplePane">
+                <div class="fancyDropdownOptions">
+                  <div class="buttons"> <span class="closeDropdown"><a href="#">Done/Close</a></span>
+                    <div class="clear"></div>
+                  </div>
+                  <div class="clear"></div>
+                  <ul>
+                    <li>
+                      <input type="checkbox" value="dogs">
+                      Dogs Ok</li>
+                    <li>
+                      <input type="checkbox" value="cats">
+                      Cats Ok</li>
+                  </ul>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <input type="hidden" value="" name="pets" id="pets">
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <div class="clear"></div>
+    </form>
+  </div>
+</div>
+<!-- END: filters -->
+<div class="clear"></div>
+
+<!-- BEGIN: listing -->
+<table id="listingSERPOuter">
+  <tbody>
+    <tr>
+      <td class="head" colspan="2"><h1>14406  apartments</h1>
+        <div class="block"> </div>
+        <div class="block"> <a href="/rental-agents" class="button blue HOF small"><span>Work with the top agents!</span></a> </div>
+        <div class="resultsPagination"> 
+        	<?php echo $this->pagination->getPagesLinks(); ?>
+        </div>
+        <div class="clear"></div></td>
+    </tr>
+    <tr> 
+      <!-- cell containing listings table-->
+      <td><!-- table containing listings -->
+        
+        <table cellspacing="0" cellpadding="0" border="0" id="listingSERPTable" class="newStyle">
+          <thead>
+            <tr>
+              <th colspan="2"> <span class="small">SORT BY</span>
+                <ul>
+                  <li><a class="bold" href="/renter/listings/search?order=desc&amp;page=1&amp;sort=listing_date"> Time on Site </a></li>
+                  <li><a class="bold" href="/renter/listings/search?order=desc&amp;page=1&amp;sort=quality"> Quality Score </a></li>
+                  <li><a class=" " href="/renter/listings/search?order=asc&amp;page=1&amp;sort=neighborhood"> Neighborhood </a></li>
+                  <li><a class=" " href="/renter/listings/search?order=asc&amp;page=1&amp;sort=size"> Size </a></li>
+                  <li><a class=" " href="/renter/listings/search?order=asc&amp;page=1&amp;sort=rent"> Rent </a></li>
+                </ul>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+          <?php foreach ($this->items as $item):?>
+          	<?php //print_r($item);die;
+				$link = JRoute::_('index.php?option=com_rental&view=apartment&id=' . (int) $item->id . '&Itemid=' . $Itemid);
+				$aboutTime = ( $now - strtotime($item->created) ) / (24 * 60 * 60);
+				
+				if ($aboutTime < 1)
+					$time = round($aboutTime * 60) . ' hours';
+				else
+					$time = round($aboutTime) . ' days';
+					
+				//get defautl images
+				$images = @unserialize($item->images);
+					
+				$defaultImage = '';
+					
+				if (is_array($images) && !empty($images))
+					$defaultImage = $images[0];
+					
+				
+			?>
+            <tr id="listing_<?php echo $item->id?>_row1" class="listingRow" data-id="<?php echo $item->id?>" data-latitude="<?php echo $item->latitude?>" data-longitude="<?php echo $item->longitude?>">
+              <td class="border thumbnail">
+              	<a class=" " href="<?php echo $link?>">
+              		<?php if ($defaultImage): ?>
+					<img src="images/com_rental/upload/<?php echo $defaultImage['image']; ?>" width="90" height="68" />
+					<?php else :?>
+              		<img alt="Thumb" src="http://s3.amazonaws.com/nakedapartments/images/8647659/thumb.jpg?1336491320">
+              		<?php endif; ?>
+              	</a>
+              </td>
+              <td class="border flag">
+              	<span class="listingTitle">
+              		<a class=" " href="<?php echo $link?>">
+              			<?php echo (int)$this->escape($item->bedrooms) . 'br , ' . $this->escape($item->retal_location_title) . ', $' . $this->escape($item->price); ?>
+              		</a>
+              	</span>
+                <div class="newCell listingDate"> about <?php echo $time; ?> hours <span class="calm">on site</span> </div>
+                <div class="newCell brokerCont"> <a href="http://www.nakedapartments.com/a/profile/tina-he/5gq" title="View this broker's profile" class=" "><?php echo $item->agent; ?></a> <span class="noRating"></span> <span class="duplicates"><span class="dupes"><strong>3 other brokers</strong> offer a similar listing at this address</span></span> </div>
+                <div class="" data-id="734432">
+                  <div class="newCell amenities"> Doorman, Elevator, Laundry Room, Small Dogs &amp; Cats </div>
+                </div>
+                <div class="hidden mapMarkerHtml">
+                  <div class="center"> <img src="http://s3.amazonaws.com/nakedapartments/images/8647659/thumb.jpg?1336491320" alt=""> <br>
+                    <a class=" " href="<?php echo $link?>">
+              			<?php echo (int)$this->escape($item->bedrooms) . 'br, ' . $this->escape($item->retal_location_title) . ', $' . $this->escape($item->price); ?>
+              		</a> 
+              	  </div>
+                </div></td>
+            </tr>
+           <?php endforeach;?>
+          </tbody>
+        </table>
+        
+        <!-- end of table containing listings  --></td>
+      <!-- cell containing map -->
+      <td>
+      	<div id="float-gmap">
+			<?php
 		$map->printGMapsJS();
-		
-		// showMap with auto zoom enabled
+		// 	showMap with auto zoom enabled
 		$map->showMap(true);
 		?>
-	</div>
-	
-	<div class="pagination">
-		<?php echo $this->pagination->getPagesLinks(); ?>
-	</div>
+		</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- END: listing -->
 
+<!-- BEGIN: Pagination -->
+<div class="resultsPagination" id="paginationBottom">
+ <?php echo $this->pagination->getPagesLinks(); ?>
 </div>
+<!-- END: Pagination -->
+<div class="clear"></div>
