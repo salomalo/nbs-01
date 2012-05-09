@@ -60,19 +60,49 @@ $map->addCircle($geo_1['lat'], $geo_1['lng'], 2000, "Test 1", $opts);
 
 $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
 
-$moduleContents = '';
-$modules =& JModuleHelper::getModules('mod-rental-filter'); 
+// $moduleContents = '';
+// $modules =& JModuleHelper::getModules('mod-rental-filter'); 
 
-foreach ($modules as $module) 
-{ 
-	$moduleContents .= JModuleHelper::renderModule($module); 
-}
+// foreach ($modules as $module) 
+// { 
+// 	$moduleContents .= JModuleHelper::renderModule($module); 
+// }
+// echo $moduleContents;
 
+//<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 ?>
 
-<div id="rental-filter">
-	<?php echo $moduleContents; ?>
-</div>
+
+<script>
+	jQuery(function($){
+		$('#location').change(function(){
+			var t = $(this);
+			
+			var link = 'index.php?option=com_rental&view=ajax_location&location=' + t.val();
+
+			
+		});
+		
+		$('#click-to-show').click(function(){
+			if ($('#location').val() == '')
+			{
+				alert('You must select location first');
+				return false;
+			}
+			
+			$('#container-location').show();
+		});
+		
+		$(document).click(function() {
+			$('#container-location').hide();
+		});
+		
+		$("#container-location, #click-to-show").click(function(e) {
+			e.stopPropagation(); // This is the preferred method.
+			return false;
+		});
+	});
+</script>
 
 <!-- BEGIN: filters -->
 <div class="curveBottom" id="searchWrapperOuter">
@@ -86,11 +116,9 @@ foreach ($modules as $module)
             <div class="clear"></div>
             <ul style="display: none;" class="fancyDropdownOptions">
               <li data-id="0">All</li>
-              <li data-id="4">Bronx</li>
-              <li data-id="2">Brooklyn</li>
-              <li data-id="1">Manhattan</li>
-              <li data-id="3">Queens</li>
-              <li data-id="5">Staten Island</li>
+              <?php foreach ($this->categories as $category): ?>
+              <li data-id="<?php echo $category->id; ?>"><?php echo $category->title; ?></li>
+              <?php endforeach; ?>
             </ul>
             <input type="hidden" value="0" name="bid" id="bid">
           </div>
@@ -326,7 +354,7 @@ foreach ($modules as $module)
 					
 				
 			?>
-            <tr id="listing_<?php echo $item->id?>_row1" class="listingRow" data-id="<?php echo $item->id?>" data-latitude="<?php echo $item->latitude?>" data-longitude="<?php echo $item->longitude?>">
+            <tr id="listing_<?php echo $item->id?>_row1" class="listingRow" data-id="<?php echo $item->id?>" data-latitude="<?php //echo $item->latitude?>" data-longitude="<?php //echo $item->longitude?>">
               <td class="border thumbnail">
               	<a class=" " href="<?php echo $link?>">
               		<?php if ($defaultImage): ?>
@@ -366,7 +394,7 @@ foreach ($modules as $module)
 			<?php
 		$map->printGMapsJS();
 		// 	showMap with auto zoom enabled
-		$map->showMap(true);
+		//$map->showMap(true);
 		?>
 		</div>
       </td>

@@ -50,4 +50,24 @@ class RentalModelApartments extends JModelList
 		
 		return $query;
 	}
+	
+	/**
+	 * Get category level 1
+	 */
+	public function getCategories()
+	{
+		$db			= $this->getDbo();
+		$query		= $db->getQuery(true);
+		
+		$query->select('*')
+				->from('#__categories')
+				->where('parent_id = 1')
+				->where('extension = "com_rental"')
+		;
+		
+		$db->setQuery($query);
+		$result = $db->loadObjectList();
+		
+		return $result;
+	}
 }
