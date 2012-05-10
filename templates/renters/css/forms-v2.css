@@ -1,0 +1,214 @@
+            
+/*	LARGER "2.0" FORM STYLES
+		- initially created for trenter step signup
+		- begun 9/11/2011
+		- eventually replace other forms styles as appropriate            
+*/
+
+		input [type="text"], textarea, .idleField, .focusField {
+			padding: 5px 2px;
+			border: 3px solid #d2d2d2;
+			-moz-border-radius: 4px;
+			-webkit-border-radius: 4px;
+			border-radius: 4px;
+			font-size: 14px;
+			color: #555}
+		
+		input:focus {
+    	box-shadow: 0 0  1px #c5c5c5;
+			border: 3px solid #c2c2c2;
+			outline: none}
+			
+		label{
+			font-size: 14px;
+			color: #555}
+			
+		.smallLabel label{
+			font-size: 11px}
+		
+		label .message{
+			font-size: 11px;
+			color: #999}
+			
+		.message{
+			clear: left;
+			font-size: 11px;
+			color: #999}
+			
+		 .message strong{
+			padding-top: 5px;
+			color: #222}
+		
+		.borderTop{
+			border-top: 1px solid #f2f2f2}
+
+		
+		/*	right col help text        */
+		.sideText{
+			position: absolute;
+			left: 300px;
+			top: 30px;
+			width: 200px;
+			max-width: 200px;
+			font-size: 11px;
+			color: #a4a4a4}
+			
+		.sideText.wide{
+			left: 370px;
+			line-height: 13px;
+			width: 150px;
+			max-width: 150px;
+			top: 6px}
+		
+		.sideText strong{
+			color: #888}
+					
+
+			/*	label/inputs side by side        */
+
+		  label.inline {
+		 	display: block;
+			float: left}
+		 
+		  input[type="text"].inline {
+		 	display: block;
+			float: left}
+			
+			/*	label/input pairs inline
+					eg, search pane        */
+					
+
+
+/*	ERROR STYLES           */
+			
+		.fieldWithErrors input, .fieldWithErrors textarea, .fieldWithErrors select {
+			border: 3px solid red;
+			padding: 5px}
+			
+			
+/*	SHADED BOXES           */
+
+		.boxed, .boxed li, .bordered, #renter_signup .renterHavePet .checkboxCont {
+			float: left;
+			margin: 5px 5px 0 0;
+			-moz-border-radius: 4px;
+			-webkit-border-radius: 4px;
+			border-radius: 4px;
+			max-width:110px;
+			min-width: 70px;
+			padding: 15px 5px 10px 10px;
+			background-color: #F4FAED;
+			font-family: arial;
+			text-transform: uppercase;
+			text-shadow: 0px 1px 1px #fff;
+			font-size: 12px}
+				 
+		.boxed.active{
+			background-color: #eaf9d9;	}
+			
+		.boxed label {
+			float: left;	
+			text-shadow: 0px 1px 1px #fff;
+			font-size: 12px}
+			
+		.boxed label .calm{
+			display: block;
+			color: #9fc177;
+			font-size: 11px}
+
+		.boxed input {
+			float: left;	
+			margin: 3px 5px 0 5px;}
+
+		.boxed.medium{
+			width: 100px;
+			max-width: 100px;}
+
+		.boxed.wide{
+			background-color: #f6f6f6;
+			padding: 15px 0 10px 0;
+			text-transform: none;
+			max-width:100%;
+			min-width: 100%}
+		
+		.boxed.wide input{
+			margin-left: 10px;}
+			
+		.boxed.bordered{
+			background-color: #fff;	
+			border: 1px solid #e4e4e4}
+			
+		.boxed.bordered.active{
+			background-color: #f4f4f4;	}
+			
+
+				
+
+/*	LISTS           */		
+
+
+			/*	grid style (for checkboxes, radio buttons) */		
+			
+			ul.grid li{
+				float: left;
+				margin: 0 5px 5px 0;
+				-moz-border-radius: 4px;
+				-webkit-border-radius: 4px;
+				border-radius: 4px;
+				width: 100px;
+				max-width:100px;
+				padding: 15px 2px 10px 10px;	}
+				
+			
+			/* with background */
+			
+			ul.grid.bg li{
+				background-color: #F4FAED;	}
+				
+			ul.grid.bg label{
+				color: #2a4010}
+			
+			ul.grid.bg li.active{
+				background-color: #eaf9d9;	}
+				
+			ul.grid.bg label .calm{
+				display: block;
+				color: #9fc177;
+				font-size: 11px}
+				
+			/* with background */
+			
+			ul.grid.bordered li{
+				border: 1px solid #e4e4e4;
+				background-color: #fff}
+				
+			ul.grid.bordered li.active{
+				background-color: #f5f5f5}
+			
+
+#renter_signup #renterHavePet .checkboxCont , #renter_signup #renterRoommatesTotal .checkboxCont{
+			float: left;
+			margin: 5px 5px 0 0;
+			-moz-border-radius: 4px;
+			-webkit-border-radius: 4px;
+			border-radius: 4px;
+			max-width:110px;
+			min-width: 70px;
+			padding: 15px 5px 10px 10px;
+			background-color: #F4FAED;
+			font-family: arial;
+			text-transform: uppercase;
+			text-shadow: 0px 1px 1px #fff;
+			font-size: 12px}
+		
+
+
+/* SAFARI-ONLY CODE
+	(has to be in main css - no way to target w/sep css)
+-------------------------------------------------------------- */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+
+		
+
+		}
+

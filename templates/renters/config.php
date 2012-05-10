@@ -30,7 +30,7 @@ $active = $menu->getItem($itemid);
 $params = $menu->getParams( $active->id );
 $pageclass[] = $params->get( 'pageclass_sfx' );
 if($active) $pageclass[] = "p_".$active->alias;
-$pageclass = trim(implode(' ', $pageclass));
+
 
 $option = JRequest::getCmd('option');
 $view = JRequest::getCmd('view');
@@ -40,12 +40,19 @@ $isLoginPage = (false)?true:false; //TODO
 
 $isLoginPage = ($option=='com_rental'&&( $view=='signup' || $view=='login')) ? true : false;
 //option=com_rental&view=apartment
+$isListing = ($option=='com_rental'&& $view=='apartments') ? true : false;
 $isListingDetail = ($option=='com_rental'&& $view=='apartment') ? true : false;
+
+$isRenterSignup = ($option=='com_rental'&& $view=='createprofile') ? true : false;
 
 if($isHomePage) $pageId ='id="home"';
 if($isLoginPage) $pageId ='id="login"';
 if($isListingDetail) $pageId ='id="listingDetail"';
 
+if($isRenterSignup) {$pageId ='id="renter_signup"'; $pageclass[]="narrow";}
+
+
+$pageclass = trim(implode(' ', $pageclass));
 // check positions
 $hasLeftCol  = $this->countModules('left');
 $hasRightCol = $this->countModules('right');
