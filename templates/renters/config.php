@@ -42,6 +42,7 @@ $isLoginPage = ($option=='com_rental'&&( $view=='signup' || $view=='login')) ? t
 //option=com_rental&view=apartment
 $isListing = ($option=='com_rental'&& $view=='apartments') ? true : false;
 $isListingDetail = ($option=='com_rental'&& $view=='apartment') ? true : false;
+$isRentalAgents = ($option=='com_rental'&& $view=='rentalagents') ? true : false;
 
 $isRenterSignup = ($option=='com_rental'&& $view=='createprofile') ? true : false;
 
