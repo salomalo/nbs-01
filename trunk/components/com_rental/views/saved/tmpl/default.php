@@ -14,16 +14,21 @@ defined('_JEXEC') or die;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
+
 ?>
-<div class="clearfix" id="blueBox"> <span class="admin curve">Have an account? <a class="bold" href="index.php?option=com_rental&view=login">log in</a></span>
-  <h1>Sign up through...</h1>
-  <div class="bgBlue curve clearfix">
-    <div class="block"> <a id="loginBtn" class="button onBlue large" href="/renter/create-profile"><span>Naked Apartments</span></a>
-      <div class="small padLeft5 itals">(takes about a minute to complete)</div>
-    </div>
-    <div class="block or">or</div>
-    <div class="block fb"> <a class="btnFB" href="https://graph.facebook.com/oauth/authorize?client_id=149838751731831&amp;redirect_uri=https://www.nakedapartments.com/user_sessions/create&amp;scope=email,publish_stream"><span>facebook</span></a> </div>
-  </div>
-  <div class="clear"></div>
-  <div class="oops curve3"><a href="/broker/choose-plan" class=" ">Landlords, Brokers &amp; Agents: Sign Up here</a></div>
+
+<ul class="items">
+	<?php foreach($this->items as $item): ?>	
+		
+			<li>
+			<?php echo '<label>search_phrase</label>: '. $this->escape($item->search_phrase); ?>
+			</li>
+			<li>
+			<?php echo '<label>created</label>: '. $this->escape($item->created); ?>
+			</li>
+	<?php endforeach; ?>
+</ul>
+
+<div class="pagination">
+	<?php echo $this->pagination->getPagesLinks(); ?>
 </div>
