@@ -21,11 +21,16 @@ jimport('joomla.application.component.view');
  * @subpackage	com_content
  * @since 1.5
  */
-class RentalViewSignup extends JView
+
+class RentalViewSaved extends JView
 {
+	protected $items;
+	protected $pagination;
 
 	function display($tpl = null)
 	{
+		$this->items		= $this->get('Items');
+		$this->pagination 	= $this->get('Pagination');
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
