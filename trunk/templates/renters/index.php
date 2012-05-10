@@ -19,8 +19,8 @@ require_once dirname(__FILE__) .'/config.php';
 	<jdoc:include type="head" />
     <link rel="stylesheet" href="<?php echo _TMPL_CSS_URL_?>/all.css" type="text/css" />
     <link rel="stylesheet" href="<?php echo _TMPL_CSS_URL_?>/pages.css" type="text/css" />
-    <!--[if IE 6]><link href="<?php echo _TMPL_CSS_URL_?>/ie6.css?1336189543" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
-  	<!--[if IE 7]><link href="<?php echo _TMPL_CSS_URL_?>/ie7.css?1336189543" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
+    <!--[if IE 6]><link href="<?php echo _TMPL_CSS_URL_?>/ie6.css?<?php echo $sess?>" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
+  	<!--[if IE 7]><link href="<?php echo _TMPL_CSS_URL_?>/ie7.css?<?php echo $sess?>" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
     
     
     <!-- load js -->
@@ -30,6 +30,7 @@ require_once dirname(__FILE__) .'/config.php';
     <script type="text/javascript">
 		//<![CDATA[
 		var NA_CONFIG = {"user_type":"renter"};
+		var LIVE_URL = '<?php echo JURI::base(true)?>';
 		//]]>
 	</script>
 	
@@ -59,7 +60,9 @@ require_once dirname(__FILE__) .'/config.php';
 	<div id="wrapper">
 		<!-- BEGIN masthead containing everything in blue background-->
   		<div id="masthead">
-  			<div id="adminBar"></div>
+  			<div id="adminBar">
+  				<jdoc:include type="modules" name="adminNav" />
+  			</div>
   			
   			<div id="logo">
 			  <a href="index.php" title="Naked Apartments: NYC apartment rentals">
@@ -87,9 +90,12 @@ require_once dirname(__FILE__) .'/config.php';
             <jdoc:include type="component" />
 		</div>
 		
-		<?php if($isListingDetail && $this->countModules('siteNav')):?>
+		<?php if(!$isLoginPage && $this->countModules('footNav')):?>
 		<!-- BEGIN Footer -->
   		<div id="footerWrapper" class="curve">
+  			<div id="footer">
+  			<jdoc:include type="modules" name="footNav" />
+  			</div>
   		</div><!-- End: Footer -->
   		<?php endif;?>
   		
