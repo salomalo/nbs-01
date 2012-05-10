@@ -1,6 +1,9 @@
 /*
 *	Home page
 */
+
+#siteNav li#home {display: none;}
+
 #siteNav li#faves a {
 	text-indent: -9999em;
 	 padding-right: 25px;
