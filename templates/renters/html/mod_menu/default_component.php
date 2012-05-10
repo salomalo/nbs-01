@@ -19,19 +19,24 @@ if ($item->menu_image) {
 }
 else { $linktype = $item->title;
 }
-
+if($item->note && !strpos('#', $item->note)) {
+	$note_line = '<span class="small">'.$item->note.'</span>';
+	$linktype = '<strong>'.$linktype.'</strong>';
+} else {
+	$note_line='';
+}
 switch ($item->browserNav) :
 	default:
 	case 0:
-?><a <?php echo $class; ?>href="<?php echo $item->flink; ?>" <?php echo $title; ?>><?php echo $linktype; ?></a><?php
+?><a <?php echo $class; ?>href="<?php echo $item->flink; ?>" <?php echo $title; ?>><?php echo $linktype; ?><?php echo $note_line;?></a><?php
 		break;
 	case 1:
 		// _blank
-?><a <?php echo $class; ?>href="<?php echo $item->flink; ?>" target="_blank" <?php echo $title; ?>><?php echo $linktype; ?></a><?php
+?><a <?php echo $class; ?>href="<?php echo $item->flink; ?>" target="_blank" <?php echo $title; ?>><?php echo $linktype; ?><?php echo $note_line;?></a><?php
 		break;
 	case 2:
 	// window.open
-?><a <?php echo $class; ?>href="<?php echo $item->flink; ?>" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes');return false;" <?php echo $title; ?>><?php echo $linktype; ?></a>
+?><a <?php echo $class; ?>href="<?php echo $item->flink; ?>" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes');return false;" <?php echo $title; ?>><?php echo $linktype; ?><?php echo $note_line;?></a>
 <?php
 		break;
 endswitch;
