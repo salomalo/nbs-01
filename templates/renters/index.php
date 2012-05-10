@@ -17,15 +17,13 @@ require_once dirname(__FILE__) .'/config.php';
 <html>
 <head>
 	<jdoc:include type="head" />
-    <link rel="stylesheet" href="<?php echo _TMPL_CSS_URL_?>/all.css" type="text/css" />
-    <link rel="stylesheet" href="<?php echo _TMPL_CSS_URL_?>/pages.css" type="text/css" />
-    <!--[if IE 6]><link href="<?php echo _TMPL_CSS_URL_?>/ie6.css?<?php echo $sess?>" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
-  	<!--[if IE 7]><link href="<?php echo _TMPL_CSS_URL_?>/ie7.css?<?php echo $sess?>" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
+    
     
     
     <!-- load js -->
     <?php if($isHomePage):?>
-    <script src="<?php echo _TMPL_JS_URL_?>/homepage_all.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="<?php echo _TMPL_CSS_URL_?>/homepage_all.css?<?php echo $sess?>" type="text/css" />
+    <script src="<?php echo _TMPL_JS_URL_?>/homepage_all.js?<?php echo $sess?>" type="text/javascript"></script>
     <?php else:?>
     <script type="text/javascript">
 		//<![CDATA[
@@ -33,10 +31,13 @@ require_once dirname(__FILE__) .'/config.php';
 		var LIVE_URL = '<?php echo JURI::base(true)?>';
 		//]]>
 	</script>
-	
+	<link rel="stylesheet" href="<?php echo _TMPL_CSS_URL_?>/all.css" type="text/css" />
+    <link rel="stylesheet" href="<?php echo _TMPL_CSS_URL_?>/pages.css" type="text/css" />
     <script src="<?php echo _TMPL_JS_URL_?>/all.js?<?php echo $sess?>" type="text/javascript"></script>
     <script src="<?php echo _TMPL_JS_URL_?>/renter.js?<?php echo $sess?>" type="text/javascript"></script>
     <?php endif;?>
+    <!--[if IE 6]><link href="<?php echo _TMPL_CSS_URL_?>/ie6.css?<?php echo $sess?>" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
+  	<!--[if IE 7]><link href="<?php echo _TMPL_CSS_URL_?>/ie7.css?<?php echo $sess?>" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
     
     <?php if($isRenterSignup):?>
     <link rel="stylesheet" href="<?php echo _TMPL_CSS_URL_?>/jquery.loader-min.css?<?php echo $sess?>" type="text/css" />
@@ -74,7 +75,18 @@ require_once dirname(__FILE__) .'/config.php';
 			    <img src="<?php echo _TMPL_IMG_URL_?>/logo_inside.gif" alt="NYC apartments">
 			  </a>
   			</div>
+  			
+  			<?php if($isHomePage):?>
+  			<div id="listingGrid">
+  			<jdoc:include type="modules" name="listing_grid" />
+  			</div>
+  			
+  			<div id="header">
+  			<jdoc:include type="modules" name="header" />
+  			</div>
+  			<?php endif;?>
   			<div class="clear"></div>
+  			
   			<?php if(($isListing || $isListingDetail) && $this->countModules('siteNav')):?>
   			<jdoc:include type="modules" name="siteNav" />
   			<?php endif;?>
@@ -83,12 +95,18 @@ require_once dirname(__FILE__) .'/config.php';
   		
   		<!-- right column --> 
 		<div id="right">
+		<jdoc:include type="modules" name="right" />
 		</div><!-- close right col -->
 		
 		<!-- left column --> 
 		<div id="left">
+		<jdoc:include type="modules" name="left" />
 		</div><!-- close left col -->
 		<div class="clear"></div>
+		
+		<?php if($isHomePage):?>
+		<div id="illo"></div>
+		<?php endif;?>
 		
 		<div>
 			<jdoc:include type="message" />
@@ -103,6 +121,16 @@ require_once dirname(__FILE__) .'/config.php';
   			</div>
   		</div><!-- End: Footer -->
   		<?php endif;?>
+
+		<?php if($this->countModules('footNav2')):?>
+		<!-- BEGIN Footer -->
+  		<div id="footerWrapper" class="curve">
+  			<div id="footer">
+  			<jdoc:include type="modules" name="footNav2" />
+  			</div>
+  		</div><!-- End: Footer -->
+  		<?php endif;?>
+
   		
   		<span class="copyright">&copy; Copyright JE Team 2012 <br> 
   			<a class="hud" href="/about/fair-housing">Fair Housing and Equal Opportunity</a><span class="madeinNYC"> Made in Ha Noi</span>
