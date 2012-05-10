@@ -5,3 +5,7 @@
 	text-indent: -9999em;
 	 padding-right: 25px;
 }
+
+.narrow #wrapper {
+    width: 510px;
+}

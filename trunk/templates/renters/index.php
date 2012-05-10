@@ -37,6 +37,17 @@ require_once dirname(__FILE__) .'/config.php';
     <script src="<?php echo _TMPL_JS_URL_?>/renter.js?<?php echo $sess?>" type="text/javascript"></script>
     <?php endif;?>
     
+    <?php if($isRenterSignup):?>
+    <link rel="stylesheet" href="<?php echo _TMPL_CSS_URL_?>/jquery.loader-min.css?<?php echo $sess?>" type="text/css" />
+    <link rel="stylesheet" href="<?php echo _TMPL_CSS_URL_?>/forms-v2.css?<?php echo $sess?>" type="text/css" />
+    <link rel="stylesheet" href="<?php echo _TMPL_CSS_URL_?>/signup.css?<?php echo $sess?>" type="text/css" />
+    <script src="<?php echo _TMPL_JS_URL_?>/jquery.loader-min.js?<?php echo $sess?>" type="text/javascript"></script>
+    <script src="<?php echo _TMPL_JS_URL_?>/step_signup.js?<?php echo $sess?>" type="text/javascript"></script>
+    <?php endif;?>
+    
+    <?php if($isListing):?>
+    <?php endif;?>
+    
     <?php if($isListingDetail):?>
    	<script src="<?php echo _TMPL_JS_URL_?>/galleria.min.js?<?php echo $sess?>" type="text/javascript"></script>
 	<script src="<?php echo _TMPL_JS_URL_?>/galleria.classic.js?<?php echo $sess?>" type="text/javascript"></script>
@@ -56,7 +67,7 @@ require_once dirname(__FILE__) .'/config.php';
 			  </a>
   			</div>
   			<div class="clear"></div>
-  			<?php if($isListingDetail && $this->countModules('siteNav')):?>
+  			<?php if(($isListing || $isListingDetail) && $this->countModules('siteNav')):?>
   			<jdoc:include type="modules" name="siteNav" />
   			<?php endif;?>
   		</div><!-- close masthead -->
