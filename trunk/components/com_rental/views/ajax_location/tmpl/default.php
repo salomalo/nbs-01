@@ -16,3 +16,33 @@ defined('_JEXEC') or die;
 $items = $this->items;
 ?>
 
+
+<div class="<?php echo $this->boroughInfo->alias; ?>">
+	<?php if ( !empty($items->sub_category) ): ?>
+	<div class="floatLeft" id="parentNeighborhoods">
+		<div class="floatLeft">
+			<ol>
+				<?php foreach ($items->sub_category as $cat): ?>
+				<li data-type="parent"><input type="checkbox" value="<?php echo $cat->id; ?>"
+					data-type="parent" /> <?php echo $cat->title; ?></li>
+				<?php endforeach; ?>
+			</ol>
+		</div>
+	</div>
+	<?php endif; ?>
+	
+	<div class="floatLeft" id="neighborhoods">
+	
+		<div class="neighborhoodOptionColumn">
+			<ul>
+				<?php foreach ($items->locations as $loc): ?>
+				<li><input type="checkbox" value="<?php echo $loc->id; ?>" data-type="child"
+					data-parent-ids="~<?php echo $loc->catid; ?>" /> <?php echo $loc->title; ?></li>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+
+	</div>
+	<div class="clear"></div>
+</div>
+

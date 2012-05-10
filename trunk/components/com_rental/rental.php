@@ -15,6 +15,9 @@ defined('_JEXEC') or die;
 // Include dependancies
 jimport('joomla.application.component.controller');
 
+//require util class
+require_once JPATH_COMPONENT_ADMINISTRATOR . DS . 'helpers/util.class.php';
+
 $controller = JController::getInstance('Rental');
 $controller->execute(JRequest::getCmd('task'));
 $controller->redirect();

@@ -32,7 +32,7 @@
 			description ="COM_RENTAL_FIELD_AMENITIES_DESC" 
 			 />
 
-		<field name="bedrooms" type="text"
+		<field name="bedrooms" type="bedrooms"
 			label="COM_RENTAL_FIELD_BEDROOMS_LABEL" 
 			description ="COM_RENTAL_FIELD_BEDROOMS_DESC" 
 			required="true"  />
@@ -52,7 +52,7 @@
 			description ="COM_RENTAL_FIELD_AVAILABLE_ON_DESC" 
 			format="%Y-%m-%d" size="22" filter="server_utc"  />
 
-		<field name="pets" type="text"
+		<field name="pets" type="petallow"
 			label="COM_RENTAL_FIELD_PETS_LABEL" 
 			description ="COM_RENTAL_FIELD_PETS_DESC" 
 			 />
