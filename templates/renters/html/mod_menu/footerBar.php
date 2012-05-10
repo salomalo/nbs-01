@@ -12,16 +12,9 @@ defined('_JEXEC') or die;
 // Note. It is important to remove spaces between elements.
 ?>
 
-<ul class="menu<?php echo $class_sfx;?>"<?php
-	$tag = '';
-	if ($params->get('tag_id')!=NULL) {
-		$tag = $params->get('tag_id').'';
-		echo ' id="'.$tag.'"';
-	}
-?>>
 <?php
 foreach ($list as $i => &$item) :
-	$class = 'item-'.$item->id;
+	$class = '';
 	if ($item->id == $active_id) {
 		$class .= ' current';
 	}
@@ -51,7 +44,6 @@ foreach ($list as $i => &$item) :
 		$class = ' class="'.trim($class) .'"';
 	}
 
-	echo '<li'.$class.'>';
 
 	// Render the menu item.
 	switch ($item->type) :
@@ -66,18 +58,5 @@ foreach ($list as $i => &$item) :
 			break;
 	endswitch;
 
-	// The next item is deeper.
-	if ($item->deeper) {
-		echo '<ul>';
-	}
-	// The next item is shallower.
-	elseif ($item->shallower) {
-		echo '</li>';
-		echo str_repeat('</ul></li>', $item->level_diff);
-	}
-	// The next item is on the same level.
-	else {
-		echo '</li>';
-	}
 endforeach;
-?></ul>
+?>
