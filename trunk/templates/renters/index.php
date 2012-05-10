@@ -64,10 +64,11 @@ require_once dirname(__FILE__) .'/config.php';
 	<div id="wrapper">
 		<!-- BEGIN masthead containing everything in blue background-->
   		<div id="masthead">
+  			<?php if(!$isRenterSignup && !$isLoginPage):?>
   			<div id="adminBar">
   				<jdoc:include type="modules" name="adminNav" />
   			</div>
-  			
+  			<?php endif;?>
   			<div id="logo">
 			  <a href="index.php" title="Naked Apartments: NYC apartment rentals">
 			    <img src="<?php echo _TMPL_IMG_URL_?>/logo_inside.gif" alt="NYC apartments">
@@ -94,7 +95,7 @@ require_once dirname(__FILE__) .'/config.php';
             <jdoc:include type="component" />
 		</div>
 		
-		<?php if(!$isLoginPage && $this->countModules('footNav')):?>
+		<?php if(!$isLoginPage && ($isRenterSignup && $this->countModules('footNav'))):?>
 		<!-- BEGIN Footer -->
   		<div id="footerWrapper" class="curve">
   			<div id="footer">
@@ -117,38 +118,38 @@ require_once dirname(__FILE__) .'/config.php';
 	  <!-- - - - OVERVIEW  - - - - - -->
 	  <div id="overviewModalContainer">
 	    <div id="md_home" class="basicModal clearfix mediumWide anon">
-	      <div class="h1"><a data-tagged-trac="sitewide-modal-overview-top|renter_signup" href="/renter/signup">Sign up</a> for even more features!</div>
+	      <div class="h1"><a data-tagged-trac="sitewide-modal-overview-top|renter_signup" href="index.php?option=com_rental&view=signup">Sign up</a> for even more features!</div>
 	      <div class="middle clearfix"> <span class="block" id="one"> <span class="image"></span> <strong>Email Notifications</strong> Each morning we'll email the latest apartments matching your criteria. </span> <span class="block" id="two"> <span class="image"></span> <strong>Reverse Search</strong> Get recommended listings and offers from agents and landlords. </span> <span class="block" id="three"> <span class="image"></span> <strong>Suggestions</strong> Apartments we think you'll like, based on your profile. </span> </div>
 	      <div class="formActions green">
-	        <div class="block"> <a data-tagged-trac="sitewide-modal-overview-bottom|renter_signup" class="button  large" href="/renter/signup"><span>Sign Up (it's FREE!)</span></a>
+	        <div class="block"> <a data-tagged-trac="sitewide-modal-overview-bottom|renter_signup" class="button  large" href="index.php?option=com_rental&view=signup"><span>Sign Up (it's FREE!)</span></a>
 	          <div class="clear"></div>
-	          <span class="block padTop5">Already have an account? <a class="bold" href="http://www.nakedapartments.com/login?return_to=http%3A%2F%2Fwww.nakedapartments.com%2Frental%2F734432-2-bedroom-e29th-kips-bay">Log in</a></span> </div>
+	          <span class="block padTop5">Already have an account? <a class="bold" href="index.php?option=com_rental&view=login">Log in</a></span> </div>
 	      </div>
 	    </div>
 	  </div>
 	  <!-- - - - FAVES  - - - - - -->
 	  <div id="favoritesModalContainer">
 	    <div id="md_faves" class="basicModal clearfix mediumWide anon">
-	      <div class="h1"><a data-tagged-trac="sitewide-modal-faves-top|renter_signup" href="/renter/signup">Sign up</a> to save your favorite listings!</div>
+	      <div class="h1"><a data-tagged-trac="sitewide-modal-faves-top|renter_signup" href="index.php?option=com_rental&view=signup">Sign up</a> to save your favorite listings!</div>
 	      <div class="middle clearfix"> <strong>Your favorite listings in one place!</strong> Click the save button, save the listing. Simple. Unsave the listing by clicking the save button again. Still simple.
 	        <p></p>
 	      </div>
 	      <div class="formActions green">
-	        <div class="block"> <a data-tagged-trac="sitewide-modal-faves-bottom|renter_signup" class="button  large" href="/renter/signup"><span>Sign Up (it's FREE!)</span></a>
+	        <div class="block"> <a data-tagged-trac="sitewide-modal-faves-bottom|renter_signup" class="button  large" href="index.php?option=com_rental&view=signup"><span>Sign Up (it's FREE!)</span></a>
 	          <div class="clear"></div>
-	          <span class="block padTop5">Already have an account? <a class="bold" href="http://www.nakedapartments.com/login?return_to=http%3A%2F%2Fwww.nakedapartments.com%2Frental%2F734432-2-bedroom-e29th-kips-bay">Log in</a></span> </div>
+	          <span class="block padTop5">Already have an account? <a class="bold" href="index.php?option=com_rental&view=login">Log in</a></span> </div>
 	      </div>
 	    </div>
 	  </div>
 	  <!-- - - - SAVED SEARCHES  - - - - - -->
 	  <div id="savedSearchesModalContainer">
 	    <div id="md_saved_searches" class="basicModal clearfix mediumWide anon">
-	      <div class="h1"><a data-tagged-trac="sitewide-modal-saved-searches-top|renter_signup" href="/renter/signup">Sign up</a> to save your common searches!</div>
+	      <div class="h1"><a data-tagged-trac="sitewide-modal-saved-searches-top|renter_signup" href="index.php?option=com_rental&view=signup">Sign up</a> to save your common searches!</div>
 	      <div class="middle clearfix"> <strong>Save time: Save your searches</strong> Save searches by neighborhood, price, amenities, whatever. No need to 'select' everything again. </div>
 	      <div class="formActions green">
-	        <div class="block"> <a data-tagged-trac="sitewide-modal-saved-searches-bottom|renter_signup" class="button  large" href="/renter/signup"><span>Sign Up (it's FREE!)</span></a>
+	        <div class="block"> <a data-tagged-trac="sitewide-modal-saved-searches-bottom|renter_signup" class="button  large" href="index.php?option=com_rental&view=signup"><span>Sign Up (it's FREE!)</span></a>
 	          <div class="clear"></div>
-	          <span class="block padTop5">Already have an account? <a class="bold" href="http://www.nakedapartments.com/login?return_to=http%3A%2F%2Fwww.nakedapartments.com%2Frental%2F734432-2-bedroom-e29th-kips-bay">Log in</a></span> </div>
+	          <span class="block padTop5">Already have an account? <a class="bold" href="index.php?option=com_rental&view=login">Log in</a></span> </div>
 	      </div>
 	    </div>
 	  </div>
@@ -170,12 +171,12 @@ require_once dirname(__FILE__) .'/config.php';
 	  <!-- - - - REVIEWS  - - - - - -->
 	  <div id="reviewsModalContainer">
 	    <div id="md_reviews" class="basicModal clearfix mediumWide anon">
-	      <div class="h1"><a data-tagged-trac="sitewide-modal-reviews-top|renter_signup" href="/renter/signup">Sign up</a> to review agents!</div>
+	      <div class="h1"><a data-tagged-trac="sitewide-modal-reviews-top|renter_signup" href="index.php?option=com_rental&view=signup">Sign up</a> to review agents!</div>
 	      <div class="clearfix middle"> <strong>Know who you're dealing with</strong> Our review system helps renters assess agents before working with them. We require that renters sign up before submitting reviews to verify the legitimacy of all reviews. </div>
 	      <div class="formActions green">
-	        <div class="block"> <a data-tagged-trac="sitewide-modal-reviews-bottom|renter_signup" class="button  large" href="/renter/signup"><span>Sign Up (it's FREE!)</span></a>
+	        <div class="block"> <a data-tagged-trac="sitewide-modal-reviews-bottom|renter_signup" class="button  large" href="index.php?option=com_rental&view=signup"><span>Sign Up (it's FREE!)</span></a>
 	          <div class="clear"></div>
-	          <span class="block padTop5">Already have an account? <a class="bold" href="http://www.nakedapartments.com/login?return_to=http%3A%2F%2Fwww.nakedapartments.com%2Frental%2F734432-2-bedroom-e29th-kips-bay">Log in</a></span> </div>
+	          <span class="block padTop5">Already have an account? <a class="bold" href="index.php?option=com_rental&view=login">Log in</a></span> </div>
 	      </div>
 	    </div>
 	  </div>
@@ -184,7 +185,7 @@ require_once dirname(__FILE__) .'/config.php';
 	      <div class="h1">Sign up and save this listing!</div>
 	      <h2>Your saved listings in one place! </h2>
 	      <div class="bordered light clearfix">
-	        <div class="block marginTop5"> <a data-tagged-trac="modal-favorite-listing|renter_signup" class="button  large" href="/renter/signup"><span>Sign Up (it's FREE)</span></a> </div>
+	        <div class="block marginTop5"> <a data-tagged-trac="modal-favorite-listing|renter_signup" class="button  large" href="index.php?option=com_rental&view=signup"><span>Sign Up (it's FREE)</span></a> </div>
 	        <a id="closeModal" class="bold block padTop20" href="#">No, thanks</a> </div>
 	      <a class="bold" href="/renter/how-it-works">Learn more</a> about Naked Apartments </div>
 	  </div>
