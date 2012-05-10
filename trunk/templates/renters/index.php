@@ -189,7 +189,6 @@ require_once dirname(__FILE__) .'/config.php';
 	      <a class="bold" href="/renter/how-it-works">Learn more</a> about Naked Apartments </div>
 	  </div>
 	</div><!-- hidden -->
-	<div class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all ui-helper-hidden-accessible" id="ui-datepicker-div"></div>
 	<script src="<?php echo _TMPL_JS_URL_?>/functions.js" type="text/javascript"></script>
 </body>
 </html>
