@@ -49,6 +49,10 @@ require_once dirname(__FILE__) .'/config.php';
     <?php if($isListing):?>
     <?php endif;?>
     
+    <?php if($isRentalAgents):?>
+    <link rel="stylesheet" href="<?php echo _TMPL_CSS_URL_?>/hall-of-fame.css?<?php echo $sess?>" type="text/css" />
+    <?php endif;?>
+    
     <?php if($isListingDetail):?>
    	<script src="<?php echo _TMPL_JS_URL_?>/galleria.min.js?<?php echo $sess?>" type="text/javascript"></script>
 	<script src="<?php echo _TMPL_JS_URL_?>/galleria.classic.js?<?php echo $sess?>" type="text/javascript"></script>

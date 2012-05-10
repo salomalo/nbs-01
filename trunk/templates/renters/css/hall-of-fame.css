@@ -1,0 +1,111 @@
+/****************************************************************
+*
+* 	HALL OF FAME page styles
+*
+****************************************************************/  
+
+	#HOF.roundedBox {
+		position: relative;
+		padding: 20px 26px;
+		margin-top: 40px;
+    background-color: #eaf2f4;
+	}
+    
+  #HOF .roundedBox.light {
+  	margin-top: 10px;
+  	width: 894px;
+  	padding: 4px 0;
+  	background-image: none;
+    border: 1px solid #B3D4D7;
+		background-color: #F8FBFB}
+    
+  #HOF .roundedBox.light .block{
+  	padding: 10px 30px;
+  	border-right: 1px solid #daecee;}
+  	
+  #HOF .roundedBox.light .text{
+  	text-transform: uppercase;
+  	color: #75a2ab;
+  	padding: 5px 0;
+  	display: block;
+  	-moz-border-radius-topleft: 8px;
+  	-moz-border-radius-topright: 8px;
+  	-webkit-border-top-right-radius: 8px;
+  	-webkit-border-top-left-radius: 8px;
+		border-radius-topleft: 8px;
+		border-radius-topright: 8px;
+  	background-color: #daecee;
+  	font-size: 11px;
+  	text-align: center;}
+  	
+  #HOF .roundedBox.light .block.button{
+  	padding: 17px 0 10px 20px;
+  	border: 0}
+
+	#HOF #head{
+			float: left;
+			text-align: center;
+			width: 800px;
+			padding: 10px 0;
+			text-shadow: 0px 1px 1px #e6f3f8;
+			font-family: arial, sans-serif;}
+			
+	#HOF #logo {
+		width: 137px;
+		height: 137px;
+		float: left;
+		margin: -10px 30px 0 15px;
+		background: transparent url(../images/sprites/hall-of-fame.png) no-repeat 0 0;}
+
+	#HOF h1 {
+		font-size: 34px;
+		color: #39515a;}
+		
+	#HOF h2 {
+		color: #75a2ab;
+		font-weight: normal;
+		font-size: 17px;
+		line-height: 22px;}
+	
+	#HOF h3 {
+		color: #75a2ab;
+		text-align: center;
+		padding-top: 15px;
+		font-weight: normal;
+		font-size: 13px;
+		line-height: 17px;}
+
+	#HOF #betaTag {
+		width: 67px;
+		height: 67px;
+		display: block;
+		position: absolute;
+		top: 0;
+		right: 0;
+		background: transparent url(../images/sprites/icons-new.png) no-repeat right -865px;}
+	
+	.social {
+		margin-top: 10px;}
+		
+	#HOF .brokerCard .reviews .starsOff{
+		float: right}
+		
+	#HOF .brokerCard{
+			width: 260px;
+			margin-top: 20px;
+			border: 1px solid #b3d4d7;}
+			
+	#HOF 	.brokerCard .brokerPhoto{		
+			width: 100px;}
+			
+	#HOF 	.brokerCard .brokerPhoto img{		
+			max-height: 100px;
+			max-width: 100px;}
+			
+	#HOF .footnotes{
+		clear: left;
+		text-transform: uppercase;
+		padding-top: 20px;
+		color: #75A2AB;
+		text-shadow: 0 1px 1px #fff;
+		font-size: 9px; }
