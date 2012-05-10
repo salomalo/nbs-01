@@ -1254,7 +1254,7 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 var na = {};
 
 function ajax_loader() {
-  return '<img src="/images/ajax_loader.gif" height="32" width="32" />';
+  return '<img src="'+LIVE_URL+'/images/ajax_loader.gif" height="32" width="32" />';
 }
 
 function ajax_loader_centered() {

@@ -3,7 +3,7 @@
 <metadata>
 	<layout title="com_rental_login_view_default_title" option="com_rental_login_view_default_option">
 		<message>
-			<![CDATA[com_rental_login_view_default_desc]] >
+			<![CDATA[com_rental_login_view_default_desc]]>
 		</message>
 	</layout>
 </metadata>
