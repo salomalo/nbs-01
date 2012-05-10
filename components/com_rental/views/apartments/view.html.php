@@ -26,12 +26,14 @@ class RentalViewApartments extends JView
 	protected $items;
 	protected $pagination;
 	protected $categories;
+	protected $amenities;
 
 	function display($tpl = null)
 	{
 		$this->items		= $this->get('Items');
 		$this->pagination 	= $this->get('Pagination');
 		$this->categories	= $this->get('Categories');
+		$this->amenities	= $this->get('Amenities');
 		
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {

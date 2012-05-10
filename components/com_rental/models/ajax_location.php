@@ -35,18 +35,18 @@ class RentalModelAjax_Location extends JModel
 		$db			= $this->getDbo();
 		$query		= $db->getQuery(true);
 		
-		$post = JRequest::get('post');
-		
 		$result = new stdClass();
 		
-		if (!$post['location_id'])
+		$borough_id = JRequest::getVar('borough_id');
+		
+		if(!$borough_id)
 			return false;
 		
 		//get sub category
 		$query->select('*')
 				->from('#__categories')
 				->where('extension = "com_rental"')
-				->where('parent_id = ' . (int) $post['location_id'])
+				->where('parent_id = ' . (int) $borough_id)
 				->order('title')
 			;
 			
@@ -57,7 +57,7 @@ class RentalModelAjax_Location extends JModel
 		
 		$catid = array();
 		
-		$catid[] = $post['location_id'];
+		$catid[] = $borough_id;
 		
 		//get cat id
 		foreach ($cats as $cat)
@@ -77,7 +77,24 @@ class RentalModelAjax_Location extends JModel
 		$locations = $db->loadObjectList();
 		
 		$result->locations = $locations;
+		
+// 		var_dump($result);
 			
 		return $result;
+	}
+	
+	public function getBoroughInfo()
+	{
+		$borough_id = JRequest::getVar('borough_id');
+		
+		$db			= $this->getDbo();
+		$query		= $db->getQuery(true);
+		
+		$query->select('*')->from('#__categories')->where('id = ' . (int) $borough_id);
+		
+		$db->setQuery($query);
+		$borough = $db->loadObject();
+			
+		return $borough;
 	}
 }

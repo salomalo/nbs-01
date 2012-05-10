@@ -190,6 +190,11 @@ class RentalModelApartment extends JModelAdmin
 	
 	public function save($data)
 	{
+		if (is_array($data['pets']))
+			$data['pets'] = implode(',', $data['pets']);
+		else
+			$data['pets'] = '';
+		
 		$result = parent::save($data);
 		
 		$itemId = $this->getState($this->getName().'.id');

@@ -1677,7 +1677,7 @@ na.search.fancy_dropdowns_init = function() {
       return false;
     }
     neighborhood_dropdown.find('.selected').html('Loading...');
-    $.get('/listings/serp-neighborhood-dropdown/' + borough_id, function(html) {
+    $.get('index.php?option=com_rental&view=ajax_location&tmpl=component&borough_id=' + borough_id, function(html) {
       neighborhood_options.html(html);
       neighborhood_dropdown.fancyDropdown({multiple:true});
       if($('#parentNeighborhoods').length > 0)

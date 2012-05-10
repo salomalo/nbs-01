@@ -22,11 +22,13 @@ jimport('joomla.application.component.view');
 class RentalViewAjax_Location extends JView
 {
 	protected $items;
+	protected $boroughInfo;
 
 	function display($tpl = null)
 	{
 		// Initialise variables.
 		$this->items		= $this->get('Items');
+		$this->boroughInfo 	= $this->get('BoroughInfo');
 		
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {

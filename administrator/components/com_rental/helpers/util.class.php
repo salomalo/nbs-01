@@ -101,4 +101,36 @@ class JEUtil
 		
 		return $thumbFile;
 	}
+	
+	function getBedrooms()
+	{
+		$arr = array( 
+						1 => 'Studio', 
+						2 => 'Loft',
+						3 => '1br',
+						4 => '2br',
+						5 => '3br',
+						6 => '4br',
+						7 => '5br',
+						8 => '6br',
+						9 => '7br',
+						10 => '8br',
+				);
+		
+		return $arr;
+	}
+	
+	function getPetAllow()
+	{
+		$arr = array(
+						1 => 'Not Allowed',
+						2 => 'Pets Allow',
+						3 => 'Dogs',
+						4 => 'Cats',
+						5 => 'Small Dogs',
+						6 => 'Small Cats'
+				);
+		
+		return $arr;
+	}
 }

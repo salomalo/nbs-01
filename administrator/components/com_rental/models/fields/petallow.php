@@ -21,7 +21,7 @@ JFormHelper::loadFieldClass('list');
  * @subpackage	com_rental
  * @since		1.6
  */
-class JFormFieldAmenities extends JFormFieldList
+class JFormFieldPetAllow extends JFormFieldList
 {
 	/**
 	 * The form field type.
@@ -29,7 +29,7 @@ class JFormFieldAmenities extends JFormFieldList
 	 * @var		string
 	 * @since	1.6
 	 */
-	protected $type = 'Amenities';
+	protected $type = 'PetAllow';
 
 	/**
 	 * Method to get the field options.
@@ -42,20 +42,16 @@ class JFormFieldAmenities extends JFormFieldList
 		// Initialize variables.
 		$options = array();
 
-		$db		= JFactory::getDbo();
-		$query	= $db->getQuery(true);
+		$arrPetAllow = JEUtil::getPetAllow();
 		
-		$query->select('id As value, title As text');
-		$query->from('#__rental_amenities AS a');
-		$query->where('a.state = 1');
-
-		// Get the options.
-		$db->setQuery($query);
-		
-		$options = $db->loadObjectList();
-		
-		if ($db->getErrorMsg())
-			die($db->getErrorMsg());
+		foreach ($arrPetAllow as $key => $allow)
+		{
+			$option = new stdClass();
+			$option->value = $key;
+			$option->text = $allow;
+			
+			$options[] = $option;
+		}
 
 		return $options;
 	}
@@ -66,13 +62,19 @@ class JFormFieldAmenities extends JFormFieldList
 		
 		$options = self::getOptions();
 		
+		$value = array();
+		
+		if ($this->value)
+			$value = explode(',', $this->value);
+		
 		//get list checkbox
 		foreach ($options as $option)
 		{
-			$checked = (in_array($option->value, $this->value)) ? 'checked="checked"' : '';
+			
+			$checked = (in_array($option->value, $value)) ? 'checked="checked"' : '';
 			
 			$html .= '<li style="float: left; width: 195px; line-height: 23px;">
-						<input type="checkbox" name="'.$this->name.'[]" value="'.$option->value.'" '.$checked.' /> ' . $option->text . 
+						<input id="pets_'.$option->value.'" type="checkbox" name="'.$this->name.'[]" value="'.$option->value.'" '.$checked.' /> ' . $option->text . 
 					'</li>';
 		}
 		
@@ -81,3 +83,38 @@ class JFormFieldAmenities extends JFormFieldList
 		return $html;
 	}
 }
+?>
+
+<script type="text/javascript">
+<!--
+	window.addEvent('domready', function(){
+		$$('#pets_1, #pets_2').addEvent('click', function(){
+			_click(this);
+		});
+
+		if ($('pets_1').getProperty('checked'))
+		{
+			_click($('pets_1'));
+			
+		}
+		else
+		{
+			if ($('pets_2').getProperty('checked'))
+				_click($('pets_2'));
+		}
+	});
+
+	function _click(obj)
+	{
+		if (obj.checked)
+		{
+			$$('input[id*=pets]').set('disabled', true).set('checked', false);
+			obj.set('disabled', false).set('checked', true);
+		}
+		else
+		{
+			$$('input[id*=pets]').set('disabled', false).set('checked', false);
+		}
+	}
+//-->
+</script>

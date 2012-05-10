@@ -72,38 +72,6 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
 //<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 ?>
 
-
-<script>
-	jQuery(function($){
-		$('#location').change(function(){
-			var t = $(this);
-			
-			var link = 'index.php?option=com_rental&view=ajax_location&location=' + t.val();
-
-			
-		});
-		
-		$('#click-to-show').click(function(){
-			if ($('#location').val() == '')
-			{
-				alert('You must select location first');
-				return false;
-			}
-			
-			$('#container-location').show();
-		});
-		
-		$(document).click(function() {
-			$('#container-location').hide();
-		});
-		
-		$("#container-location, #click-to-show").click(function(e) {
-			e.stopPropagation(); // This is the preferred method.
-			return false;
-		});
-	});
-</script>
-
 <!-- BEGIN: filters -->
 <div class="curveBottom" id="searchWrapperOuter">
   <div class="curveBottom" id="searchWrapper">
@@ -151,36 +119,12 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
                 </div>
                 <div class="clear"></div>
                 <ul>
-                  <li>
-                    <input type="checkbox" value="1">
-                    Studio</li>
-                  <li>
-                    <input type="checkbox" value="2">
-                    Loft</li>
-                  <li>
-                    <input type="checkbox" value="3">
-                    1br</li>
-                  <li>
-                    <input type="checkbox" value="4">
-                    2br</li>
-                  <li>
-                    <input type="checkbox" value="5">
-                    3br</li>
-                  <li>
-                    <input type="checkbox" value="6">
-                    4br</li>
-                  <li>
-                    <input type="checkbox" value="7">
-                    5br</li>
-                  <li>
-                    <input type="checkbox" value="8">
-                    6br</li>
-                  <li>
-                    <input type="checkbox" value="9">
-                    7br</li>
-                  <li>
-                    <input type="checkbox" value="10">
-                    8br</li>
+                	 <?php 
+	                $arrBedrooms = JEUtil::getBedrooms();
+	                foreach ($arrBedrooms as $key => $bedroom):
+	                ?>
+                  <li><input type="checkbox" value="<?php echo $key; ?>"><?php echo $bedroom; ?></li>
+                  <?php endforeach; ?>
                 </ul>
               </div>
               <div class="clear"></div>
@@ -230,39 +174,9 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
                   </div>
                   <div class="clear"></div>
                   <ul id="amenities">
-                    <li>
-                      <input type="checkbox" value="12">
-                      Balcony</li>
-                    <li>
-                      <input type="checkbox" value="17">
-                      Dishwasher</li>
-                    <li>
-                      <input type="checkbox" value="1">
-                      Doorman</li>
-                    <li>
-                      <input type="checkbox" value="2">
-                      Elevator</li>
-                    <li>
-                      <input type="checkbox" value="8">
-                      Garage</li>
-                    <li>
-                      <input type="checkbox" value="6">
-                      Gym</li>
-                    <li>
-                      <input type="checkbox" value="14">
-                      In-Unit Laundry</li>
-                    <li>
-                      <input type="checkbox" value="3">
-                      Laundry Room</li>
-                    <li>
-                      <input type="checkbox" value="7">
-                      Outdoor Space</li>
-                    <li>
-                      <input type="checkbox" value="15">
-                      Parking</li>
-                    <li>
-                      <input type="checkbox" value="11">
-                      Terrace</li>
+                  	<?php foreach ($this->amenities as $amenity): ?>
+                    <li><input type="checkbox" value="<?php echo $amenity->id; ?>"><?php echo $amenity->title; ?></li>
+                    <?php endforeach; ?>
                   </ul>
                 </div>
                 <div class="clear"></div>
@@ -370,7 +284,7 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
               			<?php echo (int)$this->escape($item->bedrooms) . 'br , ' . $this->escape($item->retal_location_title) . ', $' . $this->escape($item->price); ?>
               		</a>
               	</span>
-                <div class="newCell listingDate"> about <?php echo $time; ?> hours <span class="calm">on site</span> </div>
+                <div class="newCell listingDate"> about <?php echo $time; ?> <span class="calm">on site</span> </div>
                 <div class="newCell brokerCont"> <a href="http://www.nakedapartments.com/a/profile/tina-he/5gq" title="View this broker's profile" class=" "><?php echo $item->agent; ?></a> <span class="noRating"></span> <span class="duplicates"><span class="dupes"><strong>3 other brokers</strong> offer a similar listing at this address</span></span> </div>
                 <div class="" data-id="734432">
                   <div class="newCell amenities"> Doorman, Elevator, Laundry Room, Small Dogs &amp; Cats </div>
@@ -394,7 +308,7 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
 			<?php
 		$map->printGMapsJS();
 		// 	showMap with auto zoom enabled
-		//$map->showMap(true);
+		$map->showMap(true);
 		?>
 		</div>
       </td>

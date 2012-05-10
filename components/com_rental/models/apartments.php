@@ -70,4 +70,24 @@ class RentalModelApartments extends JModelList
 		
 		return $result;
 	}
+	
+	public function getAmenities()
+	{
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+	
+		$query->select('a.*')
+				->from('#__rental_amenities a')
+				//->join('INNER', '#__rental_amenities a ON a.id = aa.amenities_id')
+				//->where('aa.apartment_id = ' . (int) $apartmentId)
+				->order('a.title');
+	
+		$db->setQuery($query);
+		$amenities = $db->loadObjectList();
+		
+		if ($db->getErrorMsg())
+			die($db->getErrorMsg());
+	
+		return $amenities;
+	}
 }
