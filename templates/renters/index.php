@@ -27,8 +27,12 @@ require_once dirname(__FILE__) .'/config.php';
     <?php else:?>
     <script type="text/javascript">
 		//<![CDATA[
+    	var LIVE_URL = '<?php echo JURI::base(true)?>';
+		<?php if($isBrokerSignup):?>
+		var NA_CONFIG = {"user_type":"broker"};
+		<?php else :?>
 		var NA_CONFIG = {"user_type":"renter"};
-		var LIVE_URL = '<?php echo JURI::base(true)?>';
+		<?php endif;?>		
 		//]]>
 	</script>
 	<link rel="stylesheet" href="<?php echo _TMPL_CSS_URL_?>/all.css" type="text/css" />
@@ -46,6 +50,13 @@ require_once dirname(__FILE__) .'/config.php';
     <script src="<?php echo _TMPL_JS_URL_?>/jquery.loader-min.js?<?php echo $sess?>" type="text/javascript"></script>
     <script src="<?php echo _TMPL_JS_URL_?>/step_signup.js?<?php echo $sess?>" type="text/javascript"></script>
     <?php endif;?>
+    
+    <?php if($isBrokerSignup):?>
+    <link rel="stylesheet" href="<?php echo _TMPL_CSS_URL_?>/signup.css?<?php echo $sess?>" type="text/css" />
+    <link rel="stylesheet" href="<?php echo _TMPL_CSS_URL_?>/pricing.css?<?php echo $sess?>" type="text/css" />
+    <script src="<?php echo _TMPL_JS_URL_?>/broker.js?<?php echo $sess?>" type="text/javascript"></script>
+    <script src="<?php echo _TMPL_JS_URL_?>/step_signup.js?<?php echo $sess?>" type="text/javascript"></script>
+    <?php endif;?>    
     
     <?php if($isListing):?>
     <?php endif;?>

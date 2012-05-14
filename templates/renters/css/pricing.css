@@ -1,0 +1,498 @@
+ /* feature block */
+ 
+ 	#features {
+		background: #fafafa url(../images/sprites/backgrounds.gif) no-repeat 175px -1277px;
+		border: 0px;
+		color:#777777;
+		-moz-border-radius: 12px;
+		-webkit-border: 12px; 
+		border-radius: 12px; 
+		font-size:12px;
+		line-height:18px;
+		border-bottom: 1px solid #f5f5f5;
+		margin:0px 0px 40px 0px;
+		padding:0 10px 0 0}
+
+  	 /* undoes widget ui css*/
+  	#features .ui-widget-content, #features ul.ui-helper-reset, #features .ui-state-active, #features .ui-widget-content .ui-state-active, #features first ui-state-default ui-corner-top, #features .ui-wudget-header, ul.ui-helper-reset {
+  		border: 0px;
+  		background-image:none}
+
+		.ui-state-default, .ui-widget-content .ui-state-default , ul.ui-helper-reset{ border: 0px; 
+			background-image: none}
+		
+  	#features ul#localNav{
+  		width: 183px;
+ 	 		float: left;
+  		background-color: #fafafa;
+  		padding: 77px 0 0 0;
+  		clear: left;
+  		list-style-type: none} 
+  		
+		#features ul#localNav  li a{
+			color: #888;
+			font-size: 12px;
+			font-family: arial, Helvetica;
+			background-color: #fafafa;
+			text-shadow: 0px 1px 1px #fff;
+			border-top: 1px solid #e7e7e7;
+			display: block;
+			width: 173px;
+			padding: 5px} 
+			
+		#features  ul#localNav li a.active, #features ul#localNav li.ui-state-active a{
+			text-decoration: none;
+			background-color: #f2f2f2;
+			color: #111;} 		
+    
+  
+/* feature content - screenshots, etc...*/
+  #features #content{
+  	float: left;
+  	padding: 30px 0 0 0;
+  	font-family: arial;
+  	width: 680px;
+  	margin-left: 30px} 
+  	
+  /* title, flags */
+  #features .head{
+  	margin-bottom: 10px} 
+  	
+  #features .head .planFlag{
+  	margin-top: -5px} 
+  	
+	#features #content h2{
+  	font-size: 28px;
+  	line-height: 31px;
+  	display: inline;
+  	letter-spacing: -1px;
+  	padding: 10px 10px 0px 0px;
+  	padding-left: 0px;
+  	color: #444}  
+  	
+  #features #content h3{
+  	font-size: 15px;
+		letter-spacing: normal;
+  	font-weight: normal;
+  	text-transform: none;
+  	color: #777}  
+  	
+
+  #features #content #featuredListings{
+	  height: 400px;
+  	background: url(../images/choosePlan/shots-featuredListings.jpg) no-repeat 15px bottom}  
+  	
+  #features #content #socialSharing{
+	  height: 400px;
+  	background: url(../images/choosePlan/shots-socialSharing.png) no-repeat -2px 105px}  
+  	
+  #features #content #cl{
+	  height: 400px;
+  	background: url(../images/choosePlan/shots-cl.png) no-repeat 0 100px;}  
+  	
+  #features #content #syndicate{
+	  height: 400px;
+  	background: url(../images/choosePlan/shots-syndication.png) no-repeat 70px 95px}  
+  	
+  #features #content #contact{
+	  height: 400px;
+  	background: url(../images/choosePlan/shots-contact.png) no-repeat 30px 90px}  
+  	
+  #features #content #exclusive{
+	  height: 400px;
+  	background: url(../images/choosePlan/shots-exclusive.png) no-repeat -2px bottom}  
+  
+  #features #content #search{
+	  height: 400px;
+  	background: url(../images/choosePlan/shots-search.png) no-repeat -2px bottom}  
+  	
+  #features #content #sponsor{
+	  height: 400px;
+  	background: url(../images/choosePlan/shots-sponsor.png) no-repeat -2px 100px}  
+  	
+  #features #content #renters{
+	  height: 400px;
+  	background: url(../images/choosePlan/shots-renters.png) no-repeat -2px 100px}  	
+  	
+  #features #content #commitment{
+	  height: 400px;
+  	background: url(../images/choosePlan/shots-commitment.png) no-repeat 60px 130px}  
+  		
+		
+		#account #features  .clear{
+			line-height: 10px}
+		
+		#features.contentBlock {
+			border-top: 0px;
+			margin-top: -10px}
+
+			#features .textBlock{
+				margin: 230px 0px 0px 30px;
+				width: 220px;
+				color: #777777;
+				font-size: 13px;
+				float: left}
+				
+			#features .textBlock.first{
+				margin-right: 100px}
+        
+
+  /* plan flags*/
+  .flags{
+  	display: inline-table;
+  	color: #999}
+	 
+	 .planFlag{
+		padding: 3px 5px;
+		margin-right: 1px;
+		-moz-border-radius: 3px;
+		-webkit-border-radius: 3px;
+		border-radius: 3px}
+	 a.planFlag{
+	 	 	line-height: 20px;
+			font-size: 9px;
+			text-transform: uppercase;
+			font-weight: normal;
+			font-family: arial, sans-serif;
+			color: #fff; }
+
+	#faq .floatRight{	
+		margin-top: -2px} 
+		
+	#faq a.planFlag{	
+		font-size: 9px;
+		font-weight: normal} 
+	
+	.planFlag.plus.active,.planFlag.premium.active, .planFlag.all.active{
+		text-decoration: none;
+		color: #fff;
+		background-color: #fe901f} 
+	
+	.planFlag.all{
+		background-color:#fff ;
+		border: 1px solid #e4e4e4}  
+	
+	a.planFlag.all{
+		color:#999 }  
+	
+	.planFlag.plus{
+		background-color:#c4c4c4 }  
+	
+	.planFlag.premium{
+		background-color:#a1a1a1}  
+
+
+/* pricing table */
+        
+	#pricingTable{
+	  margin: 40px 0px 30px;
+	  position: relative}
+	  
+	#pricingTable #best{
+	  background: url(../images/sprites/pricing.gif) no-repeat 10px -1187px;
+	  position: absolute;
+	  top: -23px;
+	  left: 340px}
+	  
+#pricing .note{
+    font-size: 12px;
+    line-height: 16px;
+    display: block;
+    text-shadow: none;
+    text-align: left;
+    padding: 10px 15px}
+
+table#pricing{
+		width: 770px;
+		margin-left: 70px;
+    padding: 0px 0px 10px 0px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #689642;
+    text-shadow: 0px 1px #fff;
+    font-family: arial, verdana}
+
+ #pricing h2{
+		font-weight: bold;
+		font-size: 40px;
+		line-height: 40px;
+		letter-spacing: 1px;
+		display: inline;
+        vertical-align:middle}
+    
+h3{
+		text-transform: uppercase;
+		font-weight: bold;
+		font-size: 12px;
+		letter-spacing: 1px}
+
+#pricing h4{
+		font-weight: normal;
+		font-size: 11px;
+		letter-spacing: 1px;
+		display: inline}
+		
+#pricing h5{
+		font-weight: normal;
+		font-size: 14px;
+		color: #111}
+
+h3 em{
+            vertical-align: 5%}
+		
+/* plan 1 header styles */
+		
+    .plan1 h2{
+        color: #fff; 
+    		text-shadow: 0px 1px 3px #2b4416 }
+    
+    .plan1 h3{
+        color: #467221; 
+    		text-shadow: 0px 1px #c9e6b1}    
+    
+    .plan1  h4, .plan1  h5{
+        color: #6c9a46; 
+    		text-shadow: 0px 1px #a1c881}
+		
+ 
+/* plan 2 header styles */
+		
+	.plan2 h2{
+		color: #fff; 
+		font-size: 45px;
+		text-shadow: 0px 1px 3px #244a1a }
+	
+	.plan2 h3{
+	color: #314a1c; 
+	font-size: 13px;
+	text-shadow: 0px 1px #adcf90}
+	
+	.plan2  h4, .plan2  h5{
+		color: #3d6f2d; 
+		text-shadow: 0px 1px #80b071}
+	
+	
+/* plan 3 header styles */	
+	
+	.plan3 h2{
+		color: #fff; 
+		text-shadow: 0px 1px 3px #133d2a }
+	
+	.plan3 h3{
+		color: #467258; 
+		text-shadow: 0px 1px #adcf90}
+	
+	.plan3  h4, .plan3  h5{
+		color: #346c5d; 
+		text-shadow: 0px 1px #76a89a}
+	
+	#pricing tr.featureTooltip.active td{
+		border-top: 1px solid #fff;
+		border-bottom: 1px solid #fff;
+		cursor: pointer}
+	
+	#pricing tr.featureTooltip.active td.info{
+		background-color:  #f2fae8;
+		border-bottom: none;
+		border-top: 1px solid #E8F4DE}
+	
+	#pricing tr.featureTooltip.active td.info .calm{
+		color: #888}
+
+
+/* table styles */
+
+    #pricing th{
+        -moz-border-radius-topright: 20px;
+         -moz-border-radius-topleft: 20px;
+        -webkit-border-top-right-radius:20px;
+        -webkit-border-top-left-radius:20px;
+        border-right: 1px solid #fff;
+        padding: 5px 10px 10px 10px;
+        text-align: center}
+            
+    #pricing th.plan{
+		width: 230px}
+		
+   #pricing th.best{
+		width: 250px}
+
+   #pricing th.blank{
+		background-color: #fff}
+        
+   #pricing tr.buttons .blank{
+		background-color: #fff;
+		border-top: 1px solid #E8F4DE}
+    		
+   #pricing td .number{   
+		font-size: 22px;	  
+	  color: #2c4f10;
+	  font-weight: bold;
+		line-height: 22px}
+		
+    #pricing td.info{
+			text-align: left;
+			background-color: #fff;
+			font-size: 16px;
+			color: #444;
+			text-shadow: 0px;
+			padding-left: 5px;
+			border-top: 1px solid #E8F4DE}
+		#pricing td.info .calm{
+      font-size: 12px;
+      color: #a2a2a2;
+      line-height: 11px;
+      display: block}
+
+    #pricing td{
+			height: 50px;
+			font-size: 16px;
+			font-weight: bold;
+			border-right: 1px solid #fff;
+			text-align: center;
+			vertical-align: middle}  
+        
+    #pricing tr.buttons{
+        height: 80px} 
+        
+/* call out */
+
+	.callout{
+		background: #fff url(../images/sprites/icons-new.png) no-repeat 0 -376px;
+		padding: 0 0 0 20px;
+		font-size: 10px;
+		line-height: 14px;
+		color: #888;}
+		
+	.callout#listingLimit{
+		position: absolute;
+		right: 15px;
+		width: 70px;
+		top: 110px}
+        
+/* creates the th backgrounds*/  
+                
+	th.plan1{
+		background: url(../images/sprites/pricing.gif) repeat-x right -4px}
+	
+	th.plan2{
+		background: url(../images/sprites/pricing.gif) repeat-x 0 -148px}    
+	
+	th.plan3{
+		background: url(../images/sprites/pricing.gif) repeat-x 0 -298px}
+    
+    
+    /* creates the blank row to extend the "best value" plan*/ 
+            
+	#pricing tr.extra td{
+		height: 25px}
+	
+	#pricing td.best{
+		-moz-border-radius-bottomleft: 20px;
+		-moz-border-radius-bottomright: 20px;
+		-webkit-border-bottom-left-radius: 20px;
+		-webkit-border-bottom-right-radius: 20px;
+		border-radius-bottomleft: 20px;
+		border-radius-bottomright: 20px}
+            
+
+ /* creates cell bg, and shadow left and right */          
+
+	#pricing tr {
+		background-color: #f2f9eb}
+	
+	#pricing tr.nobg {
+		background-color:transparent}
+	
+	#pricing td.dark {
+		background: #e8f4de url(../images/sprites/pricing.gif) no-repeat right -812px;
+		border-top: 1px solid transparent;
+		border-bottom: 1px solid transparent}
+	
+	
+	#pricing td.light {
+		background: #f2f9eb url(../images/sprites/pricing.gif) no-repeat right -891px;
+		border-top: 1px solid transparent;
+		border-bottom: 1px solid transparent}
+
+
+
+    /* creates the pop column */
+
+        #pricing td.pop{   
+        		background-color: #dae9d6;
+        		border-top: 1px solid transparent;
+        		border-bottom: 1px solid transparent}
+        
+        #pricing td.dark.pop{   
+        		background: none #cbe0c5;
+        		border-top: 1px solid transparent;
+        		border-bottom: 1px solid transparent}
+    		
+    
+    /* creates the button cells */
+    
+        #pricing tr.buttons{
+        background-color: #fff}
+        
+        #pricing tr.buttons td .small{
+        font-size: 11px;
+        color: #467221;
+         text-shadow: none;
+        font-style: italic}
+        
+
+    /* creates the button cell colors */
+        td.plan1{
+            background: #b9de9c url(../images/sprites/pricing.gif) no-repeat right -988px;
+            -moz-border-radius-bottomleft: 20px;
+            -webkit-border-bottom-left-radius: 20px;
+            border-radius-bottomleft: 20px; }
+            
+        td.plan2 {
+            color: #51775f;
+            text-shadow: 0px 1px #b2d7c0;
+            background-color: #8bbc7f}
+        
+        td.plan3 {
+            background: #89ba9b url(../images/sprites/pricing.gif) no-repeat 0px -1071px;
+            -moz-border-radius-bottomright: 20px;
+            -webkit-border-bottom-right-radius: 20px;
+            color: #51775f;
+            text-shadow: 0px 1px #b2d7c0;
+            border-radius-bottomright: 20px}
+
+     td.plan1 a,  td.plan2 a,  td.plan3 a{
+            background: url(../images/sprites/pricing.gif) no-repeat 15px -605px;
+            height: 48px;
+            line-height: 40px;
+            display: block;
+            cursor: pointer}
+        
+         td.plan1 a{
+              background: url(../images/sprites/pricing.gif) no-repeat 30px -469px}
+                
+        td.plan1 a.active{
+        	text-decoration: none;
+					background: url(../images/sprites/pricing.gif) no-repeat 30px -517px}
+         
+         td.plan2 a{
+              background: url(../images/sprites/pricing.gif) no-repeat 45px -574px}
+        
+        td.plan2 a.active{
+        	text-decoration: none;
+					background: url(../images/sprites/pricing.gif) no-repeat 45px -622px}
+        
+        td.plan3 a{
+              background: url(../images/sprites/pricing.gif) no-repeat 30px -679px}
+                    
+         td.plan3 a.active{
+         		text-decoration: none;
+            background: url(../images/sprites/pricing.gif) no-repeat 30px -727px}
+                    
+        #pricing td.current{
+            font-size: 17px; 
+            vertical-align: middle}
+            
