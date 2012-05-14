@@ -34,6 +34,7 @@ if($active) $pageclass[] = "p_".$active->alias;
 
 $option = JRequest::getCmd('option');
 $view = JRequest::getCmd('view');
+$layout = JRequest::getCmd('layout');
 
 $isHomePage = (isset($active->home) && $active->home >=1)?true:false;
 $isLoginPage = (false)?true:false; //TODO
@@ -45,12 +46,14 @@ $isListingDetail = ($option=='com_rental'&& $view=='apartment') ? true : false;
 $isRentalAgents = ($option=='com_rental'&& $view=='rentalagents') ? true : false;
 
 $isRenterSignup = ($option=='com_rental'&& $view=='createprofile') ? true : false;
+$isBrokerSignup = ($option=='com_rental'&& $view=='broker' && in_array($layout, array('signup','choose-plan'))) ? true : false;
 
 if($isHomePage) $pageId ='id="home"';
 if($isLoginPage) $pageId ='id="login"';
 if($isListingDetail) $pageId ='id="listingDetail"';
 
 if($isRenterSignup) {$pageId ='id="renter_signup"'; $pageclass[]="narrow";}
+if($isBrokerSignup) {$pageId ='id="broker_signup"'; }
 
 
 $pageclass = trim(implode(' ', $pageclass));
