@@ -123,7 +123,7 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
 	                $arrBedrooms = JEUtil::getBedrooms();
 	                foreach ($arrBedrooms as $key => $bedroom):
 	                ?>
-                  <li><input type="checkbox" value="<?php echo $key; ?>"><?php echo $bedroom; ?></li>
+                  <li><input type="checkbox" name="jform[bedroom][] value="<?php echo $key; ?>"><?php echo $bedroom; ?></li>
                   <?php endforeach; ?>
                 </ul>
               </div>
@@ -134,21 +134,21 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
         </div>
         <div class="lastBox">
           <label>Rent</label>
-          <input type="text" size="6" name="min_rent" id="minRent" default="$" class="idleField">
+          <input type="text" size="6" name="jform[min_rent]" id="minRent" default="$" class="idleField">
           to </div>
         <div class="searchBox wide">
           <label>&nbsp;</label>
-          <input type="text" size="6" name="max_rent" id="maxRent" default="$" class="idleField">
+          <input type="text" size="6" name="jform[max_rent]" id="maxRent" default="$" class="idleField">
         </div>
         <div class="searchBox wide">
           <label>I want to move by</label>
           <div style="width: 125px;">
-            <input type="text" size="13" name="move_date" id="dateAvailable" default="" class="w16em dateformat-m-sl-d-sl-Y text hasDatepicker idleField">
+            <input type="text" size="13" name="jform[move_date]" id="dateAvailable" default="" class="w16em dateformat-m-sl-d-sl-Y text hasDatepicker idleField">
           </div>
         </div>
         <div id="searchBoxRenter"> <a class="button search submitButton" href="#"><span>Search</span></a>
           <div class="clear"></div>
-          <a class="close" href="/renter/listings/search">clear</a> </div>
+          <a class="close" href="<?php echo JRoute::_('index.php?option=com_rental&view=apartments'); ?>">clear</a> </div>
       </div>
       
       <!-- filters -->
@@ -156,10 +156,10 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
       <fieldset class="searchFilters" id="renterFilters">
         <div class="container1">
           <div class="searchBox">
-            <input type="checkbox" value="1" name="photos" id="photos" class="field text">
+            <input type="checkbox" value="1" name="jform[photos]" id="photos" class="field text">
             Must have photos </div>
           <div class="searchBox">
-            <input type="checkbox" value="1" name="no_fee" id="no_fee" class="field text">
+            <input type="checkbox" value="1" name="jform[no_fee]" id="no_fee" class="field text">
             No fee only </div>
         </div>
         <div class="container2">
@@ -175,7 +175,7 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
                   <div class="clear"></div>
                   <ul id="amenities">
                   	<?php foreach ($this->amenities as $amenity): ?>
-                    <li><input type="checkbox" value="<?php echo $amenity->id; ?>"><?php echo $amenity->title; ?></li>
+                    <li><input type="checkbox" name="jform[amenity][]" value="<?php echo $amenity->id; ?>"><?php echo $amenity->title; ?></li>
                     <?php endforeach; ?>
                   </ul>
                 </div>
@@ -196,16 +196,16 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
                   <div class="clear"></div>
                   <ul>
                     <li>
-                      <input type="checkbox" value="dogs">
+                      <input type="checkbox" value="jform[dogs]">
                       Dogs Ok</li>
                     <li>
-                      <input type="checkbox" value="cats">
+                      <input type="checkbox" value="jform[cats]">
                       Cats Ok</li>
                   </ul>
                 </div>
                 <div class="clear"></div>
               </div>
-              <input type="hidden" value="" name="pets" id="pets">
+              <input type="hidden" value="" name="jform[pets]" id="pets">
             </div>
           </div>
         </div>
