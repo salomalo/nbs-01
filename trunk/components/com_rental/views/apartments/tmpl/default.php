@@ -73,6 +73,7 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
 ?>
 
 <!-- BEGIN: filters -->
+<form name="frm-filter" method="post" action="<?php echo JRoute::_('index.php?option=com_rental&view=apartments&Itemid=' . JRequest::getInt('Itemid')); ?>">
 <div class="curveBottom" id="searchWrapperOuter">
   <div class="curveBottom" id="searchWrapper">
     <form method="get" action="/renter/listings/search" enctype="application/x-www-form-urlencoded" id="search">
@@ -148,7 +149,7 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
         </div>
         <div id="searchBoxRenter"> <a class="button search submitButton" href="#"><span>Search</span></a>
           <div class="clear"></div>
-          <a class="close" href="<?php echo JRoute::_('index.php?option=com_rental&view=apartments'); ?>">clear</a> </div>
+          <a class="close" href="<?php echo JRoute::_('index.php?option=com_rental&view=apartments&Itemid='.JRequest::getInt('Itemid')); ?>">clear</a> </div>
       </div>
       
       <!-- filters -->
@@ -214,6 +215,7 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
     </form>
   </div>
 </div>
+</form>
 <!-- END: filters -->
 <div class="clear"></div>
 
