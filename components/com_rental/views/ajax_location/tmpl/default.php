@@ -23,7 +23,7 @@ $items = $this->items;
 		<div class="floatLeft">
 			<ol>
 				<?php foreach ($items->sub_category as $cat): ?>
-				<li data-type="parent"><input type="checkbox" value="<?php echo $cat->id; ?>"
+				<li data-type="parent"><input type="checkbox" name="jform[catid]" value="<?php echo $cat->id; ?>"
 					data-type="parent" /> <?php echo $cat->title; ?></li>
 				<?php endforeach; ?>
 			</ol>
@@ -36,7 +36,7 @@ $items = $this->items;
 		<div class="neighborhoodOptionColumn">
 			<ul>
 				<?php foreach ($items->locations as $loc): ?>
-				<li><input type="checkbox" value="<?php echo $loc->id; ?>" data-type="child"
+				<li><input type="checkbox" name="jform[location][]" value="<?php echo $loc->id; ?>" data-type="child"
 					data-parent-ids="~<?php echo $loc->catid; ?>" /> <?php echo $loc->title; ?></li>
 				<?php endforeach; ?>
 			</ul>
