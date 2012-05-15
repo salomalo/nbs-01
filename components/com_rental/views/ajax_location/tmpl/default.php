@@ -23,7 +23,7 @@ $items = $this->items;
 		<div class="floatLeft">
 			<ol>
 				<?php foreach ($items->sub_category as $cat): ?>
-				<li data-type="parent"><input type="checkbox" name="jform[catid]" value="<?php echo $cat->id; ?>"
+				<li data-type="parent"><input type="checkbox" name="jform[catid][]" value="<?php echo $cat->id; ?>"
 					data-type="parent" /> <?php echo $cat->title; ?></li>
 				<?php endforeach; ?>
 			</ol>
