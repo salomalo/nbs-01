@@ -30,5 +30,5 @@ $Itemid = JRequest::getInt('Itemid');
     </div>
   </div>
   <div class="clear"></div>
-  <div class="oops curve3"><a href="/broker/choose-plan">Landlords, Brokers &amp; Agents: Sign Up here</a></div>
+  <div class="oops curve3"><a href="index.php?option=com_rental&view=broker&layout=choose-plan">Landlords, Brokers &amp; Agents: Sign Up here</a></div>
 </div>
