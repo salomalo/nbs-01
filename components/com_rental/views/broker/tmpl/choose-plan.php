@@ -19,7 +19,7 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 <div class="curveTop" id="main">
   <div class="headMessage"> <span class="contactUs">
     <h5>Questions?</h5>
-    <a href="/about/faq">Help/FAQs</a> <span class="veryCalm">|</span> <a href="/about/feedback_form" class="feedbackBox cboxElement">Email us</a> | 646-504-2787 </span>
+    <a href="/about/faq">Help/FAQs</a> <span class="veryCalm">|</span> <a href="index.php?option=com_rental&view=about&layout=feedback-form&format=raw" class="feedbackBox cboxElement">Email us</a> | 646-504-2787 </span>
     <h1 class="arial">Features, Pricing and Signup</h1>
     <h2 class="arial">Get started in under two minutes!</h2>
     <div class="clear"></div>
@@ -141,7 +141,7 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
   <a name="planTable"></a>
   <div class="sectionTitle"><span class="calm">~</span> Plan Pricing &amp; Signup <span class="calm">~</span></div>
   <div id="pricingTable">
-    <div id="best"><img width="215" height="43" src="/images/home/blank.gif"></div>
+    <div id="best"><img width="215" height="43" src="<?php echo JURI::base(true)?>/images/blank.gif"></div>
     <table id="pricing">
       <thead>
         <tr class="nobg">
@@ -209,9 +209,9 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
           <td class="dark ">Neighborhood Sponsor</td>
         </tr>
         <tr class="buttons">
-          <td class="plan1"><a href="/broker/signup?plan_id=10">&nbsp;</a></td>
-          <td rowspan="2" class="plan2 best"><a href="/broker/signup?plan_id=11">&nbsp;</a></td>
-          <td class="plan3"><a href="/broker/signup?plan_id=16">&nbsp;</a></td>
+          <td class="plan1"><a href="index.php?option=com_rental&view=broker&layout=signup&plan_id=10">&nbsp;</a></td>
+          <td rowspan="2" class="plan2 best"><a href="index.php?option=com_rental&view=broker&layout=signup&plan_id=11">&nbsp;</a></td>
+          <td class="plan3"><a href="index.php?option=com_rental&view=broker&layout=signup&plan_id=16">&nbsp;</a></td>
         </tr>
         <tr class="extra nobg">
           <td class="blank"></td>
@@ -282,7 +282,7 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
       </div>
       <div class="block">
         <h3>How do I create listings?</h3>
-        <p>You can either manually create your ads using our easy upload form; or, if your company has a listings feed, we can use that to automatically import your listings. (<a href="/about/feedback_form" class="feedbackBox cboxElement">contact us</a> for help with this.)</p>
+        <p>You can either manually create your ads using our easy upload form; or, if your company has a listings feed, we can use that to automatically import your listings. (<a href="index.php?option=com_rental&view=about&layout=feedback-form&format=raw" class="feedbackBox cboxElement">contact us</a> for help with this.)</p>
       </div>
       <div class="block">
         <h3>What are "active" and "inactive" listings</h3>
@@ -324,7 +324,7 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
       </div>
     </div>
     <div class="clear"></div>
-    <div id="help"> If you have any other questions, call us at <strong>646-504-2787</strong> or <a href="/about/feedback_form" class="feedbackBox cboxElement">Email Us</a>. </div>
+    <div id="help"> If you have any other questions, call us at <strong>646-504-2787</strong> or <a href="index.php?option=com_rental&view=about&layout=feedback-form&format=raw" class="feedbackBox cboxElement">Email Us</a>. </div>
   </div>
   <!--close faq --> 
 </div>

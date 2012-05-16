@@ -19,7 +19,7 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 <div id="main">
   <div class="headMessage"> <span class="contactUs">
     <h5>Questions?</h5>
-    <a href="/about/faq/" class=" ">Help/FAQs</a> <span class="veryCalm">|</span> <a href="/about/feedback_form" class="feedbackBox cboxElement">Email us</a> <span class="veryCalm">|</span> <strong>646-504-2787</strong> </span>
+    <a href="/about/faq/" class=" ">Help/FAQs</a> <span class="veryCalm">|</span> <a href="index.php?option=com_rental&view=about&layout=feedback-form&format=raw" class="feedbackBox cboxElement">Email us</a> <span class="veryCalm">|</span> <strong>646-504-2787</strong> </span>
     <h1>Create your Profile</h1>
     <h2>Just a few questions so we know who you are.</h2>
     <div class="clear"></div>
