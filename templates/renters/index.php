@@ -101,6 +101,7 @@ require_once dirname(__FILE__) .'/config.php';
   			<?php if(($isListing || $isListingDetail) && $this->countModules('siteNav')):?>
   			<jdoc:include type="modules" name="siteNav" />
   			<?php endif;?>
+  			
   		</div><!-- close masthead -->
   		<div class="clear"></div>
   		
@@ -150,7 +151,7 @@ require_once dirname(__FILE__) .'/config.php';
  		 
 	</div><!-- close wrapper -->
 	<div id="feedback">
-  		<a rel="nofollow" href="/about/feedback_form" class="feedbackBox cboxElement"><img src="<?php echo _TMPL_IMG_URL_?>/buttons/feedback.gif"></a>
+  		<a rel="nofollow" href="index.php?option=com_rental&view=about&layout=feedback-form&format=raw" class="feedbackBox cboxElement"><img src="<?php echo _TMPL_IMG_URL_?>/buttons/feedback.gif"></a>
 	</div>
 	
 	<div class="hidden"> 

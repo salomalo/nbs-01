@@ -11,9 +11,9 @@ defined('_JEXEC') or die;
 ?>
 <div class="clearfix" id="feature">
   <span class="plug"></span>
-    <h2><a href="/rental-agents" class=" ">Find and work with the top <br> agents in NYC!</a></h2>
+    <h2><a href="index.php?option=com_rental&view=rentalagents" class=" ">Find and work with the top <br> agents in NYC!</a></h2>
     <p>We've created a Hall of Fame of the best agents on our site.</p>
     <div class="action">
-    <a class="btnHtml big grey bold" href="/rental-agents">Find your match!</a>
+    <a class="btnHtml big grey bold" href="index.php?option=com_rental&view=rentalagents">Find your match!</a>
     </div>
 </div>

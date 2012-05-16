@@ -2361,7 +2361,7 @@ $(document).ready(function() {
   });
   
   $('#benefits span.block, #benefits h2').click(function() {
-    window.location = '/renter/how-it-works';
+    window.location = 'index.php?option=com_rental&view=renter&layout=how-it-works';
     return false;
   });
   

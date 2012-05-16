@@ -50,11 +50,11 @@ defined('_JEXEC') or die;
       </li>
       
       <li class="link ">
-        <a href="/renter/listings/search" class="btnHtml grey big">Search for apartments</a>
+        <a href="index.php?option=com_rental&view=apartment" class="btnHtml grey big">Search for apartments</a>
       </li>
       
       <li class="link right">
-        <a href="/renter/how-it-works" class="btnHtml grey big">Take a quick tour</a>
+        <a href="index.php?option=com_rental&view=renter&layout=how-it-works" class="btnHtml grey big">Take a quick tour</a>
       </li>
     </ul>
   </div><!--end benefits-->
