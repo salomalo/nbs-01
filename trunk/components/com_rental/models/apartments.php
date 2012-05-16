@@ -37,6 +37,8 @@ class RentalModelApartments extends JModelList
 		
 		$post = JRequest::get('post');
 		
+		#var_dump($post); die;
+		
 		$data = isset($post['jform']) ? $post['jform'] : array();
 		
 		$query->select(
@@ -80,10 +82,10 @@ class RentalModelApartments extends JModelList
 		}
 		
 		if (isset($data['min_rent']) && intval($data['min_rent']) > 0)
-			$query->where('a.price >= ' . int($data['min_rent']));
+			$query->where('a.price >= ' . intval($data['min_rent']));
 		
 		if (isset($data['max_rent']) && intval($data['max_rent']) > 0)
-			$query->where('a.price <= ' . int($data['min_rent']));
+			$query->where('a.price <= ' . intval($data['max_rent']));
 		
 		if (isset($data['amenity']) && !empty($data['amenity']))
 		{
