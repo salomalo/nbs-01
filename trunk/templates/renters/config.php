@@ -39,7 +39,7 @@ $layout = JRequest::getCmd('layout');
 $isHomePage = (isset($active->home) && $active->home >=1)?true:false;
 $isLoginPage = (false)?true:false; //TODO
 
-$isLoginPage = ($option=='com_rental'&&( $view=='signup' || $view=='login')) ? true : false;
+$isLoginPage = ($option=='com_rental'&&( $view=='signup' || $view=='login') || $layout=='signup' || $layout=='login') ? true : false;
 //option=com_rental&view=apartment
 $isListing = ($option=='com_rental'&& $view=='apartments') ? true : false;
 $isListingDetail = ($option=='com_rental'&& $view=='apartment') ? true : false;
@@ -48,9 +48,12 @@ $isRentalAgents = ($option=='com_rental'&& $view=='rentalagents') ? true : false
 $isRenterSignup = ($option=='com_rental'&& $view=='createprofile') ? true : false;
 $isBrokerSignup = ($option=='com_rental'&& $view=='broker' && in_array($layout, array('signup','choose-plan'))) ? true : false;
 
+$isTourpage = ($option=='com_rental'&& $view=='renter' && $layout=='how-it-works') ? true: false;
+
 if($isHomePage) $pageId ='id="home"';
 if($isLoginPage) $pageId ='id="login"';
 if($isListingDetail) $pageId ='id="listingDetail"';
+if($isTourpage) $pageId ='id="tour"';
 
 if($isRenterSignup) {$pageId ='id="renter_signup"'; $pageclass[]="narrow";}
 if($isBrokerSignup) {$pageId ='id="broker_signup"'; }

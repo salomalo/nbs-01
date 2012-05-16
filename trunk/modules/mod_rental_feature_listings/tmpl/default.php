@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
         <div class="title bold">1br</div>
         <div class="neighborhood">Chelsea</div>
       </div>
-      <a class=" " href="http://www.nakedapartments.com/rental/728295-1-bedroom-west-21-street-chelsea">
+      <a class=" " href="/rental/728295-1-bedroom-west-21-street-chelsea">
         <img src="http://s3.amazonaws.com/nakedapartments/images/8361292/thumb.PNG?1336160898" alt="1br, Chelsea, $4,700">
       </a>
     </li>
@@ -27,7 +27,7 @@ defined('_JEXEC') or die;
         <div class="title bold">3br</div>
         <div class="neighborhood">Gramercy</div>
       </div>
-      <a href="http://www.nakedapartments.com/rental/733071-3-bedroom-1st-avenue-gramercy">
+      <a href="/rental/733071-3-bedroom-1st-avenue-gramercy">
         <img src="http://s3.amazonaws.com/nakedapartments/images/8595594/thumb.jpg?1336431346" alt="3br, Gramercy, $4,600">
       </a>
     </li>
@@ -38,7 +38,7 @@ defined('_JEXEC') or die;
         <div class="title bold">3br</div>
         <div class="neighborhood">Gramercy</div>
       </div>
-      <a href="http://www.nakedapartments.com/rental/733090-3-bedroom-1st-avenue-gramercy">
+      <a href="/rental/733090-3-bedroom-1st-avenue-gramercy">
         <img src="http://s3.amazonaws.com/nakedapartments/images/8595623/thumb.jpg?1336431309" alt="3br, Gramercy, $3,900">
       </a>
     </li>
@@ -54,7 +54,7 @@ defined('_JEXEC') or die;
         <div class="title bold">1br</div>
         <div class="neighborhood">Upper East Side</div>
       </div>
-      <a class=" " href="http://www.nakedapartments.com/rental/736585-1-bedroom-east-88th-street-upper-east-side">
+      <a class=" " href="/rental/736585-1-bedroom-east-88th-street-upper-east-side">
         <img src="http://s3.amazonaws.com/nakedapartments/images/8705628/thumb.JPG?1336574416" alt="1br, Upper East Side, $1,950">
       </a>
     </li>
@@ -65,7 +65,7 @@ defined('_JEXEC') or die;
         <div class="title bold">3br</div>
         <div class="neighborhood">Murray Hill</div>
       </div>
-      <a href="http://www.nakedapartments.com/rental/736649-3-bedroom-east-33rd-street-murray-hill">
+      <a href="/rental/736649-3-bedroom-east-33rd-street-murray-hill">
         <img src="http://s3.amazonaws.com/nakedapartments/images/8707026/thumb.png?1336578069" alt="3br, Murray Hill, $5,460">
       </a>
     </li>
@@ -76,7 +76,7 @@ defined('_JEXEC') or die;
         <div class="title bold">1br</div>
         <div class="neighborhood">Upper East Side</div>
       </div>
-      <a href="http://www.nakedapartments.com/rental/736729-1-bedroom-east-89th-street-upper-east-side">
+      <a href="/rental/736729-1-bedroom-east-89th-street-upper-east-side">
         <img src="http://s3.amazonaws.com/nakedapartments/images/8711987/thumb.JPG?1336581133" alt="1br, Upper East Side, $1,975">
       </a>
     </li>
@@ -92,7 +92,7 @@ defined('_JEXEC') or die;
         <div class="title bold">2br</div>
         <div class="neighborhood">Lefferts Garden</div>
       </div>
-      <a href="http://www.nakedapartments.com/rental/737177-2-bedroom-new-york-ave-lefferts-garden">
+      <a href="/rental/737177-2-bedroom-new-york-ave-lefferts-garden">
         <img src="http://s3.amazonaws.com/nakedapartments/images/8718171/thumb.jpg?1336591531" alt="2br, Lefferts Garden, $1,545">
       </a>
     </li>
@@ -103,7 +103,7 @@ defined('_JEXEC') or die;
         <div class="title bold">1br</div>
         <div class="neighborhood">Little Italy</div>
       </div>
-      <a href="http://www.nakedapartments.com/rental/737461-1-bedroom-prince-st-little-italy">
+      <a href="/rental/737461-1-bedroom-prince-st-little-italy">
         <img src="http://s3.amazonaws.com/nakedapartments/images/8720461/thumb.jpg?1336597605" alt="1br, Little Italy, $2,995">
       </a>
     </li>
@@ -114,12 +114,12 @@ defined('_JEXEC') or die;
         <div class="title bold">2br</div>
         <div class="neighborhood">Gramercy</div>
       </div>
-      <a href="http://www.nakedapartments.com/rental/738310-2-bedroom-1st-ave-gramercy">
+      <a href="/rental/738310-2-bedroom-1st-ave-gramercy">
         <img src="http://s3.amazonaws.com/nakedapartments/images/8742019/thumb.jpg?1336637426" alt="2br, Gramercy, $2,850">
       </a>
     </li>
 
-    <li class="last search"><a title="search for apartments" href="/renter/listings/search">Search »</a></li>
+    <li class="last search"><a title="search for apartments" href="index.php?option=com_rental&view=apartments&Itemid=108">Search »</a></li>
 </ul>
 
 <div class="clear"></div>

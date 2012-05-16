@@ -20,5 +20,5 @@ $tmpl_url = JURI::base(true).'/templates/'.$app->getTemplate();
         	<img src="<?php echo $tmpl_url?>/images/home/blank.gif?20100113" title="Sign Up" alt="Create your free profile!" align="Left" height="57" width="338">
         </a>
     </div>
-    <a href="/broker/choose-plan" class="btLinkLg">Landlords, Brokers &amp; Agents: <strong>Sign Up here</strong></a>
+    <a href="index.php?option=com_rental&view=broker&layout=choose-plan" class="btLinkLg">Landlords, Brokers &amp; Agents: <strong>Sign Up here</strong></a>
 </div>
