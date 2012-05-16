@@ -124,7 +124,7 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
 	                $arrBedrooms = JEUtil::getBedrooms();
 	                foreach ($arrBedrooms as $key => $bedroom):
 	                ?>
-                  <li><input type="checkbox" name="jform[bedroom][] value="<?php echo $key; ?>"><?php echo $bedroom; ?></li>
+                  <li><input type="checkbox" name="jform[bedroom][]" value="<?php echo $key; ?>"><?php echo $bedroom; ?></li>
                   <?php endforeach; ?>
                 </ul>
               </div>
