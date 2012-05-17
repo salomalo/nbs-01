@@ -99,7 +99,7 @@ class RentalModelApartments extends JModelList
 		if (isset($data['move_date']) && $data['move_date'] != '')
 			$query->where('(a.available_on = '.$nullDate.' OR a.available_on >= '.$nowDate.')');
 		
-		echo $query;
+		//echo $query;
 		
 		return $query;
 	}
