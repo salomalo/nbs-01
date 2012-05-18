@@ -62,7 +62,9 @@ JHtml::_('behavior.formvalidation');
 				<?php echo $this->form->getInput('id'); ?></li>
 			</ul>
 			<div class="clr"> </div>
-
+			<?php echo $this->form->getLabel('bio'); ?>
+			<div class="clr"> </div>
+			<?php echo $this->form->getInput('bio'); ?>
 		</fieldset>
 	</div>
 

@@ -51,7 +51,7 @@ class RentalModelApartments extends JModelList
 		$query->select('retal_location.title AS retal_location_title');
 		$query->join('INNER', '#__retal_location AS retal_location ON retal_location.id = a.location_id');
 		
-		$query->select('CONCAT(agent.first_name, " ", agent.last_name) AS agent');
+		$query->select('CONCAT(agent.first_name, " ", agent.last_name) AS agent, agent.id AS agent_id');
 		$query->join('INNER', '#__retal_agents AS agent ON agent.id = a.agent_id');
 		
 		//filter

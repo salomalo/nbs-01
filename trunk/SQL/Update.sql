@@ -19,3 +19,6 @@ DROP  `checked_out_time` ,
 DROP  `publish_up` ,
 DROP  `publish_down` ,
 DROP  `language` ;
+
+-- 18/05/2012 - muinx - alter table agent
+ALTER TABLE  `jos_retal_agents` ADD  `bio` TEXT NOT NULL AFTER  `country`;

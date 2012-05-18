@@ -59,6 +59,10 @@
 			<option value="-2">JTRASHED</option>
 		</field>
 		
+		<field name="bio" type="editor" class="inputbox"
+			label="Bio" description="Bio"
+			filter="JComponentHelper::filterText" buttons="true" />
+		
 		<field name="language" type="contentlanguage" label="JFIELD_LANGUAGE_LABEL"
 			description="COM_RENTAL_FIELD_LANGUAGE_DESC" class="inputbox"
 		>
