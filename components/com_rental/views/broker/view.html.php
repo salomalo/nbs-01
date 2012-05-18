@@ -24,11 +24,12 @@ jimport('joomla.application.component.view');
 
 class RentalViewBroker extends JView
 {
-	protected $items;
+	protected $item;
 	protected $pagination;
 
 	function display($tpl = null)
 	{
+		$this->item = $this->get('Item');
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
