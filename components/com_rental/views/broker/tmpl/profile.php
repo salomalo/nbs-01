@@ -1,10 +1,12 @@
 <?php
+
+$item = $this->item;
 ?>
 
 <div id="broker_profile">
   <div class="profileMasthead clearfix"> <span class="block" id="name">
-    <h1>Melissa Gomez</h1>
-    <a href="mailto:melissa@anchornyc.com" class=" ">melissa@anchornyc.com</a> <br>
+    <h1><?php echo $item->first_name . ' ' . $item->last_name; ?></h1>
+    <a href="mailto:melissa@anchornyc.com" class=" "><?php echo $item->user_email; ?></a> <br>
     (513) 404-7720 
     | <a target="new" rel="nofollow" href="http://www.anchornyc.com/melissa">My web site</a> </span> <span class="block" id="rating"> <span class="title">Overall Rating:</span> <span class="noRating"></span> </span> <span class="block last" id="brokerage"> <span class="title">Brokerage:</span> Anchor Associates </span> 
     <!-- <span class="block last">
@@ -15,12 +17,9 @@
   <!-- Begin: Left Col -->
   <div id="leftCol">
     <div class="bio clearfix"> <span class="block"> <img src="http://s3.amazonaws.com/nakedapartments/broker/photos/5820/normal.jpg?1337200903" class="borderWhite" alt="Melissa Gomez Photo"> </span>
-      <h2>Meet Melissa</h2>
-      <p><span lang="en-US"><font size="2" face="Calibri,sans-serif"><span style="font-size:11pt;">Melissa grew up in Cincinnati and moved to NYC in 2004 to study Communications at Pace University.&nbsp; During her time at college, she began taking classes at the Upright Citizens Brigade Theatre (UCB) and studied improv &amp; sketch comedy.<br>
-        <br>
-        The leading principles in this type of acting training is actively listening to your scene partner and saying YES &amp; adding to their original idea. I promise to take these principles into our interactions as well. I will actively listen to your needs and say yes to your wants and add some things that you had overlooked or not thought of just yet. I know how nerve-racking finding a home can be and it would be my pleasure to make this process as informative &amp; fun as it can be and have you in the apartment that you love.<br>
-        <br>
-        Let's start a conversation!</span></font></span><br>
+      <h2>Meet <?php echo $item->first_name; ?></h2>
+      <p>
+      	<?php echo $item->bio; ?>
       </p>
     </div>
     <div class="clear"></div>
@@ -56,35 +55,49 @@
         </span></div>
       <div class="clear"></div>
     </div>
-    <div class="rightMod"> <a class="viewAll" href="/renter/listings/search?broker_id=5820">View all »</a>
-      <h2>Melissa's Apartments</h2>
+    <div class="rightMod"> <a class="viewAll" href="/renter/listings/search?broker_id=5820">View all &gt;&gt;</a>
+      <h2><?php echo $item->first_name; ?>'s Apartments</h2>
       <table id="listingSERPTable">
         <tbody>
+          <?php 
+          $now = time();
+          
+          foreach ($item->apartments as $apartment): 
+          
+          	$link = JRoute::_('index.php?option=com_rental&view=apartment&id=' . (int) $apartment->id . '&Itemid=' . JRequest::getVar('Itemid'));
+          
+	          $aboutTime = ( $now - strtotime($apartment->created) ) / (24 * 60 * 60);
+	          
+	          if ($aboutTime < 1)
+	          	$time = round($aboutTime * 60) . ' hours';
+	          else
+	          	$time = round($aboutTime) . ' days';
+	          
+	          //get defautl images
+	          $images = @unserialize($item->images);
+	          
+	          $defaultImage = '';
+	          
+	          if (is_array($images) && !empty($images))
+	          	$defaultImage = $images[0];
+          ?>
           <tr data-longitude="-74.0018833" data-latitude="40.738688" data-id="750213" class="listingRow" id="listing_750213_row1">
-            <td class="border thumbnail narrow"><a href="http://www.nakedapartments.com/rental/750213-2-bedroom-w-13th-st-west-village"><img src="http://s3.amazonaws.com/nakedapartments/images/9067068/thumb.JPG?1337203251" alt="Thumb"></a></td>
-            <td class="border flag"><span class="listingTitle"><a href="http://www.nakedapartments.com/rental/750213-2-bedroom-w-13th-st-west-village">2br, West Village, $3,700</a></span>
-              <div class="newCell listingDate"> 1 day <span class="calm">on site</span> </div></td>
+            <td class="border thumbnail narrow">
+            	<?php if ($defaultImage): ?>
+					<img src="images/com_rental/upload/<?php echo $defaultImage['image']; ?>" width="90" height="68" />
+				<?php else :?>
+              		<img alt="Thumb" src="http://s3.amazonaws.com/nakedapartments/images/8647659/thumb.jpg?1336491320">
+              	<?php endif; ?>
+            </td>
+            <td class="border flag">
+            <span class="listingTitle">
+            	<a href="<?php echo $link?>">
+            		<?php echo $apartment->bedrooms; ?>, <?php echo $apartment->location; ?>, $<?php echo number_format($apartment->price); ?>
+            	</a>
+            </span>
+              <div class="newCell listingDate"> <?php echo $time; ?> <span class="calm">on site</span> </div></td>
           </tr>
-          <tr data-longitude="-74.0018833" data-latitude="40.738688" data-id="750214" class="listingRow" id="listing_750214_row1">
-            <td class="border thumbnail narrow"><a href="http://www.nakedapartments.com/rental/750214-2-bedroom-w-13th-st-west-village"><img src="http://s3.amazonaws.com/nakedapartments/images/9067069/thumb.JPG?1337203252" alt="Thumb"></a></td>
-            <td class="border flag"><span class="listingTitle"><a href="http://www.nakedapartments.com/rental/750214-2-bedroom-w-13th-st-west-village">2br, West Village, $3,700</a></span>
-              <div class="newCell listingDate"> 1 day <span class="calm">on site</span> </div></td>
-          </tr>
-          <tr data-longitude="-73.9787084" data-latitude="40.7366564" data-id="750638" class="listingRow" id="listing_750638_row1">
-            <td class="border thumbnail narrow"><a href="http://www.nakedapartments.com/rental/750638-studio-1st-ave-gramercy"><img src="http://s3.amazonaws.com/nakedapartments/images/9081465/thumb.JPG?1337230935" alt="Thumb"></a></td>
-            <td class="border flag"><span class="listingTitle"><a href="http://www.nakedapartments.com/rental/750638-studio-1st-ave-gramercy">Studio, Gramercy, $2,850</a></span>
-              <div class="newCell listingDate"> about 23 hours <span class="calm">on site</span> </div></td>
-          </tr>
-          <tr data-longitude="-73.978095" data-latitude="40.765807" data-id="750644" class="listingRow" id="listing_750644_row1">
-            <td class="border thumbnail narrow"><a href="http://www.nakedapartments.com/rental/750644-1-bedroom-w-58th-st-clinton"><img src="http://s3.amazonaws.com/nakedapartments/images/9081501/thumb.JPG?1337230983" alt="Thumb"></a></td>
-            <td class="border flag"><span class="listingTitle"><a href="http://www.nakedapartments.com/rental/750644-1-bedroom-w-58th-st-clinton">1br, Clinton, $3,650</a></span>
-              <div class="newCell listingDate"> about 23 hours <span class="calm">on site</span> </div></td>
-          </tr>
-          <tr data-longitude="-73.978454" data-latitude="40.7656744" data-id="750635" class="listingRow" id="listing_750635_row1">
-            <td class="border thumbnail narrow"><a href="http://www.nakedapartments.com/rental/750635-1-bedroom-w-58th-st-midtown-center"><img src="http://s3.amazonaws.com/nakedapartments/images/9081460/thumb.JPG?1337230931" alt="Thumb"></a></td>
-            <td class="border flag"><span class="listingTitle"><a href="http://www.nakedapartments.com/rental/750635-1-bedroom-w-58th-st-midtown-center">1br, Midtown Center, $3,100</a></span>
-              <div class="newCell listingDate"> about 23 hours <span class="calm">on site</span> </div></td>
-          </tr>
+          <?php endforeach; ?>
         </tbody>
       </table>
     </div>
