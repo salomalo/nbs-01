@@ -283,7 +283,7 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
               <td class="border flag">
               	<span class="listingTitle">
               		<a class=" " href="<?php echo $link?>">
-              			<?php echo (int)$this->escape($item->bedrooms) . 'br , ' . $this->escape($item->retal_location_title) . ', $' . $this->escape($item->price); ?>
+              			<?php echo intval($this->escape($item->bedrooms)) . ', ' . $this->escape($item->retal_location_title) . ', $' . $this->escape($item->price); ?>
               		</a>
               	</span>
                 <div class="newCell listingDate"> about <?php echo $time; ?> <span class="calm">on site</span> </div>

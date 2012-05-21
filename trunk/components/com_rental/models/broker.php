@@ -36,7 +36,12 @@ class RentalModelBroker extends JModel
 		$id 		= JRequest::getInt('id');
 		$query		= $db->getQuery(true);
 		
-		$query->select('*')->from('#__retal_agents')->where('id=' . (int) $id);
+		$query->select('a.*')
+				->from('#__retal_agents a')
+				->where('a.id=' . (int) $id)
+				->select('users.email AS user_email')
+				->join('INNER', '#__users users ON a.user_id = users.id')
+		;
 		
 		$db->setQuery($query);
 		$obj = $db->loadObject();
@@ -44,7 +49,7 @@ class RentalModelBroker extends JModel
 		if ($db->getErrorMsg())
 			die ($db->getErrorMsg());
 		
-		$apartments = self::_getAparmtents($id);
+		$obj->apartments = self::_getAparmtents($id);
 		
 		return $obj;
 		
@@ -55,14 +60,28 @@ class RentalModelBroker extends JModel
 		$db			= $this->getDbo();
 		$query		= $db->getQuery(true);
 		
-		$query->select('*')->from('`#__rental_apartments` a')->where('agent_id = ' . $id);
+		$bedrooms = JEUtil::getBedrooms();
 		
-		$db->setQuery($query);
-		$obj = $db->loadObject();
+		$query->select('a.*')
+				->from('`#__rental_apartments` a')
+				->where('a.agent_id = ' . $id)
+				->order('a.id DESC')
+				->select('location.title AS location')
+				->join('INNER', '#__retal_location location ON a.location_id = location.id')
+		;
+		
+		$db->setQuery($query, 0, 5);
+		$objs = $db->loadObjectList();
+		
+		foreach ($objs as & $obj)
+		{
+			$tmp = intval($obj->bedrooms);
+			$obj->bedrooms = $bedrooms[$tmp];
+		}
 		
 		if ($db->getErrorMsg())
 			die ($db->getErrorMsg());
 		
-		return $obj;
+		return $objs;
 	} 
 }
