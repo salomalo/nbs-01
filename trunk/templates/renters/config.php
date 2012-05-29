@@ -45,7 +45,7 @@ $isListing = ($option=='com_rental'&& $view=='apartments') ? true : false;
 $isListingDetail = ($option=='com_rental'&& $view=='apartment') ? true : false;
 $isRentalAgents = ($option=='com_rental'&& $view=='rentalagents') ? true : false;
 
-$isRenterSignup = ($option=='com_rental'&& $view=='createprofile') ? true : false;
+$isRenterSignup = ($option=='com_rental'&& $view=='createprofile' || $layout=='create-profile') ? true : false;
 $isBrokerSignup = ($option=='com_rental'&& $view=='broker' && in_array($layout, array('signup','choose-plan'))) ? true : false;
 
 $isTourpage = ($option=='com_rental'&& $view=='renter' && $layout=='how-it-works') ? true: false;
