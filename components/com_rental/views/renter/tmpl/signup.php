@@ -16,10 +16,10 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 $Itemid = JRequest::getInt('Itemid');
 
 ?>
-<div class="clearfix" id="blueBox"> <span class="admin curve">Have an account? <a class="bold" href="index.php?option=com_rental&view=login<?php echo $Itemid?"&Itemid=".$Itemid:''?>">log in</a></span>
+<div class="clearfix" id="blueBox"> <span class="admin curve">Have an account? <a class="bold" href="index.php?option=com_rental&view=renter&layout=login<?php echo $Itemid?"&Itemid=".$Itemid:''?>">log in</a></span>
   <h1>Sign up through...</h1>
   <div class="bgBlue curve clearfix">
-    <div class="block"> <a id="loginBtn" class="button onBlue large" href="index.php?option=com_rental&view=createprofile<?php echo $Itemid?"&Itemid=".$Itemid:''?>"><span>Naked Apartments</span></a>
+    <div class="block"> <a id="loginBtn" class="button onBlue large" href="index.php?option=com_rental&view=renter&layout=createprofile<?php echo $Itemid?"&Itemid=".$Itemid:''?>"><span>Naked Apartments</span></a>
       <div class="small padLeft5 itals">(takes about a minute to complete)</div>
     </div>
     <div class="block or">or</div>
