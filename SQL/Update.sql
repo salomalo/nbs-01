@@ -22,3 +22,7 @@ DROP  `language` ;
 
 -- 18/05/2012 - muinx - alter table agent
 ALTER TABLE  `jos_retal_agents` ADD  `bio` TEXT NOT NULL AFTER  `country`;
+
+-- 30/05/2012 - thaiht - alter table agent
+ALTER TABLE  `jos_rental_apartments` ADD  `latitude` VARCHAR(200) NOT NULL AFTER  `country`;
+ALTER TABLE  `jos_rental_apartments` ADD  `longitude` VARCHAR(200) NOT NULL AFTER  `country`;

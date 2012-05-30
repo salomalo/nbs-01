@@ -17,6 +17,10 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 $now = time();
 $Itemid = JRequest::getInt('Itemid');
 
+$upload_url			= JURI::root().'images/com_rental/upload/';
+$thumb_90x68_url 	= JURI::root().'img.php?w=90&h=68&q=90&src=';
+
+
 require_once(JPATH_COMPONENT_SITE . DS . 'helpers' . DS . 'simple-gmap-api' . DS . "simpleGMapAPI.php");
 require_once(JPATH_COMPONENT_SITE . DS . 'helpers' . DS . 'simple-gmap-api' . DS . "simpleGMapGeocoder.php");
 
@@ -223,7 +227,7 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
 <table id="listingSERPOuter">
   <tbody>
     <tr>
-      <td class="head" colspan="2"><h1>14406  apartments</h1>
+      <td class="head" colspan="2"><h1>//TODO (n)  apartments</h1>
         <div class="block"> </div>
         <div class="block"> <a href="/rental-agents" class="button blue HOF small"><span>Work with the top agents!</span></a> </div>
         <div class="resultsPagination"> 
@@ -274,9 +278,9 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
               <td class="border thumbnail">
               	<a class=" " href="<?php echo $link?>">
               		<?php if ($defaultImage): ?>
-					<img src="images/com_rental/upload/<?php echo $defaultImage['image']; ?>" width="90" height="68" />
+					<img src="<?php echo $thumb_90x68_url.$upload_url.$defaultImage['image']; ?>" width="90" height="68" />
 					<?php else :?>
-              		<img alt="Thumb" src="http://s3.amazonaws.com/nakedapartments/images/8647659/thumb.jpg?1336491320">
+              		<img alt="Thumb" src="<?php echo $thumb_90x68_url.$upload_url.$defaultImage['image']; ?>">
               		<?php endif; ?>
               	</a>
               </td>
@@ -288,7 +292,7 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
               	</span>
                 <div class="newCell listingDate"> about <?php echo $time; ?> <span class="calm">on site</span> </div>
                 <div class="newCell brokerCont"> <a href="<?php echo JRoute::_('index.php?option=com_rental&view=broker&layout=profile&id=' . (int) $item->agent_id);?>" title="View this broker's profile" class=" "><?php echo $item->agent; ?></a> <span class="noRating"></span> <span class="duplicates"><span class="dupes"><strong>3 other brokers</strong> offer a similar listing at this address</span></span> </div>
-                <div class="" data-id="734432">
+                <div class="" data-id="<?php echo $item->id?>">
                   <div class="newCell amenities"> Doorman, Elevator, Laundry Room, Small Dogs &amp; Cats </div>
                 </div>
                 <div class="hidden mapMarkerHtml">
@@ -306,6 +310,7 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
         <!-- end of table containing listings  --></td>
       <!-- cell containing map -->
       <td>
+      	<div id="listingsMap" style="width: 450px; height: 400px; z-index: 1;"></div>
       	<div id="float-gmap">
 			<?php
 		$map->printGMapsJS();
