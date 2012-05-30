@@ -274,7 +274,7 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
 					
 				
 			?>
-            <tr id="listing_<?php echo $item->id?>_row1" class="listingRow" data-id="<?php echo $item->id?>" data-latitude="<?php //echo $item->latitude?>" data-longitude="<?php //echo $item->longitude?>">
+            <tr id="listing_<?php echo $item->id?>_row1" class="listingRow" data-id="<?php echo $item->id?>" data-latitude="<?php echo $item->latitude?>" data-longitude="<?php echo $item->longitude?>">
               <td class="border thumbnail">
               	<a class=" " href="<?php echo $link?>">
               		<?php if ($defaultImage): ?>
@@ -293,10 +293,10 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
                 <div class="newCell listingDate"> about <?php echo $time; ?> <span class="calm">on site</span> </div>
                 <div class="newCell brokerCont"> <a href="<?php echo JRoute::_('index.php?option=com_rental&view=broker&layout=profile&id=' . (int) $item->agent_id);?>" title="View this broker's profile" class=" "><?php echo $item->agent; ?></a> <span class="noRating"></span> <span class="duplicates"><span class="dupes"><strong>3 other brokers</strong> offer a similar listing at this address</span></span> </div>
                 <div class="" data-id="<?php echo $item->id?>">
-                  <div class="newCell amenities"> Doorman, Elevator, Laundry Room, Small Dogs &amp; Cats </div>
+                  <div class="newCell amenities"> Need show amenities</div>
                 </div>
                 <div class="hidden mapMarkerHtml">
-                  <div class="center"> <img src="http://s3.amazonaws.com/nakedapartments/images/8647659/thumb.jpg?1336491320" alt=""> <br>
+                  <div class="center"> <img src="<?php echo $thumb_90x68_url.$upload_url.$defaultImage['image']; ?>" alt=""> <br>
                     <a class=" " href="<?php echo $link?>">
               			<?php echo (int)$this->escape($item->bedrooms) . 'br, ' . $this->escape($item->retal_location_title) . ', $' . $this->escape($item->price); ?>
               		</a> 
