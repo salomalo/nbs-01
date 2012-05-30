@@ -13,34 +13,29 @@
 defined('_JEXEC') or die;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
+//get item
+$item = $this->item;
+
+// echo "<pre>".print_r($item,true)."</pre>";
 
 $now = time();
 $Itemid = JRequest::getInt('Itemid');
 
-//get item
-$item = $this->item;
+$thumb_url = JURI::root().'img.php?w=42&h=42&q=90&src=';
+
+$broker_id = $item->agent_user_id;
+$listing_id = $item->id;
+
+
+$broker_profie_url =  'index.php?option=com_rental&view=broker&layout=profile&id='.$broker_id;
+// /renter/contacts/modal_request?broker_id=5532&amp;listing_id=734484
+$contact_ajax_url = 'index.php?option=com_rental&view=broker&layout=request&format=raw&listing_id='.$listing_id.'&broker_id='.$broker_id.'&Itemid='.$Itemid;
+
 $link = JRoute::_('index.php?option=com_rental&view=apartment&id=' . (int) $item->id . '&Itemid=' . $Itemid);
-$title = $this->escape($item->bedrooms) . 'br , ' . $this->escape($item->address) . ', '.$this->escape($item->city). ', $' . $this->escape($item->price);
+$title = (int) $this->escape($item->bedrooms) . 'br , ' . $this->escape($item->address) . ', '.$this->escape($item->city). ', $' . $this->escape($item->price);
 ?>
 
-<!-- gallery images -->
-
-Gallery
-<br>
-<?php foreach ($item->list_images as $img): ?>
-	<img src="<?php echo JURI::base() . 'images/com_rental/upload/' . $img['image']; ?>" width="100" />
-<?php endforeach; ?>
-
-<br>
-
-Floor Plan
-<br>
-<!-- floor plan -->
-<?php foreach ($item->list_floor_plan as $img): ?>
-	<img src="<?php echo JURI::base() . 'images/com_rental/upload/' . $img['image']; ?>" width="100" />
-<?php endforeach; ?>
-
-<div data-longitude="-73.9831041" data-latitude="40.7417246" data-id="734484" class="clearfix" id="listingContent">
+<div data-longitude="-73.9831041" data-latitude="40.7417246" data-id="<?php echo $listing_id?>" class="clearfix" id="listingContent">
   <!--back link and social tools-->
   <div id="top">    		
     <span class="floatRight">
@@ -78,16 +73,33 @@ Floor Plan
     <div id="listingDetailWidget" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
       <ul class="tabs clearfix ui-helper-reset ui-tabs-nav ui-helper-clearfix ui-widget-header ui-corner-all">
         <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#images" id="viewImages" class=" ">Photos</a></li>
-        
+        <?php if($item->list_floor_plan): ?>
+        <li><a id="viewFloorPlans" href="#floorPlans">Floor Plans</a></li><li>
+        <?php endif;?>
         <li class="ui-state-default ui-corner-top"><a href="#listingMapWrapper">Map</a></li>
       </ul>
       
       <div class="mod clearfix">
         <div class="content ui-tabs-panel ui-widget-content ui-corner-bottom" id="images">
-            <div class="galleria"><div class="galleria-container notouch" style="width: 590px; height: 420px;"><div class="galleria-stage" style="cursor: pointer;"><div class="galleria-images" style="position: relative; top: 0px; left: 0px; width: 100%; height: 100%;"><div class="galleria-image" style="overflow: hidden; position: absolute; top: 0px; left: 0px; -moz-transition: none 0s ease 0s ; opacity: 0; z-index: 0;"><div class="galleria-layer" style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; z-index: 2;"></div></div><div class="galleria-image" style="overflow: hidden; position: absolute; top: 0px; left: 0px; opacity: 1; width: 570px; height: 350px; -moz-transition: none 0s ease 0s ; z-index: 1;"><div class="galleria-layer" style="position: absolute; top: 42px; left: 85px; right: 0px; bottom: 0px; z-index: 2; display: none; width: 400px; height: 266px;"></div><img width="400" height="266" style="display: block; opacity: 1; width: 400px; height: 266px; position: absolute; top: 42px; left: 85px;" src="http://s3.amazonaws.com/nakedapartments/images/8647916/large.jpg?1336492212"></div></div><div class="galleria-loader" style="display: none; opacity: 0.4;"></div><div class="galleria-counter" style="position: absolute; left: -10000px; opacity: 0; -moz-transition: left 200ms cubic-bezier(0.25, 0.1, 0.25, 1) 0s, right 200ms cubic-bezier(0.25, 0.1, 0.25, 1) 0s, opacity 200ms cubic-bezier(0.25, 0.1, 0.25, 1) 0s;"><span class="galleria-current">1</span> / <span class="galleria-total">7</span></div><div class="galleria-image-nav"><div class="galleria-image-nav-right" style="right: -50px; -moz-transition: left 200ms cubic-bezier(0.25, 0.1, 0.25, 1) 0s, right 200ms cubic-bezier(0.25, 0.1, 0.25, 1) 0s;"></div><div class="galleria-image-nav-left" style="left: -50px; -moz-transition: left 200ms cubic-bezier(0.25, 0.1, 0.25, 1) 0s;"></div></div></div><div class="galleria-thumbnails-container"><div class="galleria-thumb-nav-left disabled"></div><div class="galleria-thumbnails-list" style="overflow: hidden; position: relative;"><div class="galleria-thumbnails" style="overflow: hidden; position: relative; width: 301px; height: 42px;"><div class="galleria-image active" style="overflow: hidden; position: relative; width: 42px; height: 42px;"><img width="42" height="42" style="display: block; opacity: 1; width: 42px; height: 42px; position: absolute; top: 0px; left: 0px;" src="http://s3.amazonaws.com/nakedapartments/images/8647916/mthumb.jpg?1336492212"></div><div class="galleria-image" style="overflow: hidden; position: relative; width: 42px; height: 42px;"><img width="42" height="42" style="display: block; opacity: 0.6; width: 42px; height: 42px; position: absolute; top: 0px; left: 0px;" src="http://s3.amazonaws.com/nakedapartments/images/8647919/mthumb.jpg?1336492200"></div><div class="galleria-image" style="overflow: hidden; position: relative; width: 42px; height: 42px;"><img width="42" height="42" style="display: block; opacity: 0.6; width: 42px; height: 42px; position: absolute; top: 0px; left: 0px;" src="http://s3.amazonaws.com/nakedapartments/images/8647921/mthumb.jpg?1336492202"></div><div class="galleria-image" style="overflow: hidden; position: relative; width: 42px; height: 42px;"><img width="42" height="42" style="display: block; opacity: 0.6; width: 42px; height: 42px; position: absolute; top: 0px; left: 0px;" src="http://s3.amazonaws.com/nakedapartments/images/8647923/mthumb.jpg?1336492204"></div><div class="galleria-image" style="overflow: hidden; position: relative; width: 42px; height: 42px;"><img width="42" height="42" style="display: block; opacity: 0.6; width: 42px; height: 42px; position: absolute; top: 0px; left: 0px;" src="http://s3.amazonaws.com/nakedapartments/images/8647925/mthumb.jpg?1336492207"></div><div class="galleria-image" style="overflow: hidden; position: relative; width: 42px; height: 42px;"><img width="42" height="42" style="display: block; opacity: 0.6; width: 42px; height: 42px; position: absolute; top: 0px; left: 0px;" src="http://s3.amazonaws.com/nakedapartments/images/8647926/mthumb.jpg?1336492209"></div><div class="galleria-image" style="overflow: hidden; position: relative; width: 42px; height: 42px;"><img width="42" height="42" style="display: block; opacity: 0.6; width: 42px; height: 42px; position: absolute; top: 0px; left: 0px;" src="http://s3.amazonaws.com/nakedapartments/images/8647927/mthumb.jpg?1336492211"></div></div></div><div class="galleria-thumb-nav-right disabled"></div></div><div class="galleria-info" style="display: none;"><div class="galleria-info-text"><div class="galleria-info-title" style="display: none;"></div><div class="galleria-info-description" style="display: none;"></div></div><div class="galleria-info-link"></div><div class="galleria-info-close"></div></div><div class="galleria-tooltip" style="opacity: 0;"></div></div></div>
+            <div class="galleria">
+            	<?php if(!empty($item->list_images)) foreach ($item->list_images as $img): ?>
+				<img alt="" 
+					 src="<?php echo JURI::base() . 'images/com_rental/upload/' . $img['image']; ?>"
+					 data-thumb="<?php echo $thumb_url.JURI::base() . 'images/com_rental/upload/' . $img['image'];?>" />
+				<?php endforeach; ?>
+            </div>
         </div>
-        
-        
+        <?php if($item->list_floor_plan):?>
+        <div id="floorPlans">
+          <div class="galleria">
+                <?php if(!empty($item->list_floor_plan))foreach ($item->list_floor_plan as $img): ?>
+				<img alt="" 
+					 src="<?php echo JURI::base() . 'images/com_rental/upload/' . $img['image']; ?>"
+					 data-thumb="<?php echo $thumb_url.JURI::base() . 'images/com_rental/upload/' . $img['image'];?>" />
+				<?php endforeach; ?>
+          </div>
+        </div>
+        <?php endif;?>
         <div id="listingMapWrapper" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
           <div style="width: 590px; height: 420px;" id="listingMap"></div>
         </div>
@@ -126,7 +138,13 @@ Floor Plan
       <div class="top clearfix">
         <span class="buttonText">Interested in this apartment?</span>
         <div class="buttonContainer">
-          <a rel="nofollow" data-location="details" data-listing-id="734484" data-broker-id="5532" class="button green large contactNow contactAgentBtn cboxElement" href="/renter/contacts/modal_request?broker_id=5532&amp;listing_id=734484"><span>Contact Now</span></a>
+          <a rel="nofollow" data-location="details" 
+          					data-listing-id="<?php echo $listing_id?>" 
+          					data-broker-id="<?php echo $broker_id?>" 
+          					class="button green large contactNow contactAgentBtn cboxElement" 
+          					href="<?php echo $contact_ajax_url?>">
+          	<span>Contact Now</span>
+          </a>
         </div>
         
       </div>
@@ -137,7 +155,10 @@ Floor Plan
   </div>
   <div class="brokerInfo">
     
-    <a title="View this broker's profile" class="name" href="http://www.nakedapartments.com/a/profile/waseem-mehmood/5cs">Waseem Mehmood</a>
+    <a title="View this broker's profile" class="name" 
+    	href="<?php echo $broker_profie_url?>">
+    	<?php echo $item->agent_first_name.' '.$item->agent_last_name?>
+    </a>
       <span class="noRating"></span>
     
   </div>
@@ -169,7 +190,7 @@ Floor Plan
         <table id="listingOverview">
           <tbody><tr>
             <td>Bedrooms:</td>
-            <td><?php echo $this->escape($item->bedrooms);?></td>
+            <td><?php echo (int)$this->escape($item->bedrooms);?></td>
           </tr>
           <tr>
             <td>Bathrooms:</td>
