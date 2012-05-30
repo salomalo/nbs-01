@@ -1202,7 +1202,8 @@ na.listing.id = function() {
 na.listing.flag = {};
 na.listing.flag.init = function() {
 	$('#flagListing').colorbox({
-		href: '/rental/' + na.listing.id() + '/flag',
+		//href: '/rental/' + na.listing.id() + '/flag',
+		href: 'index.php?option=com_rental&view=apartment&format=raw&layout=flag&listing_id=' + na.listing.id(),
     onComplete: function() {
 			
 		}
