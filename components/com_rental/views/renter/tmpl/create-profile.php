@@ -14,10 +14,11 @@ defined('_JEXEC') or die;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 $Itemid = JRequest::getInt('Itemid');
+$link = 'index.php?option=com_rental&view=renter&layout=create-profile&format=raw'
 ?>
 <div class="clearfix" id="main">
   <div id="currentStepIndicator"> Step <strong><span>1</span></strong> of <strong>3</strong> </div>
-  <form method="post" id="new_renter" data-remote="true" class="new_renter" action="/renter/create-profile" accept-charset="UTF-8">
+  <form method="post" id="new_renter" data-remote="true" class="new_renter" action="<?php echo $link?>" accept-charset="UTF-8">
     <div style="margin:0;padding:0;display:inline">
       <input type="hidden" value="✓" name="utf8">
       <input type="hidden" value="FMMkutNs1Rl3JU3ZLjwl+l5+EYNdHqoqS95L8NSndUQ=" name="authenticity_token">
