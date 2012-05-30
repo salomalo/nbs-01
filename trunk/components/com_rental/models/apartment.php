@@ -43,7 +43,7 @@ class RentalModelApartment extends JModel
 		$query->from('`#__rental_apartments` a');
 		
 		// Join over the retal_agents
-		$query->select('agent.first_name AS agent_first_name, agent.last_name AS agent_last_name');
+		$query->select('agent.user_id AS  agent_user_id, agent.first_name AS agent_first_name, agent.last_name AS agent_last_name');
 		$query->join('INNER', '#__retal_agents AS agent ON agent.id = a.agent_id');
 		
 		$query->where('a.id = ' . $id);
