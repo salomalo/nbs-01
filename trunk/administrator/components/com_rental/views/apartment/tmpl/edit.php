@@ -112,6 +112,12 @@ JHtml::_('behavior.formvalidation');
 				<li><?php echo $this->form->getLabel('country'); ?>
 				<?php echo $this->form->getInput('country'); ?></li>
 				
+				<li><?php echo $this->form->getLabel('latitude'); ?>
+				<?php echo $this->form->getInput('latitude'); ?></li>
+				
+				<li><?php echo $this->form->getLabel('longitude'); ?>
+				<?php echo $this->form->getInput('longitude'); ?></li>
+				
 				<li><?php echo $this->form->getLabel('amenities'); ?>
 				<?php echo $this->form->getInput('amenities'); ?></li>
 				
