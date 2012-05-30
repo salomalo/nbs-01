@@ -2638,7 +2638,7 @@ na.maps = {
 			return new google.maps.Marker({
         position: latlng,
         map: map,
-        icon: '/images/icons/symbol-on-map.png'
+        icon: LIVE_URL+'/images/icons/symbol-on-map.png'
 	    });
 		}
 	},
