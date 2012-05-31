@@ -15,9 +15,103 @@ defined('_JEXEC') or die;
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 $Itemid = JRequest::getInt('Itemid');
 ?>
+
+<script type="text/javascript">
+<!--
+var step = 1;
+
+$(function($){
+	hideAllStep();
+	showStep(1);
+
+	$('#nextStep').click(function(){
+
+		step = step + 1;
+
+		scrollToTop();
+		
+		hideAllStep();
+		showStep(step);
+
+		showButtons(step);
+		
+		return false;
+	});
+
+	$('#backStep').click(function(){
+
+		scrollToTop();
+
+		step = step - 1;
+
+		hideAllStep();
+		showStep(step);
+
+		showButtons(step);
+
+		return false;
+	});
+});
+
+function scrollToTop()
+{
+	$('html,body').animate({
+		scrollTop:0
+	}, 500);
+}
+
+function hideAllStep()
+{
+	jQuery('#signup_step_1').hide();
+	jQuery('#signup_step_2').hide();
+	jQuery('#signup_step_3').hide();
+}
+
+function showStep(stepNumber)
+{
+	jQuery('#signup_step_' + stepNumber).show();
+}
+
+function showButton(show, id)
+{
+	if (show)
+		jQuery('#' + id).css({'display': 'block'});
+	else
+		jQuery('#' + id).css({'display': 'none'});		
+}
+
+function showButtons(step)
+{
+	console.log(step);
+	
+	switch (step)
+	{
+	case 1:
+		showButton(true, 'nextStep');
+		showButton(false, 'backStep');
+		showButton(false, 'createAccountStep');
+
+		break;
+	case 2:
+		showButton(true, 'nextStep');
+		showButton(true, 'backStep');
+		showButton(false, 'createAccountStep');
+
+		break;
+	case 3:
+		showButton(false, 'nextStep');
+		showButton(true, 'backStep');
+		showButton(true, 'createAccountStep');
+
+		break;
+	}
+}
+//-->
+</script>
+
 <div class="clearfix" id="main">
   <div id="currentStepIndicator"> Step <strong><span>1</span></strong> of <strong>3</strong> </div>
-  <form method="post" id="new_renter" data-remote="true" class="new_renter" action="/renter/create-profile" accept-charset="UTF-8">
+  <form method="post" id="new_renter" data-remote="true" class="new_renter" action="<?php echo JRoute::_('index.php?option=com_rental&task=register.renter'); ?>" accept-charset="UTF-8">
     <div style="margin:0;padding:0;display:inline">
       <input type="hidden" value="✓" name="utf8">
       <input type="hidden" value="FMMkutNs1Rl3JU3ZLjwl+l5+EYNdHqoqS95L8NSndUQ=" name="authenticity_token">
