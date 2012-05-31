@@ -20,38 +20,7 @@ $Itemid = JRequest::getInt('Itemid');
 <!--
 var step = 1;
 
-$(function($){
-	hideAllStep();
-	showStep(1);
 
-	$('#nextStep').click(function(){
-
-		step = step + 1;
-
-		scrollToTop();
-		
-		hideAllStep();
-		showStep(step);
-
-		showButtons(step);
-		
-		return false;
-	});
-
-	$('#backStep').click(function(){
-
-		scrollToTop();
-
-		step = step - 1;
-
-		hideAllStep();
-		showStep(step);
-
-		showButtons(step);
-
-		return false;
-	});
-});
 
 function scrollToTop()
 {
