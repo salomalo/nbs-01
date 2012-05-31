@@ -26,6 +26,7 @@ class RentalViewRenter extends JView
 {
 	protected $items;
 	protected $pagination;
+	protected $errors;
 
 	function display($tpl = null)
 	{
@@ -49,9 +50,54 @@ class RentalViewRenter extends JView
 		//JResponse::setHeader('');
 		header('Content-Type: text/javascript; charset=' . $document->getCharset());
 		
+		//var_dump();
 		
+		$post = JRequest::get('post');
 		
-		$current_step = 3;
+		$user = $post['user'];
+		
+		$errors = array();
+		$this->errors = array();
+		
+		//check valid
+		if ($user['first_name'] == '')
+			$errors[] = 'First name can\'t be blank';
+		
+		if ($user['last_name'] == '')
+			$errors[] = 'Last name can\'t be blank';
+		
+		if ($user['email'] == '')
+			$errors[] = 'Email can\'t be blank';
+		
+		if (!$this->checkValidEmail($user['email']))
+			$errors[] = 'Email should look like an email address';
+		
+		$model = $this->getModel();
+		
+		$checkEmailExist = $model->checkEmailExist($user['email']);
+		
+		if ($checkEmailExist)
+			$errors[] = 'Email has already been taken';
+		
+		if ($user['phone_number'] == '')
+			$errors[] = 'Phone number can\'t be blank';
+		
+		if (strlen($user['phone_number']) != 10)
+			$errors[] = 'Phone number is the wrong length (should be 10 characters)';
+		
+		if (strlen($user['password']) < 4)
+			$errors[] = 'Password is too short (minimum is 4 characters)';
+		
+		$current_step = 1;
+		
+		if (!empty($errors))
+		{
+			$this->errors = $errors;
+		}
+		else
+			$current_step = $post['step'];
+		
+		$contents = null;
 		
 		//get default form
 		ob_start();
@@ -95,5 +141,10 @@ class RentalViewRenter extends JView
 	protected function _prepareDocument()
 	{
 		//TODO: prepare document
+	}
+	
+	function checkValidEmail($email = '')
+	{
+		return preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^", $email);
 	}
 }

@@ -1,11 +1,21 @@
 <?php
 ?>
-<form method="post" id="new_renter" data-remote="true" class="new_renter" action="<?php echo $link?>" accept-charset="UTF-8">
+<form method="post" id="new_renter" data-remote="true" class="new_renter" action="<?php echo JRoute::_('index.php?option=com_rental&view=renter&layout=create-profile'); ?>" accept-charset="UTF-8">
     <div style="margin:0;padding:0;display:inline">
       <input type="hidden" value="✓" name="utf8">
       <input type="hidden" value="FMMkutNs1Rl3JU3ZLjwl+l5+EYNdHqoqS95L8NSndUQ=" name="authenticity_token">
     </div>
-    <div id="signup_step_1" class="main signupStep">
+    <?php if (!empty($this->errors)): ?>
+	<div class="errorExplanation" id="errorExplanation">
+		<h2>oops! There are some errors</h2>
+		<ul>
+			<?php foreach ($this->errors as $error): ?>
+			<li><?php echo $error; ?></li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
+	<?php endif; ?>
+	<div id="signup_step_1" class="main signupStep">
       <div class="headMessage  padBottom20">
         <h1 class="small orange">Create your free account</h1>
       </div>

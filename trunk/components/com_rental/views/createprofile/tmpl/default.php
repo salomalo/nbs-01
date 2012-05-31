@@ -972,6 +972,3 @@ function showButtons(step)
     <div class="formActions green"> <a id="backStep" class="button  large white arrow left hidden" href="javascript: go_back_to_previous_step(this);"><span>Back</span></a> <a id="nextStep" class="button arrow onGreen submitButton large" href="#"><span>Next</span></a> <a id="createAccountStep" class="button  submitButton large hidden" href="#"><span>Create Account</span></a> <span id="ajaxLoaderContainer"></span> </div>
   </form>
 </div>
-
-
-
