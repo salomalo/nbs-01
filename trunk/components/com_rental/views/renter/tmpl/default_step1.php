@@ -1,15 +1,17 @@
 <?php
+$post = JRequest::get('post');
+$user = $post['user'];
 ?>
-<form method="post" id="new_renter" data-remote="true" class="new_renter" action="<?php echo JRoute::_('index.php?option=com_rental&view=renter&layout=create-profile'); ?>" accept-charset="UTF-8">
+<form method="post" id="new_renter" data-remote="true" class="new_renter" action="<?php echo JRoute::_('index.php?option=com_rental&view=renter&layout=create-profile&format=raw'); ?>" accept-charset="UTF-8">
     <div style="margin:0;padding:0;display:inline">
       <input type="hidden" value="✓" name="utf8">
       <input type="hidden" value="FMMkutNs1Rl3JU3ZLjwl+l5+EYNdHqoqS95L8NSndUQ=" name="authenticity_token">
     </div>
-    <?php if (!empty($this->errors)): ?>
+    <?php if (!empty($this->checkErrors)): ?>
 	<div class="errorExplanation" id="errorExplanation">
 		<h2>oops! There are some errors</h2>
 		<ul>
-			<?php foreach ($this->errors as $error): ?>
+			<?php foreach ($this->checkErrors as $error): ?>
 			<li><?php echo $error; ?></li>
 			<?php endforeach; ?>
 		</ul>
@@ -26,25 +28,46 @@
       </div>
       <div class="borderTop pad10-10-15-10 relative" id="name">
         <label for="user_first_name">First Name</label>
-        <input type="text" size="30" name="user[first_name]" id="user_first_name" class="text width250 idleField">
+        <input type="text" size="30" name="user[first_name]" id="user_first_name" value="<?php echo $user['first_name']; ?>" class="text width250 idleField">
+        <?php if ($user['first_name'] == ''): ?>
+        <div class="formError">can't be blank</div>
+        <?php endif; ?>
       </div>
       <div class=" borderTop pad10-10-15-10 clearfix relative">
         <label for="user_last_name">Last Name</label>
-        <input type="text" size="30" name="user[last_name]" id="user_last_name" class="text width250 idleField">
+        <input type="text" size="30" name="user[last_name]" id="user_last_name" class="text width250 idleField" value="<?php echo $user['last_name']; ?>">
+        <?php if ($user['last_name'] == ''): ?>
+        <div class="formError">can't be blank</div>
+        <?php endif; ?>
       </div>
       <div class=" borderTop clearfix pad10-10-15-10 relative" id="email"> <span class="sideText"> <strong>Your email is private.</strong> <br>
         You decide whom to share it with. </span>
         <label for="user_email">Email</label>
-        <input type="text" size="30" name="user[email]" id="user_email" class="text width250 idleField">
+        <input type="text" size="30" name="user[email]" id="user_email" class="text width250 idleField" value="<?php echo $user['email']; ?>">
+        <?php if ($user['email'] == ''): ?>
+        <div class="formError">can't be blank</div>
+        <?php endif; ?>
+        <?php if (!$this->checkValidEmailAddress): ?>
+        <div class="formError">should look like an email address</div>
+        <?php endif; ?>
       </div>
       <div class="borderTop pad10-10-15-10 clearfix relative" id="phone"> <span class="sideText"> <strong>Your Phone number is private.</strong> <br>
         You decide whom to share it with. </span>
         <label for="user_phone_number">Phone Number</label>
-        <input type="text" value="" size="30" name="user[phone_number]" id="user_phone_number" class="text width250 idleField">
+        <input type="text" size="30" name="user[phone_number]" id="user_phone_number" class="text width250 idleField" value="<?php echo $user['phone_number']; ?>">
+        <?php if ($user['phone_number'] == ''): ?>
+        <div class="formError">can't be blank</div>
+        <?php endif; ?>
+        <?php if (strlen($user['phone_number']) != 10 && $user['phone_number'] != ''): ?>
+        <div class="formError">is the wrong length (should be 10 characters)</div>
+        <?php endif; ?>
       </div>
       <div class=" borderTop pad10-10-15-10 relative">
         <label for="user_Password">Password</label>
         <input type="password" size="30" name="user[password]" id="user_password" class="text width250 idleField">
+        <?php if (strlen($user['password']) < 4): ?>
+        <div class="formError">is too short (minimum is 4 characters)</div>
+        <?php endif; ?>
       </div>
       <div class="clear"></div>
     </div>

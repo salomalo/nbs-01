@@ -26,7 +26,8 @@ class RentalViewRenter extends JView
 {
 	protected $items;
 	protected $pagination;
-	protected $errors;
+	protected $checkErrors;
+	protected $checkValidEmailAddress = true;
 
 	function display($tpl = null)
 	{
@@ -57,7 +58,7 @@ class RentalViewRenter extends JView
 		$user = $post['user'];
 		
 		$errors = array();
-		$this->errors = array();
+		$this->checkErrors = array();
 		
 		//check valid
 		if ($user['first_name'] == '')
@@ -70,7 +71,10 @@ class RentalViewRenter extends JView
 			$errors[] = 'Email can\'t be blank';
 		
 		if (!$this->checkValidEmail($user['email']))
+		{
+			$this->checkValidEmailAddress = false;
 			$errors[] = 'Email should look like an email address';
+		}
 		
 		$model = $this->getModel();
 		
@@ -86,13 +90,15 @@ class RentalViewRenter extends JView
 			$errors[] = 'Phone number is the wrong length (should be 10 characters)';
 		
 		if (strlen($user['password']) < 4)
+		{
 			$errors[] = 'Password is too short (minimum is 4 characters)';
+		}
 		
 		$current_step = 1;
 		
 		if (!empty($errors))
 		{
-			$this->errors = $errors;
+			$this->checkErrors = $errors;
 		}
 		else
 			$current_step = $post['step'];
