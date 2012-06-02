@@ -50,4 +50,39 @@ class RentalModelRenter extends JModel
 		
 		return false;
 	}
+	
+	function getNeighborhood()
+	{
+		//get in categories
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+		
+		$query->select('*')
+				->from('#__categories')
+				->where('published = 1')
+				->where('extension = "com_rental"')
+				->where('parent_id = 1')
+		;
+		
+		$db->setQuery($query);
+		$categories = $db->loadObjectList();
+		
+		foreach ($categories as & $cat)
+		{
+			//select location
+			$query = $db->getQuery(true);
+			
+			$query->select('*')
+					->from('#__retal_location')
+					->where('catid = ' . (int) $cat->id . ' OR catid IN (SELECT id FROM #__categories WHERE parent_id = '. (int) $cat->id .')')
+			;
+			
+			#echo str_replace('#__', 'jos_', $query);
+			
+			$db->setQuery($query);
+			$cat->locations = $db->loadObjectList();
+		}
+		
+		return $categories;
+	}
 }
