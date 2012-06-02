@@ -1,6 +1,8 @@
 <?php
 $post = JRequest::get('post');
 $user = $post['user'];
+$renter = $post['renter'];
+$arrBedrooms = JEUtil::getBedrooms();
 ?>
 <form method="post" id="new_renter" data-remote="true" class="new_renter" action="<?php echo JRoute::_('index.php?option=com_rental&view=renter&layout=create-profile&format=raw'); ?>" accept-charset="UTF-8">
     <div style="margin:0;padding:0;display:inline">
@@ -46,9 +48,10 @@ $user = $post['user'];
         <input type="text" size="30" name="user[email]" id="user_email" class="text width250 idleField" value="<?php echo $user['email']; ?>">
         <?php if ($user['email'] == ''): ?>
         <div class="formError">can't be blank</div>
-        <?php endif; ?>
-        <?php if (!$this->checkValidEmailAddress): ?>
+        <?php elseif ($this->checkEmailAddress == 'INVALID'): ?>
         <div class="formError">should look like an email address</div>
+        <?php elseif ($this->checkEmailAddress == 'TAKEN'): ?>
+        <div class="formError">has already been taken</div>
         <?php endif; ?>
       </div>
       <div class="borderTop pad10-10-15-10 clearfix relative" id="phone"> <span class="sideText"> <strong>Your Phone number is private.</strong> <br>
@@ -64,7 +67,7 @@ $user = $post['user'];
       </div>
       <div class=" borderTop pad10-10-15-10 relative">
         <label for="user_Password">Password</label>
-        <input type="password" size="30" name="user[password]" id="user_password" class="text width250 idleField">
+        <input type="password" size="30" name="user[password]" id="user_password" class="text width250 idleField" value="<?php echo $user['password']; ?>">
         <?php if (strlen($user['password']) < 4): ?>
         <div class="formError">is too short (minimum is 4 characters)</div>
         <?php endif; ?>
@@ -74,7 +77,7 @@ $user = $post['user'];
     <div id="signup_step_2" class="main signupStep hidden">
       <div class="headMessage padBottom20">
         <h1 class="small orange">Where are you looking?</h1>
-      </div>
+      </div>      
       <div class="sideContainer">
         <div class="sideBox curveRt"> "Tips on Renting in a Web-Site World"
           <p class="marginTop10">"For Renters-to-Be, the High-Tech Lowdown" <strong>New York Times</strong></p>
@@ -86,703 +89,43 @@ $user = $post['user'];
         <label>Apartment Size <span class="message inline">(choose all that apply)</span></label>
         <div id="selectApartmentSize">
           <ul class="plain clearfix">
+          	<?php foreach ($arrBedrooms as $key => $bedroom): ?>          	
             <li class="boxed hoverable">
-              <input type="checkbox" value="1" name="renter[apartment_size_ids][]" id="renter_apartment_size_id_1">
-              <label for="renter_apartment_size_id_1">Studio</label>
+              <input type="checkbox" value="<?php echo $key; ?>" name="renter[apartment_size_ids][]" id="renter_apartment_size_id_1" <?php if (isset($renter['apartment_size_ids']) && in_array($key, $renter['apartment_size_ids'])) echo 'checked="checked"'; ?>>
+              <label for="renter_apartment_size_id_1"><?php echo $bedroom; ?></label>
             </li>
-            <li class="boxed hoverable">
-              <input type="checkbox" value="2" name="renter[apartment_size_ids][]" id="renter_apartment_size_id_2">
-              <label for="renter_apartment_size_id_2">Loft</label>
-            </li>
-            <li class="boxed hoverable">
-              <input type="checkbox" value="3" name="renter[apartment_size_ids][]" id="renter_apartment_size_id_3">
-              <label for="renter_apartment_size_id_3">1br</label>
-            </li>
-            <li class="boxed hoverable">
-              <input type="checkbox" value="4" name="renter[apartment_size_ids][]" id="renter_apartment_size_id_4">
-              <label for="renter_apartment_size_id_4">2br</label>
-            </li>
-            <li class="boxed hoverable">
-              <input type="checkbox" value="5" name="renter[apartment_size_ids][]" id="renter_apartment_size_id_5">
-              <label for="renter_apartment_size_id_5">3br</label>
-            </li>
-            <li class="boxed hoverable">
-              <input type="checkbox" value="6" name="renter[apartment_size_ids][]" id="renter_apartment_size_id_6">
-              <label for="renter_apartment_size_id_6">4br</label>
-            </li>
-            <li class="boxed hoverable">
-              <input type="checkbox" value="7" name="renter[apartment_size_ids][]" id="renter_apartment_size_id_7">
-              <label for="renter_apartment_size_id_7">5br</label>
-            </li>
-            <li class="boxed hoverable">
-              <input type="checkbox" value="8" name="renter[apartment_size_ids][]" id="renter_apartment_size_id_8">
-              <label for="renter_apartment_size_id_8">6br</label>
-            </li>
-            <li class="boxed hoverable">
-              <input type="checkbox" value="9" name="renter[apartment_size_ids][]" id="renter_apartment_size_id_9">
-              <label for="renter_apartment_size_id_9">7br</label>
-            </li>
-            <li class="boxed hoverable">
-              <input type="checkbox" value="10" name="renter[apartment_size_ids][]" id="renter_apartment_size_id_10">
-              <label for="renter_apartment_size_id_10">8br</label>
-            </li>
+            <?php endforeach; ?>
           </ul>
         </div>
+        <?php if (!isset($renter['apartment_size_ids'])): ?>
+        <div class="formError">Please choose at least one apartment size</div>
+        <?php endif; ?>
       </div>
       <div class=" borderTop pad10-10-15-10">
-        <label>Where are you looking?</label>
+        <label>Where are you looking? kk</label>
         <div class="clear"></div>
+        <?php if (!isset($renter['neighborhood_ids'])): ?>
+        <div class="formError">Please choose at least one neighborhood</div>
+        <?php endif; ?>
         <div class="smallLabel">
           <ul class="clearfix" id="boroughNav">
-            <li data-id="1" class="active"><a href="#">Manhattan</a></li>
-            <li data-id="2"><a href="#">Brooklyn</a></li>
-            <li data-id="3"><a href="#">Queens</a></li>
-            <li data-id="4"><a href="#">Bronx</a></li>
-            <li data-id="5"><a href="#">Staten Island</a></li>
+          	<?php foreach ($this->neighborhood as $key => $n): ?>
+            <li data-id="<?php echo $n->id; ?>" <?php if ($key == 0): ?>class="active"<?php endif; ?>><a href="#"><?php echo $n->title; ?></a></li>
+            <?php endforeach; ?>
           </ul>
-          <div style="" class="boroughs" id="borough_1"> <span>
-            <div class="checkboxCont">
-              <input type="checkbox" value="23" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Battery Park</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="6" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Chelsea</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="21" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Chinatown</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="191" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Clinton</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="18" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>East Village</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="24" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Financial District</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="76" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Flatiron</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="10" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Gramercy</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="14" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Greenwich Village</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="1" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Harlem</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="5" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Hell's Kitchen</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="25" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Inwood</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="93" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Kips Bay</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="22" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Little Italy</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="17" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Lower East Side</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="13" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Meatpacking Dist.</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="72" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Midtown</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="155" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Midtown Center</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="16" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Midtown East</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="15" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Midtown West</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="2" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Morningside Heights</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="9" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Murray Hill</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="20" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>NoHo</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="19" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Nolita</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="73" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Roosevelt Island</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="7" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>SoHo</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="192" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Theater District/Times Square</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="8" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>TriBeCa</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="74" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Tudor City</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="11" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Union Square</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="4" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Upper East Side</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="3" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Upper West Side</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="26" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Washington Heights</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="12" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>West Village</label>
-            </div>
-            </span>
-            <div class="clear"></div>
-          </div>
-          <div style="display: none;" class="boroughs" id="borough_2"> <span>
-            <div class="checkboxCont">
-              <input type="checkbox" value="117" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Bath Beach</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="77" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Bayridge</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="46" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Bedford-Stuyvesant</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="29" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Bensonhurst</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="78" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Bergen Beach</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="36" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Boerum Hill</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="79" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Borough Park</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="118" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Brighton Beach</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="30" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Brooklyn Heights</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="119" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Brownsville</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="41" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Bushwick</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="120" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Canarsie</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="37" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Carroll Gardens</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="31" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Clinton Hill</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="38" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Cobble Hill</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="121" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Coney Island</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="45" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Crown Heights</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="122" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Cypress Hills</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="80" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Ditmas Park</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="32" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Downtown</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="33" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>DUMBO</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="123" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Dyker Heights</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="124" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>East Flatbush</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="82" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>East New York</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="42" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>East Williamsburg</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="83" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Flatbush</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="84" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Flatlands</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="34" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Fort Greene</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="147" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Fort Hamilton</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="125" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Georgetown</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="39" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Gowanus</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="126" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Gravesend</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="43" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Greenpoint</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="127" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Greenwood Heights</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="151" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Homecrest</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="85" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Kensington</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="128" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Lefferts Garden</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="152" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Manhattan Terrace</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="129" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Marine Park</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="95" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Midwood</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="130" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Mill Basin</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="86" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Ocean Parkway</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="131" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Old Mill Basin</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="27" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Park Slope</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="94" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Park Slope South</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="28" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Prospect Heights</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="87" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Prospect Leffert</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="134" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Prospect Park</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="88" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Prospect Park South</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="40" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Red Hook</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="132" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Sheepshead Bay</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="133" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Stuyvesant Heights</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="89" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Sunset Park</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="35" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Vinegar Hill</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="44" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Williamsburg</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="47" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Windsor Terrace</label>
-            </div>
-            </span>
-            <div class="clear"></div>
-          </div>
-          <div style="display: none;" class="boroughs" id="borough_3"> <span>
-            <div class="checkboxCont">
-              <input type="checkbox" value="48" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Astoria</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="99" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Bayside</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="102" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Briarwood</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="137" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Browne Park</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="107" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Cambria Heights</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="148" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Clearview</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="98" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>College point</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="96" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Corona</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="49" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Ditmars</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="149" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Douglaston</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="101" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>East Elmhurst</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="139" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>East Flushing</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="100" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Elmhurst</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="112" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Far Rockaway</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="108" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Floral Park</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="54" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Flushing</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="55" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Forest Hills</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="190" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Fresh Meadows</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="141" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Glendale</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="92" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Hunters Point</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="53" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Jackson Heights</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="105" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Jamaica</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="97" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Kew Gardens</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="136" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Kew Gardens Hill</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="50" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Long Island City</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="113" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Maspeth</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="114" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Middle Village</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="159" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Murray Hill</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="143" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Neponsit &amp; Belle</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="110" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Ozone Park</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="144" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Pomonok</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="106" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Queens Village</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="157" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Queensboro Hill</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="91" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Rego Park</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="104" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Richmond hills</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="115" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Ridgewood</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="146" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Rockaway Park</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="109" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Rosedale</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="111" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>South Ozone Park</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="116" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Springfield Gardens</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="51" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Sunnyside</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="103" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Woodhaven</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="52" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Woodside</label>
-            </div>
-            </span>
-            <div class="clear"></div>
-          </div>
-          <div style="display: none;" class="boroughs" id="borough_4"> <span>
-            <div class="checkboxCont">
-              <input type="checkbox" value="59" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Bedford Park</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="75" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Bronx</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="189" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Castle Hill</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="60" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Concourse</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="61" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>East Tremont</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="150" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Fairmont   Claremont Village</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="57" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Fordham</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="62" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Marble Hill</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="63" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Morrisania</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="187" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Moshulu Parkway</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="58" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Mott Haven</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="64" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Parkchester</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="65" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Pelham Bay</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="66" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Pelham Parkway</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="56" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Riverdale</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="186" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Wakefield</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="188" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Woodlawn</label>
-            </div>
-            </span>
-            <div class="clear"></div>
-          </div>
-          <div style="display: none;" class="boroughs" id="borough_5"> <span>
-            <div class="checkboxCont">
-              <input type="checkbox" value="67" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>East Shore</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="68" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Mid-Island</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="69" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>North Shore</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="145" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>Shore Acres</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="70" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>South Shore</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="71" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text">
-              <label>West Shore</label>
-            </div>
-            </span>
-            <div class="clear"></div>
+          	<?php foreach ($this->neighborhood as $key => $n): ?>
+	          <div <?php if ($key > 0): ?>style="display: none;"<?php endif; ?> class="boroughs" id="borough_<?php echo $n->id; ?>">
+	          	<span>
+	          		<?php foreach ($n->locations as $loc): ?>
+		            <div class="checkboxCont">
+		              <input type="checkbox" value="<?php echo $loc->id; ?>" name="renter[neighborhood_ids][]" id="renter_neighborhood_ids_" class="field text" <?php if (isset($renter['neighborhood_ids']) && in_array($loc->id, $renter['neighborhood_ids'])) echo 'checked="checked"'; ?>>
+		              <label><?php echo $loc->title; ?></label>
+		            </div>
+		            <?php endforeach; ?>
+	            </span>
+	            <div class="clear"></div>
+	          </div>
+	         <?php endforeach; ?>
           </div>
         </div>
       </div>

@@ -27,7 +27,8 @@ class RentalViewRenter extends JView
 	protected $items;
 	protected $pagination;
 	protected $checkErrors;
-	protected $checkValidEmailAddress = true;
+	protected $checkEmailAddress = '';
+	protected $neighborhood;
 
 	function display($tpl = null)
 	{
@@ -72,7 +73,7 @@ class RentalViewRenter extends JView
 		
 		if (!$this->checkValidEmail($user['email']))
 		{
-			$this->checkValidEmailAddress = false;
+			$this->checkEmailAddress = 'INVALID';
 			$errors[] = 'Email should look like an email address';
 		}
 		
@@ -81,7 +82,10 @@ class RentalViewRenter extends JView
 		$checkEmailExist = $model->checkEmailExist($user['email']);
 		
 		if ($checkEmailExist)
+		{
+			$this->checkEmailAddress = 'TAKEN';
 			$errors[] = 'Email has already been taken';
+		}
 		
 		if ($user['phone_number'] == '')
 			$errors[] = 'Phone number can\'t be blank';
@@ -102,6 +106,24 @@ class RentalViewRenter extends JView
 		}
 		else
 			$current_step = $post['step'];
+		
+		//get neighborhood
+		$this->neighborhood = $model->getNeighborhood();
+		
+		//check if step 2 has errors
+		if ($current_step == 3)
+		{
+			$renter = $post['renter'];
+			
+			if (!isset($renter['apartment_size_ids']))
+				$errors[] = 'Please choose at least one apartment size';
+			
+			if (!isset($renter['neighborhood_ids']))
+				$errors[] = 'Please choose at least one neighborhood';
+			
+			if (!empty($errors))
+				$this->checkErrors = $errors;
+		}
 		
 		$contents = null;
 		
