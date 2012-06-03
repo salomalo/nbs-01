@@ -6,17 +6,12 @@ if($this->checkErrors) {
 	$contents = str_replace("'", "\'", $contents);
 	$contents = "$('#new_renter').replaceWith('".$contents."');";
 	echo $contents; ?>
-	//hide_form_errors();
-	hide_all_steps();
-	$('#signup_step_2').show();
-	$('#step').val('3');
-	na.renter_step_signup.indicator(2);	
 <?php 	
 } else {
 ?>
 hide_form_errors();
+<?php }; ?>
 hide_all_steps();
 $('#signup_step_3').show();
 $('#step').val('4');
 na.renter_step_signup.indicator(3);
-<?php }?>

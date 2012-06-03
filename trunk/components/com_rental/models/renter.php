@@ -51,6 +51,10 @@ class RentalModelRenter extends JModel
 		return false;
 	}
 	
+	/**
+	 * Function to get categories & locations
+	 * @return List of categories objects
+	 */
 	function getNeighborhood()
 	{
 		//get in categories
@@ -84,5 +88,49 @@ class RentalModelRenter extends JModel
 		}
 		
 		return $categories;
+	}
+	
+	function register($user, $renter)
+	{
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+		
+		//insert to table user
+		$query->insert('#__users (name, username, email, password, usertype, registerDate)')
+				->values('"'.$user['first_name'] . ' ' . $user['last_name'] .'", "'. $user['email'] .'", "'. $user['email'] .'", "'. $user['password'] .'", "registered", "'.date('Y-m-d H:i:s').'"');
+		
+		$db->setQuery($query);
+		$db->query();
+		
+		if ($db->getErrorMsg())
+			die ($db->getErrorMsg());
+		
+		$userId = $db->insertid();
+		
+		$apartmenSize = serialize($renter['apartment_size_ids']);
+		$neighborhood = serialize($renter['neighborhood_ids']);
+		$roommatesEmail = serialize($renter[roommates_email]);
+		$financialInfo = array(
+								'gross_salary' 	=> $renter['gross_salary'],
+								'credit_score' 	=> $renter['credit_score'],
+								'has_guarantor' => $renter['has_guarantor']
+							);
+		
+		$financialInfo = serialize($financialInfo);
+		
+		
+		//insert into table renter user
+		$query = $db->getQuery(true);
+		$query->insert('#__rental_users (first_name, last_name, phone_number, apartment_size, neighborhood_ids, max_rent, have_a_pet, roommate, email_alert, financial_info, more_info)')
+				->values('"'.$user['first_name'] . '", "' . $user['last_name'] .'", "' . $user['phone_number'] .'", "'.$apartmenSize.'", "'.$neighborhood.'", "'.$renter['maximum_rent'].'", "'.$renter['have_pet'].'", "'.$renter['roommates_total'].'", "'.$roommatesEmail.'", "'.$financialInfo.'", "'.$renter['comments_for_broker'].'"');
+		
+		
+		$db->setQuery($query);
+		$db->query();
+		
+		if ($db->getErrorMsg())
+			die ($db->getErrorMsg());
+		
+		return true;
 	}
 }

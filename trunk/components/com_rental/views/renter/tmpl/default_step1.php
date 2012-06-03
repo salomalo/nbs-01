@@ -141,40 +141,54 @@ $arrBedrooms = JEUtil::getBedrooms();
       </div>
       <div class="borderTop pad10-10-15-10 clearfix">
         <label for="renter_maximum_rent" class="inline width250 padTop5">What's your maximum rent?</label>
-        <input type="text" size="10" name="renter[maximum_rent]" id="renter_maximum_rent" default="$" class="text inline width-80 idleField">
+        <input value="<?php echo $renter['maximum_rent']; ?>" type="text" size="10" name="renter[maximum_rent]" id="renter_maximum_rent" default="$" class="text inline width-80 idleField">
+        <?php if (intval($renter['maximum_rent']) <= 0): ?>
+        <div class="formError">can't be blank</div>
+        <?php endif; ?>
       </div>
       <div id="estimatedMoveDate" class=" borderTop pad10-10-15-10 clearfix">
         <label for="renter_move_date" class="inline width250 padTop5">When are you looking to move?</label>
         <input type="text" size="12" name="renter[move_date]" id="renter_move_date" data-min-date="0d" class="w16em dateformat-m-sl-d-sl-Y text inline width-100 hasDatepicker idleField">
+        <?php if ($renter['move_date'] == ''): ?>
+        <div class="formError">can't be blank</div>
+        <?php elseif (strtotime($tmp) < strtotime(date('Y-m-d'))): ?>
+        <div class="formError">must be in the future</div>
+        <?php endif; ?>
       </div>
       <div id="renterHavePet" class="borderTop pad10-10-15-10 clearfix">
         <label for="renter_have_pet">Do you have a pet?</label>
         <div class="clear"></div>
         <label class="radio">
-          <input type="radio" value="1" name="renter[have_pet]" id="renter_have_pet_1">
+          <input type="radio" value="1" name="renter[have_pet]" id="renter_have_pet_1" <?php if (isset($renter['have_pet']) && $renter['have_pet'] == 1) echo 'checked="checked"'; ?>>
           No</label>
         <label class="radio">
-          <input type="radio" value="2" name="renter[have_pet]" id="renter_have_pet_2">
+          <input type="radio" value="2" name="renter[have_pet]" id="renter_have_pet_2" <?php if (isset($renter['have_pet']) && $renter['have_pet'] == 2) echo 'checked="checked"'; ?>>
           Cat</label>
         <label class="radio">
-          <input type="radio" value="3" name="renter[have_pet]" id="renter_have_pet_3">
+          <input type="radio" value="3" name="renter[have_pet]" id="renter_have_pet_3" <?php if (isset($renter['have_pet']) && $renter['have_pet'] == 3) echo 'checked="checked"'; ?>>
           Dog</label>
+          <?php if (!isset($renter['have_pet'])): ?>
+          <div class="formError">can't be blank</div>
+          <?php endif; ?>
       </div>
       <div id="renterRoommatesTotal" class="borderTop pad10-10-15-10 clearfix">
         <label for="renter_roommates_total">How many roommates are you looking with?</label>
         <div class="clear"></div>
         <label class="radio">
-          <input type="radio" value="1" name="renter[roommates_total]" id="renter_roommates_total_1">
+          <input type="radio" value="1" name="renter[roommates_total]" id="renter_roommates_total_1" <?php if (isset($renter['roommates_total']) && $renter['roommates_total'] == 1) echo 'checked="checked"'; ?>>
           0</label>
         <label class="radio">
-          <input type="radio" value="2" name="renter[roommates_total]" id="renter_roommates_total_2">
+          <input type="radio" value="2" name="renter[roommates_total]" id="renter_roommates_total_2" <?php if (isset($renter['roommates_total']) && $renter['roommates_total'] == 2) echo 'checked="checked"'; ?>>
           1</label>
         <label class="radio">
-          <input type="radio" value="3" name="renter[roommates_total]" id="renter_roommates_total_3">
+          <input type="radio" value="3" name="renter[roommates_total]" id="renter_roommates_total_3" <?php if (isset($renter['roommates_total']) && $renter['roommates_total'] == 3) echo 'checked="checked"'; ?>>
           2</label>
         <label class="radio">
-          <input type="radio" value="4" name="renter[roommates_total]" id="renter_roommates_total_4">
+          <input type="radio" value="4" name="renter[roommates_total]" id="renter_roommates_total_4" <?php if (isset($renter['roommates_total']) && $renter['roommates_total'] == 4) echo 'checked="checked"'; ?>>
           3+</label>
+          <?php if (!isset($renter['roommates_total'])): ?>
+          <div class="formError">can't be blank</div>
+          <?php endif; ?>
       </div>
       <div class=" borderTop pad10-10-15-10 clearfix">
         <h2>Sign-up your roommates/spouse for new listing alerts <span class="message inline">(optional)</span></h2>
@@ -184,7 +198,7 @@ $arrBedrooms = JEUtil::getBedrooms();
           <div style="border: 0;" class="rowLine clearfix">
             <div class="block">
               <label>Email Address</label>
-              <input type="text" id="roommmatesEmail" class="idleField">
+              <input type="text" id="roommmatesEmail" name="renter[roommates_email][]" class="idleField">
             </div>
             <div class="block"> <a id="addRoommatesEmail" class="button small blue large" href="#"><span>Add</span></a> </div>
           </div>

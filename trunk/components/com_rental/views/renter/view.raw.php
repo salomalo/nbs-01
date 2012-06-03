@@ -110,11 +110,11 @@ class RentalViewRenter extends JView
 		//get neighborhood
 		$this->neighborhood = $model->getNeighborhood();
 		
+		$renter = $post['renter'];
+		
 		//check if step 2 has errors
 		if ($current_step == 3)
 		{
-			$renter = $post['renter'];
-			
 			if (!isset($renter['apartment_size_ids']))
 				$errors[] = 'Please choose at least one apartment size';
 			
@@ -122,7 +122,63 @@ class RentalViewRenter extends JView
 				$errors[] = 'Please choose at least one neighborhood';
 			
 			if (!empty($errors))
+			{
+				$current_step = 2;
 				$this->checkErrors = $errors;
+			}
+		}
+		
+		// check last step
+		if ($current_step == 4)
+		{
+			if (intval($renter['maximum_rent']) <= 0)
+				$errors[] = 'Maximum rent can\'t be blank or is not a number';
+			
+			if ($renter['move_date'] == '')
+				$errors[] = 'Est. Move Date can\'t be blank';
+			else
+			{
+				//convert move_date
+				$tmp = explode('/', $renter['move_date']);
+				$tmp = $tmp[2] . '-' . $tmp[0] . '-' . $tmp[1];					
+					
+				if (strtotime($tmp) < strtotime(date('Y-m-d')))
+					$errors[] = 'Est. Move Date must be in the future';
+			}
+			
+			//var_dump(strtotime($tmp), strtotime(date('Y-m-d')), (strtotime($tmp) < strtotime(date('Y-m-d'))));
+			
+			if (!isset($renter['have_pet']))
+				$errors[] = 'Do you have a pet? can\'t be blank';
+			
+			if (!isset($renter['roommates_total']))
+				$errors[] = 'How many roommates are you looking with? can\'t be blank';
+			
+			if (!empty($errors))
+			{
+				$current_step = 3;
+				$this->checkErrors = $errors;
+			}
+			else
+			{
+				//build data for user
+				
+				//reg user
+				$result = $model->register($user, $renter);
+				
+				//if reg done
+				if ($result === true)
+				{
+					//set session new user
+					$session = JFactory::getSession();
+					$session->set('SESSION_NEW_USER', 1);
+					
+					//login with email & password user provided when reg
+					
+				}
+				
+				
+			}
 		}
 		
 		$contents = null;
@@ -148,14 +204,10 @@ class RentalViewRenter extends JView
 				$contents = $this->loadTemplate('step3');
 			break;
 			case 4://check form and save data
-				
-			break;
-			
-			default:
-				;
+				//forward user to page list apartment
+				$contents = $this->loadTemplate('step4');
 			break;
 		}
-		
 		
 		echo $contents;
 		jexit();
