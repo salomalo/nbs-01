@@ -30,7 +30,7 @@ ALTER TABLE  `jos_rental_apartments` ADD  `longitude` VARCHAR(200) NOT NULL AFTE
 -- 04/06/2012 - muinx - add table renter
 DROP TABLE IF EXISTS `jos_rental_renters`;
 CREATE TABLE IF NOT EXISTS `jos_rental_renters` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `first_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) DEFAULT NULL,
