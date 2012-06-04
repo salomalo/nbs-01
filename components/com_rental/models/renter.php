@@ -109,20 +109,19 @@ class RentalModelRenter extends JModel
 		
 		$apartmenSize = serialize($renter['apartment_size_ids']);
 		$neighborhood = serialize($renter['neighborhood_ids']);
-		$roommatesEmail = serialize($renter[roommates_email]);
+		$roommatesEmail = serialize($renter['roommates_email']);
 		$financialInfo = array(
-								'gross_salary' 	=> $renter['gross_salary'],
-								'credit_score' 	=> $renter['credit_score'],
-								'has_guarantor' => $renter['has_guarantor']
+								'gross_salary' 	=> isset($renter['gross_salary']) ? $renter['gross_salary'] : '',
+								'credit_score' 	=> isset($renter['credit_score']) ? $renter['credit_score'] : '',
+								'has_guarantor' => isset($renter['has_guarantor']) ? $renter['has_guarantor'] : ''
 							);
 		
 		$financialInfo = serialize($financialInfo);
 		
-		
 		//insert into table renter user
 		$query = $db->getQuery(true);
-		$query->insert('#__rental_users (first_name, last_name, phone_number, apartment_size, neighborhood_ids, max_rent, have_a_pet, roommate, email_alert, financial_info, more_info)')
-				->values('"'.$user['first_name'] . '", "' . $user['last_name'] .'", "' . $user['phone_number'] .'", "'.$apartmenSize.'", "'.$neighborhood.'", "'.$renter['maximum_rent'].'", "'.$renter['have_pet'].'", "'.$renter['roommates_total'].'", "'.$roommatesEmail.'", "'.$financialInfo.'", "'.$renter['comments_for_broker'].'"');
+		$query->insert('#__rental_renters (first_name, last_name, phone_number, apartment_size, neighborhood_ids, max_rent, have_a_pet, roommate, email_alert, financial_info, more_info)')
+				->values('"'.$user['first_name'] . '", "' . $user['last_name'] .'", "' . $user['phone_number'] .'", \''.$apartmenSize.'\', \''.$neighborhood.'\', "'.$renter['maximum_rent'].'", "'.$renter['have_pet'].'", "'.$renter['roommates_total'].'", \''.$roommatesEmail.'\', \''.$financialInfo.'\', "'.$renter['comments_for_broker'].'"');
 		
 		
 		$db->setQuery($query);

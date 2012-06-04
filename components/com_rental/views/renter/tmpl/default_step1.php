@@ -151,9 +151,18 @@ $arrBedrooms = JEUtil::getBedrooms();
         <input type="text" size="12" name="renter[move_date]" id="renter_move_date" data-min-date="0d" class="w16em dateformat-m-sl-d-sl-Y text inline width-100 hasDatepicker idleField">
         <?php if ($renter['move_date'] == ''): ?>
         <div class="formError">can't be blank</div>
-        <?php elseif (strtotime($tmp) < strtotime(date('Y-m-d'))): ?>
+        <?php
+        else:
+	        //convert move_date
+	        $tmp = explode('/', $renter['move_date']);
+	        $tmp = $tmp[2] . '-' . $tmp[0] . '-' . $tmp[1];
+	        	
+	        if (strtotime($tmp) < strtotime(date('Y-m-d'))):
+        ?>
         <div class="formError">must be in the future</div>
-        <?php endif; ?>
+        <?php 
+        	endif;
+        endif; ?>
       </div>
       <div id="renterHavePet" class="borderTop pad10-10-15-10 clearfix">
         <label for="renter_have_pet">Do you have a pet?</label>
