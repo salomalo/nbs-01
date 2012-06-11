@@ -24,30 +24,146 @@ jimport('joomla.application.component.view');
 
 class RentalViewBroker extends JView
 {
-	protected $item;
+	protected $items;
 	protected $pagination;
+	protected $checkErrors;
+	protected $checkEmailAddress = '';
+	protected $neighborhood;
 
 	function display($tpl = null)
 	{
-		$this->item = $this->get('Item');
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseError(500, implode("\n", $errors));
 			return false;
 		}
+		
+		$session = JFactory::getSession();
 
 		$this->_prepareDocument();
-
-		echo parent::display($tpl);
+		
+		$post = JRequest::get('post');
+		
+		$user = $post['user'];
+		
+		$errors = array();
+		$this->checkErrors = array();
+		
+		//check valid
+		if ($user['first_name'] == '')
+			$errors[] = 'First name can\'t be blank';
+		
+		if ($user['last_name'] == '')
+			$errors[] = 'Last name can\'t be blank';
+		
+		if ($user['email'] == '')
+			$errors[] = 'Email can\'t be blank';
+		
+		if (!$this->checkValidEmail($user['email']))
+		{
+			$this->checkEmailAddress = 'INVALID';
+			$errors[] = 'Email should look like an email address';
+		}
+		
+		$model = $this->getModel('Renter', 'RentalModel');
+		
+		$checkEmailExist = $model->checkEmailExist($user['email']);
+		
+		if ($checkEmailExist)
+		{
+			$this->checkEmailAddress = 'TAKEN';
+			$errors[] = 'Email has already been taken';
+		}
+		
+		if (strlen($user['phone_area']) == '')
+			$errors[] = 'Phone area can\'t be blank';
+		
+		if (strlen($user['phone_prefix']) == '')
+			$errors[] = 'Phone prefix can\'t be blank';
+		
+		if (strlen($user['phone_sufix']) == '')
+			$errors[] = 'Phone sufix can\'t be blank';
+		
+		if (strlen($user['password']) < 4)
+		{
+			$errors[] = 'Password is too short (minimum is 4 characters)';
+		}
+		
+		$broker = $post['broker'];
+		
+		if (!empty($errors))
+		{
+			$this->checkErrors = $errors;
+		}
+		else
+			$current_step = $post['step'];
+		
+		//get neighborhood
+		$this->neighborhood = $model->getNeighborhood();
+		
+		$renter = $post['renter'];
+		
+		//check if step 2 has errors
+		if ($current_step == 3)
+		{
+			if (!isset($renter['apartment_size_ids']))
+				$errors[] = 'Please choose at least one apartment size';
+			
+			if (!isset($renter['neighborhood_ids']))
+				$errors[] = 'Please choose at least one neighborhood';
+			
+			if (!empty($errors))
+			{
+				$current_step = 2;
+				$this->checkErrors = $errors;
+			}
+		}
+		
+		// check last step
+		
+		if (!empty($errors))
+		{
+			$session->set('errors', $errors);
+		}
+		else
+		{
+			//reg user
+			$result = $model->register($user, $renter);
+				
+			//if reg done
+			if ($result === true)
+			{
+				//set session new user
+			
+				$session->set('SESSION_NEW_USER', 1);
+			
+				//login with email & password user provided when reg
+			
+			}
+		}
+		
 		jexit();
-	}
 
+		//parent::display($tpl);
+	}
+	
 	/**
 	 * Prepares the document
 	 */
 	protected function _prepareDocument()
 	{
 		//TODO: prepare document
+	}
+	
+	function checkValidEmail($email = '')
+	{
+		return preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^", $email);
+	}
+	
+	function url_redirect()
+	{
+		header ("Location: " . JRoute::_('index.php?option=com_rental&view=broker&layout=signup'));
+		exit();
 	}
 }

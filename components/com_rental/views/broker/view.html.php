@@ -26,6 +26,7 @@ class RentalViewBroker extends JView
 {
 	protected $item;
 	protected $pagination;
+	protected $neighborhood;
 
 	function display($tpl = null)
 	{
@@ -36,7 +37,12 @@ class RentalViewBroker extends JView
 			JError::raiseError(500, implode("\n", $errors));
 			return false;
 		}
-
+		
+		$renterModel = JModel::getInstance('Renter', 'RentalModel');
+		
+		//get neighborhood
+		$this->neighborhood = $renterModel->getNeighborhood();
+		
 		$this->_prepareDocument();
 
 		parent::display($tpl);
