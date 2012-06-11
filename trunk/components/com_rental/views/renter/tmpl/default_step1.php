@@ -102,7 +102,7 @@ $arrBedrooms = JEUtil::getBedrooms();
         <?php endif; ?>
       </div>
       <div class=" borderTop pad10-10-15-10">
-        <label>Where are you looking? kk</label>
+        <label>Where are you looking?</label>
         <div class="clear"></div>
         <?php if (!isset($renter['neighborhood_ids'])): ?>
         <div class="formError">Please choose at least one neighborhood</div>
