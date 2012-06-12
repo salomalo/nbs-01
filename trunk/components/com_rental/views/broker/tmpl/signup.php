@@ -14,7 +14,8 @@ defined('_JEXEC') or die;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
-
+$session = JFactory::getSession();
+$errors = $session->get('errors');
 ?>
 <div id="main">
   <div class="headMessage"> <span class="contactUs">
@@ -64,6 +65,19 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
         <input type="hidden" value="✓" name="utf8">
         <input type="hidden" value="kL5H/rwTqUr+/YrpZvnp3XjwGkEEW5vB2TUGUgwFebw=" name="authenticity_token">
       </div>
+      <?php if (!empty($errors)): ?>
+	<div class="errorExplanation" id="errorExplanation">
+		<h2>oops! There are some errors</h2>
+		<ul>
+			<?php foreach ($errors as $error): ?>
+			<li><?php echo $error; ?></li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
+	<?php 
+	$session->set('errors', null);
+	endif; 
+	?>
       <fieldset class="main noBorder">
         <h2 class=" ">Your Personal Information</h2>
         <div class="rowLine" id="name">
@@ -118,7 +132,7 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
         <div class="hidden" id="brokerProfileDetails" style="display: block;">
           <div class="rowLine">
             <label>Brokerage Firm <span class="message">(optional)</span></label>
-            <input type="text" value="" style="display:none" size="20" name="broker[brokerage_firm_other]" id="broker_brokerage_firm_other" default="Enter brokerage name" class="text idleField">
+            <input type="text" value="" size="20" name="broker[brokerage_firm_other]" id="broker_brokerage_firm_other" default="Enter brokerage name" class="text idleField">
             <div class="clear"></div>
           </div>
           <div class="rowLine" id="lic"> <span class="help">We need this to verify your status. See our <a data-height="600" data-width="600" class="ajaxModal cboxElement" href="/ajax/privacy_policy">Privacy Policy</a> for details.</span>
@@ -326,7 +340,7 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
             <?php endforeach; ?>
           </ul>
           <?php foreach ($this->neighborhood as $key => $n): ?>
-          <div style="" class="boroughs" id="borough_<?php echo $key; ?>">
+          <div <?php if ($key > 0): ?>style="display: none;"<?php endif; ?> style="" class="boroughs" id="borough_<?php echo $n->id; ?>">
             <div class="clearfix" id="filters">
               <div class="checkboxCont"> <a data-id="1" href="#" class="selectAll button white noIcon medium"><span>Select All</span></a> </div>
               <div class="checkboxCont"> <a data-id="1" href="#" class="unselectAll button white noIcon medium"><span>Unselect All</span></a> </div>
@@ -341,49 +355,13 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
             </span>
             <div class="clear"></div>
           </div>
-          <?php endforeach; ?>
-          <div <?php if ($key > 0): ?>style="display: none;"<?php endif; ?> class="boroughs" id="borough_<?php echo $n->id; ?>">
-          
-          <div style="display: none;" class="boroughs" id="borough_5">
-            <div class="clearfix" id="filters">
-              <div class="checkboxCont"> <a data-id="5" href="#" class="selectAll button white noIcon medium"><span>Select All</span></a> </div>
-              <div class="checkboxCont"> <a data-id="5" href="#" class="unselectAll button white noIcon medium"><span>Unselect All</span></a> </div>
-            </div>
-            <span>
-            <div class="checkboxCont">
-              <input type="checkbox" value="67" name="broker[neighborhood_ids][]" id="broker_neighborhood_ids_" class="field text">
-              <label>East Shore</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="68" name="broker[neighborhood_ids][]" id="broker_neighborhood_ids_" class="field text">
-              <label>Mid-Island</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="69" name="broker[neighborhood_ids][]" id="broker_neighborhood_ids_" class="field text">
-              <label>North Shore</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="145" name="broker[neighborhood_ids][]" id="broker_neighborhood_ids_" class="field text">
-              <label>Shore Acres</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="70" name="broker[neighborhood_ids][]" id="broker_neighborhood_ids_" class="field text">
-              <label>South Shore</label>
-            </div>
-            <div class="checkboxCont">
-              <input type="checkbox" value="71" name="broker[neighborhood_ids][]" id="broker_neighborhood_ids_" class="field text">
-              <label>West Shore</label>
-            </div>
-            </span>
-            <div class="clear"></div>
-          </div>
-        </div>
+          <?php endforeach; ?>          
       </fieldset>
       <fieldset class="main" id="brokerBioPhoto">
         <h2><a class="more" onclick="$('#personalize').is(':hidden') ? $('#personalize').fadeIn('fast') : $('#personalize').fadeOut('fast'); return false;" href="">Personalize Your Profile</a> <span class="message inline">(optional)</span></h2>
         <div style="display:none" id="personalize"> <span class="note">Please don't include your full name or contact information - your account will be suspended</span>
           <div class="rowSingle"> <strong>Write a personal statement/bio (visible to renters)</strong>
-            <textarea style="width: 500px; visibility: hidden; display: none;" rows="7" name="broker[bio]" id="broker_bio" cols="60" class="idleField"></textarea>
+            <textarea style="width: 500px;" rows="7" name="broker[bio]" id="broker_bio" cols="60" class="idleField"></textarea>
             <span lang="en" aria-labelledby="cke_broker_bio_arialbl" role="application" title=" " dir="ltr" class="cke_skin_kama cke_1 cke_editor_broker_bio" id="cke_broker_bio"><span class="cke_voice_label" id="cke_broker_bio_arialbl">Rich Text Editor</span><span role="presentation" class="cke_browser_gecko"><span role="presentation" class="cke_wrapper cke_ltr">
             <table cellspacing="0" cellpadding="0" border="0" role="presentation" class="cke_editor">
               <tbody>
