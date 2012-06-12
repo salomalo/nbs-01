@@ -84,4 +84,98 @@ class RentalModelBroker extends JModel
 		
 		return $objs;
 	} 
+	
+	function register($user, $broker)
+	{
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+	
+		// Initialise variables.
+		$app	= JFactory::getApplication();
+	
+		JModel::addIncludePath(JPATH_ROOT.DS.'components'.DS.'com_users'.DS.'models');
+		$model	= JModel::getInstance('Registration', 'UsersModel');
+	
+		// Get the user data.
+		//$requestData = JRequest::getVar('jform', array(), 'post', 'array');
+		$requestData = array(
+				'name'      => $user['first_name'] . ' ' . $user['last_name'],
+				'username'  => $user['email'],
+				'password1' => $user['password'],
+				'password2' => $user['password'],
+				'email1'    => $user['email'],
+				'email2'    => $user['email']
+		);
+	
+		// Validate the posted data.
+		JForm::addFormPath(JPATH_ROOT.DS.'components'.DS.'com_users'.DS.'models'.DS.'forms');
+		$form	= $model->getForm();
+		if (!$form) {
+			$return['code'] = 11;
+			$return['msg']  = 'system error: form not exists';
+			return $return;
+		}
+	
+		$data	= $model->validate($form, $requestData);
+	
+		// Check for validation errors.
+		if ($data === false) {
+			// Get the validation messages.
+			$errors	= $model->getErrors();
+				
+			var_dump($errors); die;
+		}
+	
+		// Attempt to save the data.
+		$model->register($data);
+	
+		$username = $user['email'];
+		$userId = $this->getUserId($username);
+	
+		//Active user
+		$db = JFactory::getDbo();
+		$activeUser = new stdClass();
+		$activeUser->id = $userId;
+		$activeUser->block = 0;
+		$db->updateObject('#__users', $activeUser, 'id');
+	
+		$apartmenSize = serialize($renter['apartment_size_ids']);
+		$neighborhood = serialize($renter['neighborhood_ids']);
+		$roommatesEmail = serialize($renter['roommates_email']);
+		$financialInfo = array(
+				'gross_salary' 	=> isset($renter['gross_salary']) ? $renter['gross_salary'] : '',
+				'credit_score' 	=> isset($renter['credit_score']) ? $renter['credit_score'] : '',
+				'has_guarantor' => isset($renter['has_guarantor']) ? $renter['has_guarantor'] : ''
+		);
+	
+		$financialInfo = serialize($financialInfo);
+	
+		//insert into table renter user
+		$query = $db->getQuery(true);
+		$query->insert('#__rental_renters (user_id, first_name, last_name, phone_number, apartment_size, neighborhood_ids, max_rent, have_a_pet, roommate, email_alert, financial_info, more_info)')
+		->values('"'.$userId.'", "'.$user['first_name'] . '", "' . $user['last_name'] .'", "' . $user['phone_number'] .'", \''.$apartmenSize.'\', \''.$neighborhood.'\', "'.$renter['maximum_rent'].'", "'.$renter['have_pet'].'", "'.$renter['roommates_total'].'", \''.$roommatesEmail.'\', \''.$financialInfo.'\', "'.$renter['comments_for_broker'].'"');
+	
+	
+		$db->setQuery($query);
+		$db->query();
+	
+		if ($db->getErrorMsg())
+			die ($db->getErrorMsg());
+	
+		return true;
+	}
+	
+	/**
+	 * Fucntion to get userId
+	 * @param 	string 		$username
+	 * @return 	integer		$userId
+	 */
+	function getUserId($username)
+	{
+		$db = JFactory::getDbo();
+		$query = "SELECT id FROM #__users WHERE username = '$username'";
+		$db->setQuery($query);
+	
+		return $db->loadResult();
+	}
 }

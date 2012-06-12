@@ -45,3 +45,43 @@ CREATE TABLE IF NOT EXISTS `jos_rental_renters` (
   `more_info` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 12/06/2012 - muinx - update agents table
+DROP TABLE IF EXISTS `jos_retal_agents`;
+CREATE TABLE IF NOT EXISTS `jos_retal_agents` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `phone_area` varchar(255) DEFAULT NULL,
+  `phone_prefix` varchar(255) DEFAULT NULL,
+  `phone_sufix` varchar(255) DEFAULT NULL,
+  `broker_entity_type` tinyint(1) DEFAULT NULL,
+  `brocker_entity_info` longtext,
+  `months_per_billing_cycle` tinyint(1) DEFAULT NULL,
+  `credit_card_type` varchar(255) DEFAULT NULL,
+  `credit_card_number` varchar(255) DEFAULT NULL,
+  `credit_card_first_name` varchar(255) DEFAULT NULL,
+  `credit_card_last_name` varchar(255) DEFAULT NULL,
+  `credit_card_month` varchar(255) DEFAULT NULL,
+  `credit_card_year` varchar(255) DEFAULT NULL,
+  `credit_card_verification_value` varchar(3) DEFAULT NULL,
+  `billing_address_address` varchar(255) DEFAULT NULL,
+  `billing_address_zip` varchar(255) DEFAULT NULL,
+  `neighborhood_ids` text,
+  `broker_bio` text,
+  `state` tinyint(3) NOT NULL DEFAULT '0',
+  `ordering` int(11) NOT NULL DEFAULT '0',
+  `metakey` text NOT NULL,
+  `metadesc` text NOT NULL,
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created_by` int(10) unsigned NOT NULL DEFAULT '0',
+  `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified_by` int(10) unsigned NOT NULL DEFAULT '0',
+  `checked_out` int(10) unsigned NOT NULL DEFAULT '0',
+  `checked_out_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `publish_up` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `publish_down` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `language` char(7) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Set user is agent' AUTO_INCREMENT=2 ;

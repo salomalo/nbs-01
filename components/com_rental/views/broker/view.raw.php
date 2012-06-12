@@ -40,6 +40,9 @@ class RentalViewBroker extends JView
 		}
 		
 		$session = JFactory::getSession();
+		
+		// reset session errors
+		$session->set('errors', null);
 
 		$this->_prepareDocument();
 		
@@ -62,11 +65,10 @@ class RentalViewBroker extends JView
 		
 		if (!$this->checkValidEmail($user['email']))
 		{
-			$this->checkEmailAddress = 'INVALID';
 			$errors[] = 'Email should look like an email address';
 		}
 		
-		$model = $this->getModel('Renter', 'RentalModel');
+		$model = JModel::getInstance('Renter', 'RentalModel');
 		
 		$checkEmailExist = $model->checkEmailExist($user['email']);
 		
@@ -92,44 +94,43 @@ class RentalViewBroker extends JView
 		
 		$broker = $post['broker'];
 		
-		if (!empty($errors))
-		{
-			$this->checkErrors = $errors;
-		}
-		else
-			$current_step = $post['step'];
-		
 		//get neighborhood
 		$this->neighborhood = $model->getNeighborhood();
 		
-		$renter = $post['renter'];
+		if ($broker['license_number'] == '')
+			$errors[] = 'License number can\'t be blank';
 		
-		//check if step 2 has errors
-		if ($current_step == 3)
-		{
-			if (!isset($renter['apartment_size_ids']))
-				$errors[] = 'Please choose at least one apartment size';
-			
-			if (!isset($renter['neighborhood_ids']))
-				$errors[] = 'Please choose at least one neighborhood';
-			
-			if (!empty($errors))
-			{
-				$current_step = 2;
-				$this->checkErrors = $errors;
-			}
-		}
+		// check credit card info
+		$billing_information = $post['billing_information'];
 		
-		// check last step
+		if ($billing_information['credit_card_number'] == '')
+			$errors[] = 'Credit card number can\'t be blank';
+		
+		if ($billing_information['credit_card_first_name'] == '')
+			$errors[] = 'Credit card first name can\'t be blank';
+		
+		if ($billing_information['credit_card_last_name'] == '')
+			$errors[] = 'Credit card last name can\'t be blank';
+		
+		if ($billing_information['credit_card_verification_value'] == '')
+			$errors[] = 'Credit card CVC can\'t be blank';
+		
+		if ($billing_information['billing_address_address'] == '')
+			$errors[] = 'Street Address can\'t be blank';
+		
+		if ($billing_information['billing_address_zip'] == '')
+			$errors[] = 'Zip can\'t be blank';
+		
 		
 		if (!empty($errors))
 		{
 			$session->set('errors', $errors);
+			self::url_redirect();
 		}
 		else
 		{
 			//reg user
-			$result = $model->register($user, $renter);
+			$result = $model->register($user, $broker);
 				
 			//if reg done
 			if ($result === true)
@@ -138,7 +139,7 @@ class RentalViewBroker extends JView
 			
 				$session->set('SESSION_NEW_USER', 1);
 			
-				//login with email & password user provided when reg
+				//TODO: login with email & password user provided when reg
 			
 			}
 		}
