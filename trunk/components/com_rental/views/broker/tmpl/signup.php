@@ -14,8 +14,14 @@ defined('_JEXEC') or die;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
-$session = JFactory::getSession();
-$errors = $session->get('errors');
+$session 	= JFactory::getSession();
+$errors 	= $session->get('errors');
+$post 		= $session->get('post');
+
+$user		= $post['user'];
+$broker 	= $post['broker'];
+$errorEmail = $session->get('error_email');
+$billing_information = $post['billing_information'];
 ?>
 <div id="main">
   <div class="headMessage"> <span class="contactUs">
@@ -75,19 +81,24 @@ $errors = $session->get('errors');
 		</ul>
 	</div>
 	<?php 
-	$session->set('errors', null);
 	endif; 
 	?>
       <fieldset class="main noBorder">
         <h2 class=" ">Your Personal Information</h2>
         <div class="rowLine" id="name">
           <label for="user_first_name">First Name</label>
-          <input type="text" size="23" name="user[first_name]" id="user_first_name" class="text idleField">
+          <input type="text" size="23" value="<?php echo $user['first_name']; ?>" name="user[first_name]" id="user_first_name" class="text idleField">
+          <?php if ($user['first_name'] == ''): ?>
+        	<div class="formError">can't be blank</div>
+        	<?php endif; ?>
           <div class="clear"></div>
         </div>
         <div class="rowLine">
           <label for="user_last_name">Last Name</label>
-          <input type="text" size="23" name="user[last_name]" id="user_last_name" class="text idleField">
+          <input type="text" size="23" value="<?php echo $user['last_name']; ?>" name="user[last_name]" id="user_last_name" class="text idleField">
+          <?php if ($user['last_name'] == ''): ?>
+        <div class="formError">can't be blank</div>
+        <?php endif; ?>
           <div class="clear"></div>
         </div>
         <div class="rowLine" id="email">
@@ -95,15 +106,34 @@ $errors = $session->get('errors');
           <span class="help"> If you have a <strong>RealtyMX</strong> or <strong>OLR</strong> account and 
           want us to auto-import your listings daily, use the <strong>same email address</strong> for both 
           that and your Naked account. </span>
-          <input type="text" size="23" name="user[email]" id="user_email" class="text idleField">
+          <input type="text" size="23" value="<?php echo $user['email']; ?>" name="user[email]" id="user_email" class="text idleField">
+          <?php if ($user['email'] == ''): ?>
+        <div class="formError">can't be blank</div>
+        <?php elseif ($errorEmail == 'INVALID'): ?>
+        <div class="formError">should look like an email address</div>
+        <?php elseif ($errorEmail == 'TAKEN'): ?>
+        <div class="formError">has already been taken</div>
+        <?php endif; ?>
           <div class="clear"></div>
         </div>
         <div class="rowLine" id="phone">
           <label for="user_phone_number">Phone Number</label>
           <span class="help">Use a <strong>valid, working phone number</strong> so renters can contact you directly.</span>
-          <input type="text" size="2" name="user[phone_area]" maxlength="3" id="user_phone_area" class="text idleField">
-          <input type="text" size="2" name="user[phone_prefix]" maxlength="3" id="user_phone_prefix" class="text idleField">
-          <input type="text" size="3" name="user[phone_sufix]" maxlength="4" id="user_phone_sufix" class="text idleField">
+          <input type="text" size="2" value="<?php echo $user['phone_area']; ?>" name="user[phone_area]" maxlength="3" id="user_phone_area" class="text idleField">
+          <input type="text" size="2" value="<?php echo $user['phone_prefix']; ?>" name="user[phone_prefix]" maxlength="3" id="user_phone_prefix" class="text idleField">
+          <input type="text" size="3" value="<?php echo $user['phone_sufix']; ?>" name="user[phone_sufix]" maxlength="4" id="user_phone_sufix" class="text idleField">
+          <?php 
+          $phoneError = array();
+          
+          if ($user['phone_area'] == '' || $user['phone_prefix'] == '' || $user['phone_sufix'] == ''): 
+          	if ($user['phone_area'] == '') 		$phoneError[] = 'Phone area';
+          	if ($user['phone_prefix'] == '') 	$phoneError[] = 'Phone prefix';
+          	if ($user['phone_sufix'] == '') 	$phoneError[] = 'Phone sufix';
+          	
+          	$phoneError = implode(' or ', $phoneError);
+          ?>
+          <div class="formError"><?php echo $phoneError; ?> can't be blank</div>
+          <?php endif; ?>
           <div class="clear"></div>
         </div>
       </fieldset>
@@ -112,6 +142,9 @@ $errors = $session->get('errors');
         <div class="rowLine">
           <label for="user_password">Password</label>
           <input type="password" size="20" name="user[password]" id="user_password" class="text idleField">
+          <?php if (strlen($user['password']) < 4): ?>
+        <div class="formError">is too short (minimum is 4 characters)</div>
+        <?php endif; ?>
           <div class="clear"></div>
         </div>
       </fieldset>
@@ -132,19 +165,22 @@ $errors = $session->get('errors');
         <div class="hidden" id="brokerProfileDetails" style="display: block;">
           <div class="rowLine">
             <label>Brokerage Firm <span class="message">(optional)</span></label>
-            <input type="text" value="" size="20" name="broker[brokerage_firm_other]" id="broker_brokerage_firm_other" default="Enter brokerage name" class="text idleField">
+            <input type="text" value="<?php echo $broker['brokerage_firm_other'];?>" size="20" name="broker[brokerage_firm_other]" id="broker_brokerage_firm_other" default="Enter brokerage name" class="text idleField">
             <div class="clear"></div>
           </div>
           <div class="rowLine" id="lic"> <span class="help">We need this to verify your status. See our <a data-height="600" data-width="600" class="ajaxModal cboxElement" href="/ajax/privacy_policy">Privacy Policy</a> for details.</span>
             <label>License Number<br>
               <span class="message"> of Broker/Salesperson</span> </label>
-            <input type="text" size="20" name="broker[license_number]" id="broker_license_number" class="text idleField">
+            <input type="text" size="20" name="broker[license_number]" id="broker_license_number" value="<?php echo $broker['license_number']; ?>" class="text idleField">
+            <?php if ($broker['license_number'] == ''): ?>
+        <div class="formError">can't be blank</div>
+        <?php endif; ?>
             <div class="clear"></div>
           </div>
         </div>
         <div id="myWebSite" class="rowLine">
           <label for="broker_my_web_site"><a title="" class="tooltip mouseover" href="#">My web site</a> <span class="message">(optional)</span></label>
-          <input type="text" size="50" name="broker[my_web_site]" id="broker_my_web_site" class="text idleField">
+          <input type="text" size="50" value="<?php echo $broker['my_web_site'];?>" name="broker[my_web_site]" id="broker_my_web_site" class="text idleField">
           <div class="clear"></div>
         </div>
         <div class="hidden" id="landlordProfileDetails" style="display: none;">
@@ -230,94 +266,86 @@ $errors = $session->get('errors');
         <h2>Payment Information <span class="message inline"> We accept Credit, Debit and Prepaid Cards.</span></h2>
         <div class="rowLine">
           <label>Card Type</label>
+          <?php 
+          $cardType = array(
+							'master' 			=> 'Mastercard',
+							'discover' 			=> 'Discover',
+							'visa' 				=> 'Visa',
+							'american_express' 	=> 'American Express',
+							
+          				);
+          ?>
           <select tabindex="1" name="billing_information[credit_card_type]" id="billing_information_credit_card_type">
-            <option value="master">Mastercard</option>
-            <option value="discover">Discover</option>
-            <option value="visa">Visa</option>
-            <option value="american_express">American Express</option>
+          	<?php foreach ($cardType as $card_type => $card): ?>
+            <option value="<?php echo $card_type; ?>" <?php if ($card_type == $billing_information['credit_card_type']) echo 'selected="selected"'; ?>><?php echo $card; ?></option>
+            <?php endforeach; ?>
           </select>
           <div class="clear"></div>
         </div>
         <div class="rowLine">
           <label>Card Number</label>
-          <input type="text" tabindex="2" size="20" name="billing_information[credit_card_number]" id="billing_information_credit_card_number" class="idleField">
+          <input type="text" tabindex="2" size="20" value="<?php echo $billing_information['credit_card_number'];?>" name="billing_information[credit_card_number]" id="billing_information_credit_card_number" class="idleField">
+          <?php if ( $billing_information['credit_card_number']== ''): ?>
+        <div class="formError">can't be blank</div>
+        <?php endif; ?>
           <div class="clear"></div>
         </div>
         <div class="rowLine"> <span class=" help">Please enter your name exactly as it appears on your card</span>
           <label>Cardholder's First Name</label>
-          <input type="text" tabindex="3" size="20" name="billing_information[credit_card_first_name]" id="billing_information_credit_card_first_name" class="idleField">
+          <input type="text" tabindex="3" size="20" value="<?php echo $billing_information['credit_card_first_name'];?>" name="billing_information[credit_card_first_name]" id="billing_information_credit_card_first_name" class="idleField">
+          <?php if ( $billing_information['credit_card_first_name']== ''): ?>
+        <div class="formError">can't be blank</div>
+        <?php endif; ?>
           <div class="clear"></div>
         </div>
         <div class="rowLine">
           <label>Cardholder's Last Name</label>
-          <input type="text" tabindex="4" size="20" name="billing_information[credit_card_last_name]" id="billing_information_credit_card_last_name" class="idleField">
+          <input type="text" tabindex="4" size="20" value="<?php echo $billing_information['credit_card_last_name'];?>" name="billing_information[credit_card_last_name]" id="billing_information_credit_card_last_name" class="idleField">
+          <?php if ( $billing_information['credit_card_last_name']== ''): ?>
+        <div class="formError">can't be blank</div>
+        <?php endif; ?>
           <div class="clear"></div>
         </div>
         <div class="rowLine">
           <label>Expiration Date</label>
           <select tabindex="5" name="billing_information[credit_card_month]" id="billing_information_credit_card_month">
-            <option value="1">01 - Jan</option>
-            <option value="2">02 - Feb</option>
-            <option value="3">03 - Mar</option>
-            <option value="4">04 - Apr</option>
-            <option value="5">05 - May</option>
-            <option value="6">06 - Jun</option>
-            <option value="7">07 - Jul</option>
-            <option value="8">08 - Aug</option>
-            <option value="9">09 - Sep</option>
-            <option value="10">10 - Oct</option>
-            <option value="11">11 - Nov</option>
-            <option value="12">12 - Dec</option>
+            <?php 
+            for ($i = 1; $i <= 12; $i ++): 
+            	$firstDateInMonth = strtotime(date('Y') . '-' . $i . '-1');
+            ?>
+            <option <?php if ($i == $billing_information['credit_card_month']) echo 'selected="selected"'; ?> value="<?php echo $i; ?>"><?php echo date('m', $firstDateInMonth) . ' - ' . date('M', $firstDateInMonth)?></option>
+            <?php endfor;?>
           </select>
           <select tabindex="6" name="billing_information[credit_card_year]" id="billing_information_credit_card_year" class="second">
-            <option value="2012">2012</option>
-            <option value="2013">2013</option>
-            <option value="2014">2014</option>
-            <option value="2015">2015</option>
-            <option value="2016">2016</option>
-            <option value="2017">2017</option>
-            <option value="2018">2018</option>
-            <option value="2019">2019</option>
-            <option value="2020">2020</option>
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
-            <option value="2024">2024</option>
-            <option value="2025">2025</option>
-            <option value="2026">2026</option>
-            <option value="2027">2027</option>
-            <option value="2028">2028</option>
-            <option value="2029">2029</option>
-            <option value="2030">2030</option>
-            <option value="2031">2031</option>
-            <option value="2032">2032</option>
-            <option value="2033">2033</option>
-            <option value="2034">2034</option>
-            <option value="2035">2035</option>
-            <option value="2036">2036</option>
-            <option value="2037">2037</option>
-            <option value="2038">2038</option>
-            <option value="2039">2039</option>
-            <option value="2040">2040</option>
-            <option value="2041">2041</option>
-            <option value="2042">2042</option>
+            <?php for ($i = 2012; $i <= 2042; $i ++): ?>
+            <option <?php if ($i == $billing_information['credit_card_year']) echo 'selected="selected"'; ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
+            <?php endfor; ?>
           </select>
           <div class="clear"></div>
         </div>
         <div class="rowLine">
           <label for="cardCVC">CVC <span title="On MasterCard and Visa, this is the last 3 digits AFTER the credit card number in the signature area of the card. On American Express cards, it's the 4-digit  number above the credit card number on either the right or the left side of the card." class="calm tooltip mouseover">what's this?</span></label>
-          <input type="text" tabindex="7" size="3" name="billing_information[credit_card_verification_value]" id="billing_information_credit_card_verification_value" class="idleField">
+          <input type="text" tabindex="7" size="3" value="<?php echo $billing_information['credit_card_verification_value']; ?>" name="billing_information[credit_card_verification_value]" id="billing_information_credit_card_verification_value" class="idleField">
+          <?php if ( $billing_information['credit_card_verification_value']== ''): ?>
+        <div class="formError">can't be blank</div>
+        <?php endif; ?>
           <div class="clear"></div>
         </div>
         <h4 class="rowLine"> Billing Address </h4>
         <div class="rowLine">
           <label for="billAddress">Street Address</label>
-          <input type="text" tabindex="8" size="20" name="billing_information[billing_address_address]" id="billing_information_billing_address_address" class="idleField">
+          <input type="text" tabindex="8" size="20" value="<?php echo $billing_information['billing_address_address']; ?>" name="billing_information[billing_address_address]" id="billing_information_billing_address_address" class="idleField">
+          <?php if ( $billing_information['billing_address_address']== ''): ?>
+        <div class="formError">can't be blank</div>
+        <?php endif; ?>
           <div class="clear"></div>
         </div>
         <div class="rowLine">
           <label for="billZip">Zip</label>
-          <input type="text" tabindex="11" size="5" name="billing_information[billing_address_zip]" id="billing_information_billing_address_zip" class="idleField">
+          <input type="text" tabindex="11" size="5" value="<?php echo $billing_information['billing_address_zip']; ?>" name="billing_information[billing_address_zip]" id="billing_information_billing_address_zip" class="idleField">
+          <?php if ( $billing_information['billing_address_zip']== ''): ?>
+        <div class="formError">can't be blank</div>
+        <?php endif; ?>
           <div class="clear"></div>
         </div>
       </fieldset>
@@ -326,7 +354,7 @@ $errors = $session->get('errors');
         <div id="newCoupon"> Enter any coupons or discounts
           <div class="clear"></div>
           <span class="block">
-          <input type="text" id="couponCode" name="code" size="30" class="text idleField">
+          <input type="text" id="couponCode" value="<?php echo $post['code']; ?>" name="code" size="30" class="text idleField">
           </span> <a id="applyCouponCode" class="button white noIcon medium" href="#"><span>Apply Discount</span></a>
           <div class="clear"></div>
         </div>
@@ -348,7 +376,7 @@ $errors = $session->get('errors');
             <span>
             	<?php foreach ($n->locations as $loc): ?>	
             	<div class="checkboxCont">
-	              <input type="checkbox" value="<?php echo $loc->id; ?>" name="broker[neighborhood_ids][]" id="broker_neighborhood_ids_<?php echo $loc->id; ?>" class="field text" <?php if (isset($renter['neighborhood_ids']) && in_array($loc->id, $renter['neighborhood_ids'])) echo 'checked="checked"'; ?>>
+	              <input type="checkbox" value="<?php echo $loc->id; ?>" name="broker[neighborhood_ids][]" id="broker_neighborhood_ids_<?php echo $loc->id; ?>" class="field text" <?php if (isset($broker['neighborhood_ids']) && in_array($loc->id, $broker['neighborhood_ids'])) echo 'checked="checked"'; ?>>
 	              <label><?php echo $loc->title; ?></label>
 	            </div>
 		        <?php endforeach; ?>
@@ -361,7 +389,7 @@ $errors = $session->get('errors');
         <h2><a class="more" onclick="$('#personalize').is(':hidden') ? $('#personalize').fadeIn('fast') : $('#personalize').fadeOut('fast'); return false;" href="">Personalize Your Profile</a> <span class="message inline">(optional)</span></h2>
         <div style="display:none" id="personalize"> <span class="note">Please don't include your full name or contact information - your account will be suspended</span>
           <div class="rowSingle"> <strong>Write a personal statement/bio (visible to renters)</strong>
-            <textarea style="width: 500px;" rows="7" name="broker[bio]" id="broker_bio" cols="60" class="idleField"></textarea>
+            <textarea style="width: 500px;" rows="7" name="broker[bio]" id="broker_bio" cols="60" class="idleField"><?php echo $broker['bio']; ?></textarea>
             <span lang="en" aria-labelledby="cke_broker_bio_arialbl" role="application" title=" " dir="ltr" class="cke_skin_kama cke_1 cke_editor_broker_bio" id="cke_broker_bio"><span class="cke_voice_label" id="cke_broker_bio_arialbl">Rich Text Editor</span><span role="presentation" class="cke_browser_gecko"><span role="presentation" class="cke_wrapper cke_ltr">
             <table cellspacing="0" cellpadding="0" border="0" role="presentation" class="cke_editor">
               <tbody>
@@ -397,3 +425,10 @@ $errors = $session->get('errors');
   <!--end container-->
   <div class="clear"></div>
 </div>
+
+<?php 
+//reset session
+$session->set('errors', null); 
+$session->set('error_email', null);
+$session->set('error_email', null);
+?>

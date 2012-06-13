@@ -32,7 +32,6 @@ class RentalViewBroker extends JView
 
 	function display($tpl = null)
 	{
-
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseError(500, implode("\n", $errors));
@@ -62,9 +61,9 @@ class RentalViewBroker extends JView
 		
 		if ($user['email'] == '')
 			$errors[] = 'Email can\'t be blank';
-		
-		if (!$this->checkValidEmail($user['email']))
+		elseif (!$this->checkValidEmail($user['email']))
 		{
+			$session->set('error_email', 'INVALID');
 			$errors[] = 'Email should look like an email address';
 		}
 		
@@ -74,7 +73,7 @@ class RentalViewBroker extends JView
 		
 		if ($checkEmailExist)
 		{
-			$this->checkEmailAddress = 'TAKEN';
+			$session->set('error_email', 'TAKEN');
 			$errors[] = 'Email has already been taken';
 		}
 		
@@ -124,13 +123,16 @@ class RentalViewBroker extends JView
 		
 		if (!empty($errors))
 		{
+			$session->set('post', $post);
 			$session->set('errors', $errors);
 			self::url_redirect();
 		}
 		else
 		{
+			$brokerModel = $this->getModel();
+			
 			//reg user
-			$result = $model->register($user, $broker);
+			$result = $brokerModel->register($user, $broker);
 				
 			//if reg done
 			if ($result === true)
