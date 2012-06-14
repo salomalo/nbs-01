@@ -47,6 +47,10 @@ CREATE TABLE IF NOT EXISTS `jos_rental_renters` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 12/06/2012 - muinx - update agents table
+--
+-- Table structure for table `jos_retal_agents`
+--
+
 DROP TABLE IF EXISTS `jos_retal_agents`;
 CREATE TABLE IF NOT EXISTS `jos_retal_agents` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -57,7 +61,10 @@ CREATE TABLE IF NOT EXISTS `jos_retal_agents` (
   `phone_prefix` varchar(255) DEFAULT NULL,
   `phone_sufix` varchar(255) DEFAULT NULL,
   `broker_entity_type` tinyint(1) DEFAULT NULL,
-  `brocker_entity_info` longtext,
+  `broker_entity_info` longtext,
+  `brokerage_firm_other` varchar(255) DEFAULT NULL,
+  `license_number` varchar(255) DEFAULT NULL,
+  `my_web_site` varchar(255) DEFAULT NULL,
   `months_per_billing_cycle` tinyint(1) DEFAULT NULL,
   `credit_card_type` varchar(255) DEFAULT NULL,
   `credit_card_number` varchar(255) DEFAULT NULL,
