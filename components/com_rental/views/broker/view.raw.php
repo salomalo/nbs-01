@@ -96,8 +96,10 @@ class RentalViewBroker extends JView
 		//get neighborhood
 		$this->neighborhood = $model->getNeighborhood();
 		
+		/*
 		if ($broker['license_number'] == '')
 			$errors[] = 'License number can\'t be blank';
+		 */
 		
 		// check credit card info
 		$billing_information = $post['billing_information'];
@@ -132,7 +134,7 @@ class RentalViewBroker extends JView
 			$brokerModel = $this->getModel();
 			
 			//reg user
-			$result = $brokerModel->register($user, $broker);
+			$result = $brokerModel->register($user, $post);
 				
 			//if reg done
 			if ($result === true)
@@ -142,7 +144,10 @@ class RentalViewBroker extends JView
 				$session->set('SESSION_NEW_USER', 1);
 			
 				//TODO: login with email & password user provided when reg
-			
+				
+				//TODO: redirect to list page
+				header('Location: ' . JRoute::_('index.php?option=com_rental&view=apartments'));
+				jexit();			
 			}
 		}
 		
