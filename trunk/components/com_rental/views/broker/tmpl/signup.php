@@ -172,9 +172,9 @@ $billing_information = $post['billing_information'];
             <label>License Number<br>
               <span class="message"> of Broker/Salesperson</span> </label>
             <input type="text" size="20" name="broker[license_number]" id="broker_license_number" value="<?php echo $broker['license_number']; ?>" class="text idleField">
-            <?php if ($broker['license_number'] == ''): ?>
+            <?php /* if ($broker['license_number'] == ''): ?>
         <div class="formError">can't be blank</div>
-        <?php endif; ?>
+        <?php endif; */ ?>
             <div class="clear"></div>
           </div>
         </div>
@@ -213,12 +213,10 @@ $billing_information = $post['billing_information'];
           <div class="rowLine">
             <label for="broker_landlord_meta_attributes_apartment_borough_id">Borough</label>
             <select name="broker[landlord_meta_attributes][apartment_borough_id]" id="broker_landlord_meta_attributes_apartment_borough_id">
-              <option value="">Please select</option>
-              <option value="4">Bronx</option>
-              <option value="2">Brooklyn</option>
-              <option value="1">Manhattan</option>
-              <option value="3">Queens</option>
-              <option value="5">Staten Island</option>
+              <option value="">Please select</option>			
+              <?php foreach ($this->neighborhood as $key => $n): ?>
+			  <option value="<?php echo $n->id; ?>" <?php if ($broker['landlord_meta_attributes']['apartment_borough_id'] == $n->id) echo 'selected="selected"' ?>><?php echo $n->title; ?></option>
+              <?php endforeach; ?>            
             </select>
             <div class="clear"></div>
           </div>

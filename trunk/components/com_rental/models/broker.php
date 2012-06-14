@@ -85,7 +85,7 @@ class RentalModelBroker extends JModel
 		return $objs;
 	} 
 	
-	function register($user, $broker)
+	function register($user, $post)
 	{
 		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
@@ -133,27 +133,47 @@ class RentalModelBroker extends JModel
 		$userId = $this->getUserId($username);
 	
 		//Active user
-		$db = JFactory::getDbo();
 		$activeUser = new stdClass();
 		$activeUser->id = $userId;
 		$activeUser->block = 0;
 		$db->updateObject('#__users', $activeUser, 'id');
-	
-		$apartmenSize = serialize($renter['apartment_size_ids']);
-		$neighborhood = serialize($renter['neighborhood_ids']);
-		$roommatesEmail = serialize($renter['roommates_email']);
-		$financialInfo = array(
-				'gross_salary' 	=> isset($renter['gross_salary']) ? $renter['gross_salary'] : '',
-				'credit_score' 	=> isset($renter['credit_score']) ? $renter['credit_score'] : '',
-				'has_guarantor' => isset($renter['has_guarantor']) ? $renter['has_guarantor'] : ''
-		);
-	
-		$financialInfo = serialize($financialInfo);
-	
-		//insert into table renter user
+		
+		//add info to broker table: #__retal_agents
+		$broker = $post['broker'];
+		$billing_information = $post['billing_information'];
+		
+		//reset query
 		$query = $db->getQuery(true);
-		$query->insert('#__rental_renters (user_id, first_name, last_name, phone_number, apartment_size, neighborhood_ids, max_rent, have_a_pet, roommate, email_alert, financial_info, more_info)')
-		->values('"'.$userId.'", "'.$user['first_name'] . '", "' . $user['last_name'] .'", "' . $user['phone_number'] .'", \''.$apartmenSize.'\', \''.$neighborhood.'\', "'.$renter['maximum_rent'].'", "'.$renter['have_pet'].'", "'.$renter['roommates_total'].'", \''.$roommatesEmail.'\', \''.$financialInfo.'\', "'.$renter['comments_for_broker'].'"');
+		
+		$broker_entity_info = array();
+		
+		switch ($broker['broker_entity_type'])
+		{
+			case 1:
+				$broker_entity_info = array(
+											'brokerage_firm_other'	=> $broker['brokerage_firm_other'],
+											'license_number'		=> $broker['license_number'],
+										);
+				break;
+			case 2:
+				$broker_entity_info = array(
+											'' => $broker['landlord_meta_attributes']['company_name'],
+											'' => $broker[landlord_meta_attributes][apartments_managed],
+											'' => ''
+				);
+				break;
+			case 3:
+					
+				break;
+		}
+		
+		$broker_entity_info = serialize($brocker_entity_info);
+		
+		$neighborhood = serialize($broker['neighborhood_ids']);
+	
+		//insert into table renter user		
+		$query->insert('#__retal_agents (user_id, first_name, last_name, phone_area, phone_prefix, phone_sufix, broker_entity_type, broker_entity_info, brokerage_firm_other, license_number, my_web_site, months_per_billing_cycle, credit_card_type, credit_card_number, credit_card_first_name, credit_card_last_name, credit_card_month, credit_card_year, credit_card_verification_value, billing_address_address, billing_address_zip, neighborhood_ids, broker_bio)')
+		->values('"'.$userId.'", "'.$user['first_name'] . '", "' . $user['last_name'] .'", "' . $user['phone_area'] .'", "' . $user['phone_prefix'] .'", "' . $user['phone_sufix'] .'", "' . $broker['entity_type'] .'", \''.$broker_entity_info.'\', \''.$broker['brokerage_firm_other'].'\', \''.$broker['license_number'].'\', \''.$broker['my_web_site'].'\', \''.$post['months_per_billing_cycle'].'\', \''.$billing_information['credit_card_type'].'\', \''.$billing_information['credit_card_number'].'\', \''.$billing_information['credit_card_first_name'].'\', \''.$billing_information['credit_card_last_name'].'\', \''.$billing_information['credit_card_month'].'\', \''.$billing_information['credit_card_year'].'\', \''.$billing_information['credit_card_verification_value'].'\', \''.$billing_information['billing_address_address'].'\', \''.$billing_information['billing_address_zip'].'\', \''.$neighborhood.'\', "'.$broker['bio'].'"');
 	
 	
 		$db->setQuery($query);
