@@ -151,19 +151,20 @@ class RentalModelBroker extends JModel
 		{
 			case 1:
 				$broker_entity_info = array(
-											'brokerage_firm_other'	=> $broker['brokerage_firm_other'],
-											'license_number'		=> $broker['license_number'],
+					'brokerage_firm_other'	=> $broker['brokerage_firm_other'],
+					'license_number'		=> $broker['license_number'],
 										);
 				break;
 			case 2:
 				$broker_entity_info = array(
-											'' => $broker['landlord_meta_attributes']['company_name'],
-											'' => $broker[landlord_meta_attributes][apartments_managed],
-											'' => ''
+					'landlord_meta_attributes_company_name' => $broker['landlord_meta_attributes']['company_name'],
+					'landlord_meta_attributes_apartments_managed' => $broker['landlord_meta_attributes']['apartments_managed'],
 				);
 				break;
 			case 3:
+				$broker_entity_info = array(
 					
+				);
 				break;
 		}
 		
