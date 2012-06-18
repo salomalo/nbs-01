@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: agent.php $
+ * @version		$Id: renter.php $
  * @copyright	Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  * @author		muinx
@@ -56,13 +56,13 @@ class RentalModelRenter extends JModelAdmin
 	public function getForm($data = array(), $loadData = true)
 	{
 		// Get the form.
-		$form = $this->loadForm('com_rental.agent', 'agent', array('control' => 'jform', 'load_data' => $loadData));
+		$form = $this->loadForm('com_rental.renter', 'renter', array('control' => 'jform', 'load_data' => $loadData));
 		if (empty($form)) {
 			return false;
 		}
 
 		// Determine correct permissions to check.
-		if ($this->getState('agent.id')) {
+		if ($this->getState('renter.id')) {
 			// Existing record. Can only edit in selected categories.
 			$form->setFieldAttribute('#FIELD_CATEGORY_ID#', 'action', 'core.edit');
 		} else {
@@ -98,7 +98,7 @@ class RentalModelRenter extends JModelAdmin
 	protected function loadFormData()
 	{
 		// Check the session for previously entered form data.
-		$data = JFactory::getApplication()->getUserState('com_rental.edit.agent.data', array());
+		$data = JFactory::getApplication()->getUserState('com_rental.edit.renter.data', array());
 
 		if (empty($data))
 			$data = $this->getItem();
