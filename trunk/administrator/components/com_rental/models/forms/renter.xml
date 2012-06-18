@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!-- $Id: banner.xml 21329 2011-05-11 04:15:59Z eddieajau $ -->
+<form>
+	<fieldset name="details"
+		addfieldpath="/administrator/components/com_rental/models/fields"
+	>
+		<field name="id" type="text" default="0"
+			readonly="true" class="readonly"
+			label="JGLOBAL_FIELD_ID_LABEL" 	description ="JGLOBAL_FIELD_ID_DESC" />
+			
+		
+		<field name="user_id" type="rentalcustomuserid"
+			label="COM_RENTAL_FIELD_USER_ID_LABEL" 
+			description ="COM_RENTAL_FIELD_USER_ID_DESC" 
+			 />
+
+		<field name="first_name" type="text"
+			label="COM_RENTAL_FIELD_FIRST_NAME_LABEL" 
+			description ="COM_RENTAL_FIELD_FIRST_NAME_DESC" 
+			required="true"  />
+
+		<field name="last_name" type="text"
+			label="COM_RENTAL_FIELD_LAST_NAME_LABEL" 
+			description ="COM_RENTAL_FIELD_LAST_NAME_DESC" 
+			required="true"  />
+
+		<field name="phone_number" type="text"
+			label="COM_RENTAL_FIELD_PHONE_NUMBER_LABEL" 
+			description ="COM_RENTAL_FIELD_PHONE_NUMBER_DESC" 
+			 />
+
+		<field name="apartment_size" type="apartmentsize"
+			label="COM_RENTAL_FIELD_APARTMENT_SIZE_LABEL" 
+			description ="COM_RENTAL_FIELD_APARTMENT_SIZE_DESC" 
+			 />
+
+		<field name="neighborhood_ids" type="neighborhoods"
+			label="COM_RENTAL_FIELD_NEIGHBORHOOD_LABEL" 
+			description ="COM_RENTAL_FIELD_NEIGHBORHOOD_DESC" 
+			 />
+
+		<field name="max_rent" type="text"
+			label="COM_RENTAL_FIELD_MAX_RENT_LABEL" 
+			description ="COM_RENTAL_FIELD_MAX_RENT_DESC" 
+			 />
+		
+		<field name="have_a_pet" type="list"
+			label="JSTATUS" description="COM_RENTAL_FIELD_STATE_DESC"
+			class="inputbox" size="1" default="1" >
+			<option value="1">JNO</option>
+			<option value="2">Cat</option>
+			<option value="3">Dog</option>
+		</field>
+
+		<field name="roommates_total" type="list"
+			label="COM_RENTAL_FIELD_ROOMATES_TOTAL_LABEL" description="COM_RENTAL_FIELD_ROOMATES_TOTAL_DESC"
+			class="inputbox" size="1" default="1" >
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+		</field>
+
+		<field name="renter_credit_score" type="list"
+			label="COM_RENTAL_FIELD_ROOMATES_TOTAL_LABEL" description="COM_RENTAL_FIELD_ROOMATES_TOTAL_DESC"
+			class="inputbox" size="1" default="1" >
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+		</field>
+
+		<field name="renter_has_guarantor" type="list"
+			label="JSTATUS" description="COM_RENTAL_FIELD_STATE_DESC"
+			class="inputbox" size="1" default="0" >
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		
+		<field name="renter_gross_salary" type="text"
+			label="COM_RENTAL_FIELD_GROSS_SALARY_LABEL" 
+			description ="COM_RENTAL_FIELD_GROSS_SALARY_DESC" 
+			 />
+		
+		<field name="more_info" type="editor" class="inputbox"
+			label="More Info" description="More Info"
+			filter="JComponentHelper::filterText" buttons="true" />
+	</fieldset>
+
+	<fieldset name="publish"
+		label="COM_RENTAL_GROUP_LABEL_PUBLISHING_DETAILS"
+	>
+
+		<field name="created" type="calendar"
+			label="COM_RENTAL_FIELD_CREATED_LABEL" description="COM_RENTAL_FIELD_CREATED_DESC"
+			class="inputbox" size="22" format="%Y-%m-%d %H:%M:%S"
+			filter="user_utc" />
+
+		<field name="publish_up" type="calendar"
+			label="COM_RENTAL_FIELD_PUBLISH_UP_LABEL" description="COM_RENTAL_FIELD_PUBLISH_UP_DESC"
+			class="inputbox" format="%Y-%m-%d %H:%M:%S" size="22"
+			filter="user_utc" />
+
+		<field name="publish_down" type="calendar"
+			label="COM_RENTAL_FIELD_PUBLISH_DOWN_LABEL" description="COM_RENTAL_FIELD_PUBLISH_DOWN_DESC"
+			class="inputbox" format="%Y-%m-%d %H:%M:%S" size="22"
+			filter="user_utc" />
+
+	</fieldset>
+
+	<fieldset name="metadata"
+		label="JGLOBAL_FIELDSET_METADATA_OPTIONS"
+	>
+
+		<field name="metakey" type="textarea" class="inputbox"
+			rows="3" cols="30" label="JFIELD_META_KEYWORDS_LABEL"
+			description="COM_RENTAL_FIELD_METAKEYWORDS_DESC" />
+
+		<field name="metadesc" type="textarea"
+			label="JFIELD_META_DESCRIPTION_LABEL" description="JFIELD_META_DESCRIPTION_DESC"
+			class="inputbox" rows="3" cols="30" />
+
+	</fieldset>
+
+</form>

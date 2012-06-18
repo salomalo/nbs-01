@@ -25,6 +25,12 @@ JHtml::_('behavior.formvalidation');
 	}
 </script>
 
+<style>
+	#neighborhoods_id span, #neighborhoods_id div { float: left; }
+	#neighborhoods_id ul { float: left; width: 300px; }
+	#neighborhoods_id ul span { width: 150px; }
+</style>
+
 <form action="<?php echo JRoute::_('index.php?option=com_rental&layout=edit&id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="agent-form" class="form-validate" enctype="multipart/form-data">
 	<div class="width-60 fltlft">
 		<fieldset class="adminform">
@@ -40,11 +46,11 @@ JHtml::_('behavior.formvalidation');
 				<li><?php echo $this->form->getLabel('last_name'); ?>
 				<?php echo $this->form->getInput('last_name'); ?></li>
 				
-				<li><?php echo $this->form->getLabel('address'); ?>
-				<?php echo $this->form->getInput('address'); ?></li>
+				<li><?php echo $this->form->getLabel('apartment_size'); ?>
+				<?php echo $this->form->getInput('apartment_size'); ?></li>
 				
-				<li><?php echo $this->form->getLabel('address_2'); ?>
-				<?php echo $this->form->getInput('address_2'); ?></li>
+				<li><?php echo $this->form->getLabel('neighborhood_ids'); ?>
+				<?php echo $this->form->getInput('neighborhood_ids'); ?></li>
 				
 				<li><?php echo $this->form->getLabel('portal_code'); ?>
 				<?php echo $this->form->getInput('portal_code'); ?></li>

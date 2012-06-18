@@ -47,7 +47,7 @@ class RentalHelper
 			JSubMenuHelper::addEntry(
 				JText::_('COM_RENTAL_SUBMENU_RENTERS'),
 				'index.php?option=com_rental&view=renters',
-				$vName == 'agents'
+				$vName == 'renters'
 			);
 			JSubMenuHelper::addEntry(
 				JText::_('COM_RENTAL_SUBMENU_LOCATIONS'),
