@@ -3,6 +3,7 @@ $post = JRequest::get('post');
 $user = $post['user'];
 $renter = $post['renter'];
 $arrBedrooms = JEUtil::getBedrooms();
+$creditScore = JEUtil::getCreditScore();
 ?>
 <form method="post" id="new_renter" data-remote="true" class="new_renter" action="<?php echo JRoute::_('index.php?option=com_rental&view=renter&layout=create-profile&format=raw'); ?>" accept-charset="UTF-8">
     <div style="margin:0;padding:0;display:inline">
@@ -228,34 +229,12 @@ $arrBedrooms = JEUtil::getBedrooms();
         <div class=" borderTop pad10-10-15-10 borderTop clearfix" id="credit">
           <label for="renter_credit_score">How's your credit?</label>
           <ul class="plain">
+          	<?php foreach ($creditScore as $key => $score): ?>
             <li class="boxed medium hoverable">
-              <input type="radio" value="800" name="renter[credit_score]" id="renter_credit_score_800">
-              <label><strong>Excellent </strong><span class="calm">(800+)</span></label>
+              <input type="radio" value="<?php echo $key; ?>" name="renter[credit_score]" id="renter_credit_score_<?php echo $key; ?>">
+              <label><strong><?php echo $score[0]?> </strong><span class="calm"><?php echo $score[1]?></span></label>
             </li>
-            <li class="boxed medium hoverable">
-              <input type="radio" value="799" name="renter[credit_score]" id="renter_credit_score_799">
-              <label><strong>Very Good</strong><span class="calm">(700-799)</span></label>
-            </li>
-            <li class="boxed medium hoverable">
-              <input type="radio" value="699" name="renter[credit_score]" id="renter_credit_score_699">
-              <label><strong>Good </strong><span class="calm">(680-699)</span></label>
-            </li>
-            <li class="boxed medium hoverable">
-              <input type="radio" value="679" name="renter[credit_score]" id="renter_credit_score_679">
-              <label><strong>OK/Fair </strong><span class="calm">(620-679)</span></label>
-            </li>
-            <li class="boxed medium hoverable">
-              <input type="radio" value="619" name="renter[credit_score]" id="renter_credit_score_619">
-              <label><strong>Poor </strong><span class="calm">(580-619)</span></label>
-            </li>
-            <li class="boxed medium hoverable">
-              <input type="radio" value="579" name="renter[credit_score]" id="renter_credit_score_579">
-              <label><strong>Bad</strong><span class="calm">(500-579)</span></label>
-            </li>
-            <li class="boxed medium hoverable">
-              <input type="radio" value="9003" name="renter[credit_score]" id="renter_credit_score_9003">
-              <label><strong>Not sure</strong><span class="calm">???</span></label>
-            </li>
+            <?php endforeach; ?>
           </ul>
         </div>
         <div class=" borderTop pad10-10-15-10 relative clearfix" id="guarantor">

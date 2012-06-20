@@ -120,6 +120,22 @@ class JEUtil
 		return $arr;
 	}
 	
+	function getCreditScore()
+	{
+		$creditScore = array (
+				'800' => array('Excellent'	, '(800+)'),
+				'799' => array('Very Good'	, '(700-799)'),
+				'699' => array('Good'		, '(680-699)'),
+				'679' => array('OK/Fair'	, '(620-679)'),
+				'619' => array('Poor'		, '(580-619)'),
+				'579' => array('Bad'		, '(500-579)'),
+				'9003' => array('Not sure'	, '???'),
+					
+		);
+		
+		return $creditScore;
+	}
+	
 	function getPetAllow()
 	{
 		$arr = array(
