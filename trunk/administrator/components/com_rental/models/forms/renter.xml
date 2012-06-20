@@ -28,6 +28,16 @@
 			label="COM_RENTAL_FIELD_PHONE_NUMBER_LABEL" 
 			description ="COM_RENTAL_FIELD_PHONE_NUMBER_DESC" 
 			 />
+			 
+		<field name="maximum_rent" type="text"
+			label="COM_RENTAL_FIELD_MAXIMUM_RENT_LABEL" 
+			description ="COM_RENTAL_FIELD_MAXIMUM_RENT_DESC" 
+			 />
+			 
+		<field name="move_date" type="calendar"
+			label="COM_RENTAL_FIELD_MOVE_DATE_LABEL" description="COM_RENTAL_FIELD_MOVE_DATE_DESC"
+			class="inputbox" size="22" format="%Y-%m-%d %H:%M:%S"
+			filter="user_utc" />
 
 		<field name="apartment_size" type="apartmentsize"
 			label="COM_RENTAL_FIELD_APARTMENT_SIZE_LABEL" 
@@ -45,33 +55,33 @@
 			 />
 		
 		<field name="have_a_pet" type="list"
-			label="JSTATUS" description="COM_RENTAL_FIELD_STATE_DESC"
+			label="COM_RENTAL_FIELD_HAVE_PET_LABEL" description="COM_RENTAL_FIELD_HAVE_PET_DESC"
 			class="inputbox" size="1" default="1" >
 			<option value="1">JNO</option>
 			<option value="2">Cat</option>
 			<option value="3">Dog</option>
 		</field>
 
-		<field name="roommates_total" type="list"
+		<field name="roommates_total" type="radio"
 			label="COM_RENTAL_FIELD_ROOMATES_TOTAL_LABEL" description="COM_RENTAL_FIELD_ROOMATES_TOTAL_DESC"
 			class="inputbox" size="1" default="1" >
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
+			<option value="1">None</option>
+			<option value="2">1</option>
+			<option value="3">2</option>
+			<option value="4">3+</option>
 		</field>
+		
+		<field name="roommates_email" type="text"
+			label="COM_RENTAL_FIELD_ROOMATES_EMAIL_LABEL" 
+			description ="COM_RENTAL_FIELD_ROOMATES_EMAIL_DESC" 
+			 />
 
-		<field name="renter_credit_score" type="list"
+		<field name="renter_credit_score" type="creditscores"
 			label="COM_RENTAL_FIELD_ROOMATES_TOTAL_LABEL" description="COM_RENTAL_FIELD_ROOMATES_TOTAL_DESC"
-			class="inputbox" size="1" default="1" >
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-		</field>
+			class="inputbox" size="1" default="1" />
 
 		<field name="renter_has_guarantor" type="list"
-			label="JSTATUS" description="COM_RENTAL_FIELD_STATE_DESC"
+			label="COM_RENTAL_FIELD_HAS_GUARANTOR_LABEL" description="COM_RENTAL_FIELD_HAS_GUARANTOR_DESC"
 			class="inputbox" size="1" default="0" >
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
