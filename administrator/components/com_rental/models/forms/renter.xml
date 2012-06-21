@@ -29,7 +29,7 @@
 			description ="COM_RENTAL_FIELD_PHONE_NUMBER_DESC" 
 			 />
 			 
-		<field name="maximum_rent" type="text"
+		<field name="max_rent" type="text"
 			label="COM_RENTAL_FIELD_MAXIMUM_RENT_LABEL" 
 			description ="COM_RENTAL_FIELD_MAXIMUM_RENT_DESC" 
 			 />
@@ -62,7 +62,7 @@
 			<option value="3">Dog</option>
 		</field>
 
-		<field name="roommates_total" type="radio"
+		<field name="roommate" type="radio"
 			label="COM_RENTAL_FIELD_ROOMATES_TOTAL_LABEL" description="COM_RENTAL_FIELD_ROOMATES_TOTAL_DESC"
 			class="inputbox" size="1" default="1" >
 			<option value="1">None</option>

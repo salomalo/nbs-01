@@ -62,12 +62,16 @@ class JFormFieldApartmentsize extends JFormFieldList
 	{
 		$html = '';
 		
+		$value = unserialize($this->value);
+		
 		$options = $this->getOptions();
 		
 		foreach ($options as $option)
 		{
+			$checked = (in_array($option->value, $value)) ? 'checked="checked"' : '';
+			
 			$html .= '<span style="float:left; line-height: 23px; margin-right: 10px;">
-						<input type="checkbox" name="'.$this->name.'[]" value="'.$option->value.'" />' . $option->text . '
+						<input type="checkbox" name="'.$this->name.'[]" value="'.$option->value.'" ' . $checked . ' />' . $option->text . '
 					</span>';
 		}
 		
