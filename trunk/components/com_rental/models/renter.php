@@ -153,13 +153,20 @@ class RentalModelRenter extends JModel
 								'has_guarantor' => isset($renter['has_guarantor']) ? $renter['has_guarantor'] : ''
 							);
 		
+// 		var_dump($user, $renter, $financialInfo);
+		
 		$financialInfo = serialize($financialInfo);
+		
+		// move date
+		$tmpDate = explode('/', $renter['move_date']);
+		$moveDate = $tmpDate[2] . '-' . $tmpDate[0] . '-' . $tmpDate[1];
 		
 		//insert into table renter user
 		$query = $db->getQuery(true);
-		$query->insert('#__rental_renters (user_id, first_name, last_name, phone_number, apartment_size, neighborhood_ids, max_rent, have_a_pet, roommate, email_alert, financial_info, more_info)')
-				->values('"'.$userId.'", "'.$user['first_name'] . '", "' . $user['last_name'] .'", "' . $user['phone_number'] .'", \''.$apartmenSize.'\', \''.$neighborhood.'\', "'.$renter['maximum_rent'].'", "'.$renter['have_pet'].'", "'.$renter['roommates_total'].'", \''.$roommatesEmail.'\', \''.$financialInfo.'\', "'.$renter['comments_for_broker'].'"');
+		$query->insert('#__rental_renters (user_id, first_name, last_name, phone_number, apartment_size, neighborhood_ids, move_date, max_rent, have_a_pet, roommate, email_alert, financial_info, more_info, created)')
+				->values('"'.$userId.'", "'.$user['first_name'] . '", "' . $user['last_name'] .'", "' . $user['phone_number'] .'", \''.$apartmenSize.'\', \''.$neighborhood.'\', "'.$moveDate.'", "'.$renter['maximum_rent'].'", "'.$renter['have_pet'].'", "'.$renter['roommates_total'].'", \''.$roommatesEmail.'\', \''.$financialInfo.'\', "'.$renter['comments_for_broker'].'", "'.date('Y-m-d H:i:s').'"');
 		
+// 		echo $query; die;
 		
 		$db->setQuery($query);
 		$db->query();

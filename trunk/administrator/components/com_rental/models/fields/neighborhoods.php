@@ -88,6 +88,8 @@ class JFormFieldNeighborhoods extends JFormFieldList
 	
 	public function getInput() 
 	{
+		$value = unserialize($this->value);
+		
 		$categories = $this->getCategories();
 		
 		$html = '<div id="neighborhoods_id">';
@@ -105,7 +107,9 @@ class JFormFieldNeighborhoods extends JFormFieldList
 			
 			foreach ($cate->options as $option)
 			{
-				$html .= '<span><input type="checkbox"  name="'.$this->name.'[]" value="'.$option->value.'">' . $option->text . '</span>';
+				$checked = (in_array($option->value, $value)) ? 'checked="checked"' : '';
+				
+				$html .= '<span><input type="checkbox"  name="'.$this->name.'[]" value="'.$option->value.'" ' . $checked . '>' . $option->text . '</span>';
 			}
 			
 			$html .= '</ul>';
