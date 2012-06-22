@@ -71,9 +71,9 @@ class RentalControllerRenter extends JControllerForm
 		$recordId	= (int) isset($data[$key]) ? $data[$key] : 0;
 		$categoryId = 0;
 
-		if ($recordId) {
+		/* if ($recordId) {
 			$categoryId = (int) $this->getModel()->getItem($recordId)->catid;
-		}
+		} */
 
 		if ($categoryId) {
 			// The category has been set. Check the category permissions.

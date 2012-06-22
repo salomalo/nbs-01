@@ -15,6 +15,10 @@ defined('_JEXEC') or die;
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
+
+// $fin = unserialize($this->item->financial_info);
+
+// var_dump($fin);
 ?>
 <script type="text/javascript">
 	Joomla.submitbutton = function(task)
@@ -67,6 +71,9 @@ JHtml::_('behavior.formvalidation');
 				<li><?php echo $this->form->getLabel('email_alert'); ?>
 				<?php echo $this->form->getInput('email_alert'); ?> 
 				<span style="float: left;">[ Add email ]</span></li>
+				
+				<li><?php echo $this->form->getLabel('renter_gross_salary'); ?>
+				<?php echo $this->form->getInput('renter_gross_salary'); ?></li>
 				
 				<li><?php echo $this->form->getLabel('renter_credit_score'); ?>
 				<?php echo $this->form->getInput('renter_credit_score'); ?></li>

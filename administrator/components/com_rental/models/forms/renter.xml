@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-	<!-- $Id: banner.xml 21329 2011-05-11 04:15:59Z eddieajau $ -->
+	<!-- $Id: renter.xml 21329 2011-05-11 04:15:59Z eddieajau $ -->
 <form>
 	<fieldset name="details"
 		addfieldpath="/administrator/components/com_rental/models/fields"
@@ -75,16 +75,21 @@
 			label="COM_RENTAL_FIELD_ROOMATES_EMAIL_LABEL" 
 			description ="COM_RENTAL_FIELD_ROOMATES_EMAIL_DESC" 
 			 />
+			 
+		<field name="renter_gross_salary" type="text"
+			label="COM_RENTAL_FIELD_RENTER_GROSS_SALARY_LABEL" 
+			description ="COM_RENTAL_FIELD_RENTER_GROSS_SALARY_DESC" 
+			 />
 
 		<field name="renter_credit_score" type="creditscores"
-			label="COM_RENTAL_FIELD_ROOMATES_TOTAL_LABEL" description="COM_RENTAL_FIELD_ROOMATES_TOTAL_DESC"
+			label="COM_RENTAL_FIELD_CREDIT_SCORE_LABEL" description="COM_RENTAL_FIELD_CREDIT_SCORE_DESC"
 			class="inputbox" size="1" default="1" />
 
 		<field name="renter_has_guarantor" type="list"
 			label="COM_RENTAL_FIELD_HAS_GUARANTOR_LABEL" description="COM_RENTAL_FIELD_HAS_GUARANTOR_DESC"
-			class="inputbox" size="1" default="0" >
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
+			class="inputbox" size="1" default="false" >
+			<option value="false">JNO</option>
+			<option value="true">JYES</option>
 		</field>
 		
 		<field name="renter_gross_salary" type="text"
