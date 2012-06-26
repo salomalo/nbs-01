@@ -105,17 +105,23 @@ class RentalModelRenter extends JModelAdmin
 		
 		if (is_object($data))
 		{
-			$fin = unserialize($data->financial_info);
-			$data->renter_gross_salary = $fin['gross_salary'];
-			$data->renter_credit_score = $fin['credit_score'];
-			$data->renter_has_guarantor = $fin['has_guarantor'];
+			if (isset($data->financial_info))
+			{
+				$fin = unserialize($data->financial_info);
+				$data->renter_gross_salary = $fin['gross_salary'];
+				$data->renter_credit_score = $fin['credit_score'];
+				$data->renter_has_guarantor = $fin['has_guarantor'];
+			}
 		}
 		elseif (is_array($data))
 		{
-			$fin = unserialize($data['financial_info']);
-			$data['renter_gross_salary'] = $fin['gross_salary'];
-			$data['renter_credit_score'] = $fin['credit_score'];
-			$data['renter_has_guarantor'] = $fin['has_guarantor'];
+			if (isset($data['financial_info']))
+			{
+				$fin = unserialize($data['financial_info']);
+				$data['renter_gross_salary'] = $fin['gross_salary'];
+				$data['renter_credit_score'] = $fin['credit_score'];
+				$data['renter_has_guarantor'] = $fin['has_guarantor'];
+			}
 		}
 
 		return $data;
@@ -123,9 +129,9 @@ class RentalModelRenter extends JModelAdmin
 	
 	public function save($data)
 	{
-		$apartmenSize = serialize($data['apartment_size_ids']);
+		$apartmenSize = serialize($data['apartment_size']);
 		$neighborhood = serialize($data['neighborhood_ids']);
-		$roommatesEmail = serialize($data['roommates_email']);
+		$roommatesEmail = serialize($data['email_alert']);
 		$financialInfo = array(
 				'gross_salary' 	=> isset($data['renter_gross_salary']) ? $data['renter_gross_salary'] : '',
 				'credit_score' 	=> isset($data['renter_credit_score']) ? $data['renter_credit_score'] : '',
@@ -136,10 +142,12 @@ class RentalModelRenter extends JModelAdmin
 		
 		$financialInfo = serialize($financialInfo);
 		
-		$data->neighborhood_ids = $neighborhood;
-		$data->apartment_size = $apartmenSize;
-		$data->roommate = $roommatesEmail;
-		$data->financial_info = $financialInfo;
+		$data['neighborhood_ids'] 	= $neighborhood;
+		$data['apartment_size'] 	= $apartmenSize;
+		$data['financial_info'] 	= $financialInfo;
+		$data['email_alert'] 		= $roommatesEmail;
+		
+// 		var_dump($data); die;
 		
 		$return = parent::save($data);
 		

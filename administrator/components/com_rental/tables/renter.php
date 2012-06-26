@@ -98,7 +98,7 @@ class RentalTableRenter extends JTable
 		else
 		{
 			// Get the old row
-			$oldrow = JTable::getInstance('Agent', 'RentalTable');
+			$oldrow = JTable::getInstance('Renter', 'RentalTable');
 			if (!$oldrow->load($this->id) && $oldrow->getError())
 			{
 				$this->setError($oldrow->getError());

@@ -71,7 +71,7 @@
 			<option value="4">3+</option>
 		</field>
 		
-		<field name="roommates_email" type="text"
+		<field name="email_alert" type="roommatesemail"
 			label="COM_RENTAL_FIELD_ROOMATES_EMAIL_LABEL" 
 			description ="COM_RENTAL_FIELD_ROOMATES_EMAIL_DESC" 
 			 />

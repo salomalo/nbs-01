@@ -69,9 +69,8 @@ JHtml::_('behavior.formvalidation');
 				<?php echo $this->form->getInput('roommate'); ?> </li>
 				
 				<li><?php echo $this->form->getLabel('email_alert'); ?>
-				<?php echo $this->form->getInput('email_alert'); ?> 
-				<span style="float: left;">[ Add email ]</span></li>
-				
+				<?php echo $this->form->getInput('email_alert'); ?>	</li>
+								
 				<li><?php echo $this->form->getLabel('renter_gross_salary'); ?>
 				<?php echo $this->form->getInput('renter_gross_salary'); ?></li>
 				

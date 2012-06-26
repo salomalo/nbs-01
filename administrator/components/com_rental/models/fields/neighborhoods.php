@@ -88,7 +88,10 @@ class JFormFieldNeighborhoods extends JFormFieldList
 	
 	public function getInput() 
 	{
-		$value = unserialize($this->value);
+		if (!is_array($this->value))
+			$value = unserialize($this->value);
+		else
+			$value = $this->value;
 		
 		$categories = $this->getCategories();
 		

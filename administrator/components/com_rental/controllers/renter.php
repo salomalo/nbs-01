@@ -25,7 +25,7 @@ class RentalControllerRenter extends JControllerForm
 	 * @var		string	The prefix to use with controller messages.
 	 * @since	1.6
 	 */
-	protected $text_prefix = 'COM_RENTAL_AGENT';
+	protected $text_prefix = 'COM_RENTAL_RENTER';
 
 	/**
 	 * Method override to check if you can add a new record.
