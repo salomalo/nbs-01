@@ -40,20 +40,59 @@ JHtml::_('behavior.formvalidation');
 				<li><?php echo $this->form->getLabel('last_name'); ?>
 				<?php echo $this->form->getInput('last_name'); ?></li>
 				
-				<li><?php echo $this->form->getLabel('address'); ?>
-				<?php echo $this->form->getInput('address'); ?></li>
+				<li><?php echo $this->form->getLabel('phone_area'); ?>
+				<?php echo $this->form->getInput('phone_area'); ?></li>
 				
-				<li><?php echo $this->form->getLabel('address_2'); ?>
-				<?php echo $this->form->getInput('address_2'); ?></li>
+				<li><?php echo $this->form->getLabel('phone_prefix'); ?>
+				<?php echo $this->form->getInput('phone_prefix'); ?></li>
 				
-				<li><?php echo $this->form->getLabel('portal_code'); ?>
-				<?php echo $this->form->getInput('portal_code'); ?></li>
+				<li><?php echo $this->form->getLabel('phone_sufix'); ?>
+				<?php echo $this->form->getInput('phone_sufix'); ?></li>
 				
-				<li><?php echo $this->form->getLabel('city'); ?>
-				<?php echo $this->form->getInput('city'); ?></li>
+				<li><?php echo $this->form->getLabel('broker_entity_type'); ?>
+				<?php echo $this->form->getInput('broker_entity_type'); ?></li>
 				
-				<li><?php echo $this->form->getLabel('country'); ?>
-				<?php echo $this->form->getInput('country'); ?></li>				
+				<li><?php echo $this->form->getLabel('brokerage_firm_other'); ?>
+				<?php echo $this->form->getInput('brokerage_firm_other'); ?></li>				
+				
+				<li><?php echo $this->form->getLabel('license_number'); ?>
+				<?php echo $this->form->getInput('license_number'); ?></li>				
+				
+				<li><?php echo $this->form->getLabel('my_web_site'); ?>
+				<?php echo $this->form->getInput('my_web_site'); ?></li>				
+				
+				<li><?php echo $this->form->getLabel('months_per_billing_cycle'); ?>
+				<?php echo $this->form->getInput('months_per_billing_cycle'); ?></li>				
+				
+				<li><?php echo $this->form->getLabel('credit_card_type'); ?>
+				<?php echo $this->form->getInput('credit_card_type'); ?></li>				
+				
+				<li><?php echo $this->form->getLabel('credit_card_number'); ?>
+				<?php echo $this->form->getInput('credit_card_number'); ?></li>				
+				
+				<li><?php echo $this->form->getLabel('credit_card_first_name'); ?>
+				<?php echo $this->form->getInput('credit_card_first_name'); ?></li>				
+				
+				<li><?php echo $this->form->getLabel('credit_card_last_name'); ?>
+				<?php echo $this->form->getInput('credit_card_last_name'); ?></li>				
+				
+				<li><?php echo $this->form->getLabel('credit_card_month'); ?>
+				<?php echo $this->form->getInput('credit_card_month'); ?></li>				
+				
+				<li><?php echo $this->form->getLabel('credit_card_year'); ?>
+				<?php echo $this->form->getInput('credit_card_year'); ?></li>				
+				
+				<li><?php echo $this->form->getLabel('credit_card_verification_value'); ?>
+				<?php echo $this->form->getInput('credit_card_verification_value'); ?></li>				
+				
+				<li><?php echo $this->form->getLabel('billing_address_address'); ?>
+				<?php echo $this->form->getInput('billing_address_address'); ?></li>				
+				
+				<li><?php echo $this->form->getLabel('billing_address_zip'); ?>
+				<?php echo $this->form->getInput('billing_address_zip'); ?></li>				
+				
+				<li><?php echo $this->form->getLabel('neighborhood_ids'); ?>
+				<?php echo $this->form->getInput('neighborhood_ids'); ?></li>
 				
 				<li><?php echo $this->form->getLabel('state'); ?>
 				<?php echo $this->form->getInput('state'); ?></li>
@@ -62,9 +101,9 @@ JHtml::_('behavior.formvalidation');
 				<?php echo $this->form->getInput('id'); ?></li>
 			</ul>
 			<div class="clr"> </div>
-			<?php echo $this->form->getLabel('bio'); ?>
+			<?php echo $this->form->getLabel('broker_bio'); ?>
 			<div class="clr"> </div>
-			<?php echo $this->form->getInput('bio'); ?>
+			<?php echo $this->form->getInput('broker_bio'); ?>
 		</fieldset>
 	</div>
 

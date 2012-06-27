@@ -24,31 +24,105 @@
 			description ="COM_RENTAL_FIELD_LAST_NAME_DESC" 
 			required="true"  />
 
-		<field name="address" type="text"
-			label="COM_RENTAL_FIELD_ADDRESS_LABEL" 
+		<field name="phone_area" type="text"
+			label="COM_RENTAL_FIELD_PHONE_AREA_LABEL" 
 			description ="COM_RENTAL_FIELD_ADDRESS_DESC" 
 			 />
 
-		<field name="address_2" type="text"
-			label="COM_RENTAL_FIELD_ADDRESS_2_LABEL" 
+		<field name="phone_prefix" type="text"
+			label="COM_RENTAL_FIELD_PHONE_PREFIX_LABEL" 
 			description ="COM_RENTAL_FIELD_ADDRESS_2_DESC" 
 			 />
 
-		<field name="portal_code" type="text"
-			label="COM_RENTAL_FIELD_PORTAL_CODE_LABEL" 
+		<field name="phone_sufix" type="text"
+			label="COM_RENTAL_FIELD_PHONE_SUFIX_LABEL" 
 			description ="COM_RENTAL_FIELD_PORTAL_CODE_DESC" 
 			 />
 
-		<field name="city" type="text"
-			label="COM_RENTAL_FIELD_CITY_LABEL" 
-			description ="COM_RENTAL_FIELD_CITY_DESC" 
+		<field name="broker_entity_type" type="text"
+			label="COM_RENTAL_FIELD_BROKER_ENTITY_TYPE_LABEL" 
+			description ="COM_RENTAL_FIELD_BROKER_ENTITY_TYPE_DESC" 
 			 />
 
-		<field name="country" type="text"
-			label="COM_RENTAL_FIELD_COUNTRY_LABEL" 
-			description ="COM_RENTAL_FIELD_COUNTRY_DESC" 
+		<field name="broker_entity_info" type="text"
+			label="COM_RENTAL_FIELD_BROKER_ENTITY_INFO_LABEL" 
+			description ="COM_RENTAL_FIELD_BROKER_ENTITY_INFO_DESC" 
+			 />
+			 
+		<field name="brokerage_firm_other" type="text"
+			label="COM_RENTAL_FIELD_BROKERAGE_FIRM_OTHER_LABEL" 
+			description ="COM_RENTAL_FIELD_BROKERAGE_FIRM_OTHER_DESC" 
 			 />
 
+		<field name="license_number" type="text"
+			label="COM_RENTAL_FIELD_LICENSE_NUMBER_LABEL" 
+			description ="COM_RENTAL_FIELD_LICENSE_NUMBER_DESC" 
+			 />
+
+		<field name="my_web_site" type="text"
+			label="COM_RENTAL_FIELD_MY_WEB_SITE_LABEL" 
+			description ="COM_RENTAL_FIELD_MY_WEB_SITE_DESC" 
+			 />
+
+		<field name="months_per_billing_cycle" type="text"
+			label="COM_RENTAL_FIELD_MONTHS_PER_BILLING_CYCLE_LABEL" 
+			description ="COM_RENTAL_FIELD_MONTHS_PER_BILLING_CYCLE_DESC" 
+			 />
+
+		<field name="credit_card_type" type="text"
+			label="COM_RENTAL_FIELD_CREDIT_CARD_TYPE_LABEL" 
+			description ="COM_RENTAL_FIELD_CREDIT_CARD_TYPE_DESC" 
+			 />
+
+		<field name="credit_card_number" type="text"
+			label="COM_RENTAL_FIELD_CREDIT_CARD_NUMBER_LABEL" 
+			description ="COM_RENTAL_FIELD_CREDIT_CARD_NUMBER_DESC" 
+			 />
+
+		<field name="credit_card_first_name" type="text"
+			label="COM_RENTAL_FIELD_CREDIT_CARD_FIRST_NAME_LABEL" 
+			description ="COM_RENTAL_FIELD_CREDIT_CARD_FIRST_NAME_DESC" 
+			 />
+
+		<field name="credit_card_last_name" type="text"
+			label="COM_RENTAL_FIELD_CREDIT_CARD_LAST_NAME_LABEL" 
+			description ="COM_RENTAL_FIELD_CREDIT_CARD_LAST_NAME_DESC" 
+			 />
+
+		<field name="credit_card_month" type="text"
+			label="COM_RENTAL_FIELD_CREDIT_CARD_MONTH_LABEL" 
+			description ="COM_RENTAL_FIELD_CREDIT_CARD_MONTH_DESC" 
+			 />
+
+		<field name="credit_card_year" type="text"
+			label="COM_RENTAL_FIELD_CREDIT_CARD_YEAR_LABEL" 
+			description ="COM_RENTAL_FIELD_CREDIT_CARD_YEAR_DESC" 
+			 />
+
+		<field name="credit_card_verification_value" type="text"
+			label="COM_RENTAL_FIELD_CREDIT_CARD_VERIFICATION_VALUE_LABEL" 
+			description ="COM_RENTAL_FIELD_CREDIT_CARD_VERIFICATION_VALUE_DESC" 
+			 />
+
+		<field name="billing_address_address" type="text"
+			label="COM_RENTAL_FIELD_BILLING_ADDRESS_ADRESS_LABEL" 
+			description ="COM_RENTAL_FIELD_BILLING_ADDRESS_ADRESS_DESC" 
+			 />
+
+		<field name="billing_address_zip" type="text"
+			label="COM_RENTAL_FIELD_BILLING_ADDRESS_ZIP_LABEL" 
+			description ="COM_RENTAL_FIELD_BILLING_ADDRESS_ZIP_DESC" 
+			 />
+
+		<field name="neighborhood_ids" type="neighborhoods"
+			label="COM_RENTAL_FIELD_NEIGHBORHOOD_IDS_LABEL" 
+			description ="COM_RENTAL_FIELD_NEIGHBORHOOD_IDS_DESC" 
+			 />
+
+		<field name="broker_bio" type="text"
+			label="COM_RENTAL_FIELD_BROKER_BIO_LABEL" 
+			description ="COM_RENTAL_FIELD_BROKER_BIO_DESC" 
+			 />
 		
 		<field name="state" type="list"
 			label="JSTATUS" description="COM_RENTAL_FIELD_STATE_DESC"
@@ -59,7 +133,7 @@
 			<option value="-2">JTRASHED</option>
 		</field>
 		
-		<field name="bio" type="editor" class="inputbox"
+		<field name="broker_bio" type="editor" class="inputbox"
 			label="Bio" description="Bio"
 			filter="JComponentHelper::filterText" buttons="true" />
 		

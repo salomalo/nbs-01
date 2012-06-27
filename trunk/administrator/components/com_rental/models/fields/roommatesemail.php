@@ -8,6 +8,20 @@ window.addEvent('domready', function(){
 										.setStyles({'display': 'block'});
 		return false;
 	});
+
+	$$('.remove-block-email').addEvent('click', function(){
+
+		if (!confirm('Are you sure?'))
+			return false;
+		
+		parent = this.getParent();
+		previous = parent.getPrevious();
+		
+		parent.dispose();
+		previous.dispose();
+		
+		return false;
+	});
 });
 //-->
 </script>
@@ -48,7 +62,7 @@ class JFormFieldRoommatesEmail extends JFormFieldList
 	{
 		$vals = unserialize($this->value);
 		
-		$removeBlockEmail = '<span style="float: left; line-height: 25px;" class="remove-block-email">Remove</span>';
+		$removeBlockEmail = '<a href="#" style="float: left; line-height: 25px;" class="remove-block-email">Remove</a>';
 		
 		$html = '<div style="float: left;"><a href="#" id="roommates_email">Add</a></div>';
 		

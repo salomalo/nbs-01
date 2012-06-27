@@ -23,22 +23,16 @@ JHtml::_('behavior.formvalidation');
 <script type="text/javascript">
 	Joomla.submitbutton = function(task)
 	{
-		if (task == 'agent.cancel' || document.formvalidator.isValid(document.id('agent-form'))) {
-			Joomla.submitform(task, document.getElementById('agent-form'));
+		if (task == 'renter.cancel' || document.formvalidator.isValid(document.id('renter-form'))) {
+			Joomla.submitform(task, document.getElementById('renter-form'));
 		}
 	}
 </script>
 
-<style>
-	#neighborhoods_id span, #neighborhoods_id div { float: left; }
-	#neighborhoods_id ul { float: left; width: 300px; }
-	#neighborhoods_id ul span { width: 150px; }
-</style>
-
-<form action="<?php echo JRoute::_('index.php?option=com_rental&layout=edit&id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="agent-form" class="form-validate" enctype="multipart/form-data">
+<form action="<?php echo JRoute::_('index.php?option=com_rental&layout=edit&id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="renter-form" class="form-validate" enctype="multipart/form-data">
 	<div class="width-60 fltlft">
 		<fieldset class="adminform">
-			<legend><?php echo empty($this->item->id) ? JText::_('COM_RENTAL_NEW_AGENT') : JText::sprintf('COM_RENTAL_AGENT_DETAILS', $this->item->id); ?></legend>
+			<legend><?php echo empty($this->item->id) ? JText::_('COM_RENTAL_NEW_RENTER') : JText::sprintf('COM_RENTAL_RENTER_DETAILS', $this->item->id); ?></legend>
 			<ul class="adminformlist">
 				
 				<li><?php echo $this->form->getLabel('user_id'); ?>
@@ -91,7 +85,7 @@ JHtml::_('behavior.formvalidation');
 	</div>
 
 <div class="width-40 fltrt">
-	<?php echo JHtml::_('sliders.start','agent-sliders-'.$this->item->id, array('useCookie'=>1)); ?>
+	<?php echo JHtml::_('sliders.start','renter-sliders-'.$this->item->id, array('useCookie'=>1)); ?>
 
 	<?php echo JHtml::_('sliders.panel',JText::_('COM_RENTAL_GROUP_LABEL_PUBLISHING_DETAILS'), 'publishing-details'); ?>
 		<fieldset class="panelform">

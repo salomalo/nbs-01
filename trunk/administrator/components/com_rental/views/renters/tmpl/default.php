@@ -23,7 +23,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 $canOrder	= $user->authorise('core.edit.state', 'com_rental.category');
 $saveOrder	= $listOrder=='ordering';
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_rental&view=agents'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo JRoute::_('index.php?option=com_rental&view=renters'); ?>" method="post" name="adminForm" id="adminForm">
 	<fieldset id="filter-bar">
 		<div class="filter-search fltlft">
 			<label class="filter-search-lbl" for="filter_search"><?php echo JText::_('JSEARCH_FILTER_LABEL'); ?></label>
@@ -48,15 +48,15 @@ $saveOrder	= $listOrder=='ordering';
 					<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
 				</th>
 				<th>
-					<?php echo JHtml::_('grid.sort',  'COM_RENTAL_HEADING_FIRST_NAME', '#__retal_agents.first_name', $listDirn, $listOrder); ?> /
-					<?php echo JHtml::_('grid.sort',  'COM_RENTAL_HEADING_LAST_NAME', '#__retal_agents.last_name', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort',  'COM_RENTAL_HEADING_FIRST_NAME', '#__rental_renters.first_name', $listDirn, $listOrder); ?> /
+					<?php echo JHtml::_('grid.sort',  'COM_RENTAL_HEADING_LAST_NAME', '#__rental_renters.last_name', $listDirn, $listOrder); ?>
 				</th>
 				<th>
 					<?php echo JHtml::_('grid.sort',  'COM_RENTAL_HEADING_USERS_0_USERNAME', 'users_0_username', $listDirn, $listOrder); ?>
 				</th>
 				<th width="1%" class="nowrap"><?php echo JText::_('User ID'); ?></th>
 				<th width="1%" class="nowrap">
-					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ID', '#__retal_agents.id', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ID', '#__rental_renters.id', $listDirn, $listOrder); ?>
 				</th>
 				
 			</tr>

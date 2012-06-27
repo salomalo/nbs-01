@@ -9,7 +9,7 @@
 			label="JGLOBAL_FIELD_ID_LABEL" 	description ="JGLOBAL_FIELD_ID_DESC" />
 			
 		
-		<field name="user_id" type="rentalcustomuserid"
+		<field name="user_id" type="rentalcustomuserid" required="true"
 			label="COM_RENTAL_FIELD_USER_ID_LABEL" 
 			description ="COM_RENTAL_FIELD_USER_ID_DESC" 
 			 />
