@@ -47,14 +47,8 @@ $saveOrder	= $listOrder=='ordering';
 				<th width="1%">
 					<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
 				</th>
-				<th width="1%" class="nowrap">
-					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ID', '#__retal_agents.id', $listDirn, $listOrder); ?>
-				</th>
-				
 				<th>
-					<?php echo JHtml::_('grid.sort',  'COM_RENTAL_HEADING_FIRST_NAME', '#__retal_agents.first_name', $listDirn, $listOrder); ?>
-				</th>
-				<th>
+					<?php echo JHtml::_('grid.sort',  'COM_RENTAL_HEADING_FIRST_NAME', '#__retal_agents.first_name', $listDirn, $listOrder); ?> /
 					<?php echo JHtml::_('grid.sort',  'COM_RENTAL_HEADING_LAST_NAME', '#__retal_agents.last_name', $listDirn, $listOrder); ?>
 				</th>
 				<th>
@@ -64,13 +58,9 @@ $saveOrder	= $listOrder=='ordering';
 				<th width="5%">
 					<?php echo JHtml::_('grid.sort', 'JSTATUS', 'state', $listDirn, $listOrder); ?>
 				</th>
-				<th width="10%">
-					<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_ORDERING', 'ordering', $listDirn, $listOrder); ?>
-					<?php if ($canOrder && $saveOrder): ?>
-						<?php echo JHtml::_('grid.order',  $this->items, 'filesave.png', 'agents.saveorder'); ?>
-					<?php endif;?>
-				</th>
-				
+				<th width="1%" class="nowrap">
+					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ID', '#__retal_agents.id', $listDirn, $listOrder); ?>
+				</th>	
 			</tr>
 		</thead>
 		<tfoot>
@@ -92,24 +82,19 @@ $saveOrder	= $listOrder=='ordering';
 				<td class="center">
 					<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 				</td>
-				<td class="center">
+				<td class="left">
 					<?php if ($item->checked_out) : ?>
 						<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'agents.', $canCheckin); ?>
 					<?php endif; ?>
 					<?php if ($canEdit) : ?>
 						<a href="<?php echo JRoute::_('index.php?option=com_rental&task=agent.edit&id='.(int) $item->id); ?>">
-							<?php echo $this->escape($item->id); ?></a>
+							<?php echo $this->escape($item->first_name); ?> 
+							<?php echo $this->escape($item->last_name); ?>
+						</a>
 					<?php else : ?>
-							<?php echo $this->escape($item->id); ?>
+							<?php echo $this->escape($item->first_name); ?> 
+							<?php echo $this->escape($item->last_name); ?>
 					<?php endif; ?>
-				</td>
-				
-				
-				<td class="center">
-					<?php echo $this->escape($item->first_name); ?>
-				</td>
-				<td class="center">
-					<?php echo $this->escape($item->last_name); ?>
 				</td>
 				<td class="center">
 					<?php echo $this->escape($item->users_0_username); ?>
@@ -118,22 +103,8 @@ $saveOrder	= $listOrder=='ordering';
 				<td class="center">
 					<?php echo JHtml::_('jgrid.published', $item->state, $i, 'agents.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
 				</td>
-				<td class="order">
-					<?php if ($canChange) : ?>
-						<?php if ($saveOrder) : ?>
-							<?php if ($listDirn == 'asc') : ?>
-								<span><?php echo $this->pagination->orderUpIcon($i, (@$this->items[$i-1]->catid == $item->catid), 'agents.orderup', 'JLIB_HTML_MOVE_UP', $ordering); ?></span>
-								<span><?php echo $this->pagination->orderDownIcon($i, $this->pagination->total, (@$this->items[$i+1]->catid == $item->catid), 'agents.orderdown', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
-							<?php elseif ($listDirn == 'desc') : ?>
-								<span><?php echo $this->pagination->orderUpIcon($i, (@$this->items[$i-1]->catid == $item->catid), 'agents.orderdown', 'JLIB_HTML_MOVE_UP', $ordering); ?></span>
-								<span><?php echo $this->pagination->orderDownIcon($i, $this->pagination->total, (@$this->items[$i+1]->catid == $item->catid), 'agents.orderup', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
-							<?php endif; ?>
-						<?php endif; ?>
-						<?php $disabled = $saveOrder ?  '' : 'disabled="disabled"'; ?>
-						<input type="text" name="order[]" size="5" value="<?php echo $item->ordering;?>" <?php echo $disabled; ?> class="text-area-order" />
-					<?php else : ?>
-						<?php echo $item->ordering; ?>
-					<?php endif; ?>
+				<td class="center">
+					<?php echo $this->escape($item->id); ?>
 				</td>
 			</tr>
 			<?php endforeach; ?>

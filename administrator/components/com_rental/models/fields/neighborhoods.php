@@ -1,3 +1,36 @@
+<style>
+	#neighborhoods_id { float: left; width: 500px; }
+	#neighborhoods_id span, #neighborhoods_id div { float: left; }
+	#neighborhoods_id ul { float: left; width: 500px; background: #F4F4F4; }
+	#neighborhoods_id ul li { float: left; width: 160px; padding: 2px; line-height: 25px; }
+	#neighborhoods_id .clr { clear: both; }
+	#neighborhoods_id span.n-tab { padding: 3px 10px; margin-right: 1px; background: #1881B4; color: #FFF; cursor: pointer; }
+	#neighborhoods_id span.n-tab-active,
+	#neighborhoods_id span.n-tab:hover { background: #37befc; color: #3a4549; }
+	.tab-container { background: #F4F4F4; width: 500px; border-bottom: 5px solid #FFF; }
+</style>
+
+<script type="text/javascript">
+<!--
+window.addEvent('domready', function(){
+	$$('.n-tab').addEvent('click', function(){
+		var rel = this.get('rel');
+
+		// hide all cotent 
+		$$('.ul-content').set('styles', {'display': 'none'});
+
+		// remove class active 
+		$$('.n-tab').removeClass('n-tab-active');
+
+		// add class active to this 
+		this.addClass('n-tab-active');
+
+		// show content tab 
+		$('ul-content-' + rel).set('styles', {'display': 'block'});
+	});
+});
+//-->
+</script>
 <?php
 /**
  * @version		$Id: rentalcustomlocationid.php $
@@ -97,22 +130,27 @@ class JFormFieldNeighborhoods extends JFormFieldList
 		
 		$html = '<div id="neighborhoods_id">';
 		
-		$html .= '<div>';
-		foreach ($categories as $cate)
+		$html .= '<div class="tab-container">';
+		foreach ($categories as $key => $cate)
 		{
-			$html .= '<span>'.$cate->title.'</span>';
+			$class = ($key == 0) ? 'n-tab-active' : ''; 
+			
+			$html .= '<span class="n-tab '.$class.'" rel="'.$key.'">'.$cate->title.'</span>';
 		}
-		$html .= '</div>';
+		$html .= '</div>
+					<div class="clr"></div>';
 		
-		foreach ($categories as $cate)
+		foreach ($categories as $key => $cate)
 		{
-			$html .= '<ul>';
+			$style = ($key == 0) ? '' : ' style="display: none;"';
+			
+			$html .= '<ul class="ul-content"'.$style.' id="ul-content-'.$key.'">';
 			
 			foreach ($cate->options as $option)
 			{
-				$checked = (in_array($option->value, $value)) ? 'checked="checked"' : '';
+				$checked = (is_array($value) && in_array($option->value, $value)) ? 'checked="checked"' : '';
 				
-				$html .= '<span><input type="checkbox"  name="'.$this->name.'[]" value="'.$option->value.'" ' . $checked . '>' . $option->text . '</span>';
+				$html .= '<li><input type="checkbox"  name="'.$this->name.'[]" value="'.$option->value.'" ' . $checked . '>' . $option->text . '</li>';
 			}
 			
 			$html .= '</ul>';
