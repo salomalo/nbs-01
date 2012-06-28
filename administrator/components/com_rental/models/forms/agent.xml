@@ -26,28 +26,22 @@
 
 		<field name="phone_area" type="text"
 			label="COM_RENTAL_FIELD_PHONE_AREA_LABEL" 
-			description ="COM_RENTAL_FIELD_ADDRESS_DESC" 
+			description ="COM_RENTAL_FIELD_PHONE_AREA_DESC" 
 			 />
 
 		<field name="phone_prefix" type="text"
 			label="COM_RENTAL_FIELD_PHONE_PREFIX_LABEL" 
-			description ="COM_RENTAL_FIELD_ADDRESS_2_DESC" 
+			description ="COM_RENTAL_FIELD_PHONE_PREFIX_DESC" 
 			 />
 
 		<field name="phone_sufix" type="text"
 			label="COM_RENTAL_FIELD_PHONE_SUFIX_LABEL" 
-			description ="COM_RENTAL_FIELD_PORTAL_CODE_DESC" 
+			description ="COM_RENTAL_FIELD_SUFIX_DESC" 
 			 />
-
-		<field name="broker_entity_type" type="text"
+			 
+		<field name="broker_entity_type" type="brokerentitytype"
 			label="COM_RENTAL_FIELD_BROKER_ENTITY_TYPE_LABEL" 
-			description ="COM_RENTAL_FIELD_BROKER_ENTITY_TYPE_DESC" 
-			 />
-
-		<field name="broker_entity_info" type="text"
-			label="COM_RENTAL_FIELD_BROKER_ENTITY_INFO_LABEL" 
-			description ="COM_RENTAL_FIELD_BROKER_ENTITY_INFO_DESC" 
-			 />
+			description="COM_RENTAL_FIELD_BROKER_ENTITY_TYPE_DESC" />
 			 
 		<field name="brokerage_firm_other" type="text"
 			label="COM_RENTAL_FIELD_BROKERAGE_FIRM_OTHER_LABEL" 
@@ -63,11 +57,16 @@
 			label="COM_RENTAL_FIELD_MY_WEB_SITE_LABEL" 
 			description ="COM_RENTAL_FIELD_MY_WEB_SITE_DESC" 
 			 />
-
-		<field name="months_per_billing_cycle" type="text"
+			 
+		<field name="months_per_billing_cycle" type="radio"
 			label="COM_RENTAL_FIELD_MONTHS_PER_BILLING_CYCLE_LABEL" 
-			description ="COM_RENTAL_FIELD_MONTHS_PER_BILLING_CYCLE_DESC" 
-			 />
+			description="COM_RENTAL_FIELD_MONTHS_PER_BILLING_CYCLE_DESC"
+			class="inputbox" size="1" default="1" >
+			<option value="1">Every Month</option>
+			<option value="3">Every 3 Months</option>
+			<option value="6">Every 6 Months</option>
+			<option value="12">Every Year</option>
+		</field>
 
 		<field name="credit_card_type" type="text"
 			label="COM_RENTAL_FIELD_CREDIT_CARD_TYPE_LABEL" 
@@ -105,8 +104,8 @@
 			 />
 
 		<field name="billing_address_address" type="text"
-			label="COM_RENTAL_FIELD_BILLING_ADDRESS_ADRESS_LABEL" 
-			description ="COM_RENTAL_FIELD_BILLING_ADDRESS_ADRESS_DESC" 
+			label="COM_RENTAL_FIELD_BILLING_ADDRESS_ADDRESS_LABEL" 
+			description ="COM_RENTAL_FIELD_BILLING_ADDRESS_ADDRESS_DESC" 
 			 />
 
 		<field name="billing_address_zip" type="text"
@@ -115,8 +114,8 @@
 			 />
 
 		<field name="neighborhood_ids" type="neighborhoods"
-			label="COM_RENTAL_FIELD_NEIGHBORHOOD_IDS_LABEL" 
-			description ="COM_RENTAL_FIELD_NEIGHBORHOOD_IDS_DESC" 
+			label="COM_RENTAL_FIELD_NEIGHBORHOOD_LABEL" 
+			description ="COM_RENTAL_FIELD_NEIGHBORHOOD_DESC" 
 			 />
 
 		<field name="broker_bio" type="text"
