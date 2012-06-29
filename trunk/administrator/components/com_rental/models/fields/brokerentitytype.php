@@ -1,3 +1,35 @@
+<script type="text/javascript">
+<!--
+window.addEvent('domready', function(){
+
+	var entity = $$('#jform_broker_entity_type input[type="radio"]');
+	
+	entity.addEvent('click', function(){
+		show(this.get('value'));
+	});
+
+	var checkVal = $$('#jform_broker_entity_type input[type="radio"]:checked').get('value');
+
+	show(checkVal);
+
+	function show(checkVal)
+	{
+		if (checkVal == 1)
+			$('broker_entity_type_1').set('styles', {'display': 'block'});
+		else
+			$('broker_entity_type_2').set('styles', {'display': 'block'});
+	}
+});
+
+//-->
+</script>
+
+<style>
+<!--
+.broker-entity { float: left; border: 1px solid #CCC; width: 550px; display: none; }
+.clr { clear: both; }
+-->
+</style>
 <?php
 /**
  * @version		$Id: rentalcustomuserid.php $
@@ -23,16 +55,57 @@ JFormHelper::loadFieldClass('list');
  */
 class JFormFieldBrokerEntityType extends JFormFieldList
 {
-	
 	public function getInput()
 	{
+		$broker_entity_type = 2;
+		
+		$check_1 = ($broker_entity_type == 1) ? 'checked="checked"' : '';
+		$check_2 = ($broker_entity_type == 2) ? 'checked="checked"' : '';
+		$check_3 = ($broker_entity_type == 3) ? 'checked="checked"' : '';
+		
 		$html = '<div style="float: left;">';
 		
-		$html .= '<fieldset id="jform_months_per_billing_cycle" class="radio inputbox">
-				<input type="radio" value="1" name="jform[entity_type]" id="broker_entity_type_1" checked="checked"> <label>Broker/salesperson</label>
-				<input type="radio" value="2" name="jform[entity_type]" id="broker_entity_type_2"> <label>Landlord</label>
-				<input type="radio" value="3" name="jform[entity_type]" id="broker_entity_type_3"> <label>Management company</label>
+		$html .= '<fieldset id="jform_broker_entity_type" class="radio inputbox">
+				<input type="radio" value="1" name="jform[entity_type]" id="broker_entity_type_1" '.$check_1.'> <label>Broker/salesperson</label>
+				<input type="radio" value="2" name="jform[entity_type]" id="broker_entity_type_2" '.$check_2.'> <label>Landlord</label>
+				<input type="radio" value="3" name="jform[entity_type]" id="broker_entity_type_3" '.$check_3.'> <label>Management company</label>
 				</fieldset>';
+		
+		$html .= '<div class="clr"></div>';
+		$html .= '<div id="broker_entity_type_1" class="broker-entity">
+					<label>Brokerage Firm</label>
+					<input type="text" />
+					<label>License Number</label>
+					<input type="text" />
+				</div>';
+		
+		$html .= '<div class="clr"></div>';
+		
+		$html .= '<div id="broker_entity_type_2" class="broker-entity">
+					<label>Name of company</label>
+					<input type="text" />
+					<label>Number of apartments <br>you manage</label>
+					<input type="text" />
+					<label style="font-weight: bold;">
+						Info on one apartment you will advertise
+					</label>
+					<div id="landlord-name">
+						<label>Landlord name</label>
+						<input type="text" />
+					</div>
+					<label>Street address</label>
+					<input type="text" />
+					<label>Unit number</label>
+					<input type="text" />
+					<label>Unit number</label>
+					<input type="text" />
+					<label>Borough</label>
+					<input type="text" />
+					<label>Property registration <br>number</label>
+					<input type="text" />
+				</div>';
+		
+		$html .= '<div class="clr"></div>';
 		
 		$html .= '</div>';
 		
