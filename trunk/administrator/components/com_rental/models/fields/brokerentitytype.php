@@ -1,38 +1,12 @@
-<script type="text/javascript">
-<!--
-window.addEvent('domready', function(){
-
-	var entity = $$('#jform_broker_entity_type input[type="radio"]');
-	
-	entity.addEvent('click', function(){
-		show(this.get('value'));
-	});
-
-	var checkVal = $$('#jform_broker_entity_type input[type="radio"]:checked').get('value');
-
-	show(checkVal);
-
-	function show(checkVal)
-	{
-		if (checkVal == 1)
-			$('broker_entity_type_1').set('styles', {'display': 'block'});
-		else
-			$('broker_entity_type_2').set('styles', {'display': 'block'});
-	}
-});
-
-//-->
-</script>
-
 <style>
 <!--
-.broker-entity { float: left; border: 1px solid #CCC; width: 550px; display: none; }
+.broker-entity { float: left; width: 550px; display: none; }
 .clr { clear: both; }
 -->
 </style>
 <?php
 /**
- * @version		$Id: rentalcustomuserid.php $
+ * @version		$Id: brokerentitytype.php $
  * @copyright	Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  * @author		muinx
@@ -59,6 +33,10 @@ class JFormFieldBrokerEntityType extends JFormFieldList
 	{
 		$broker_entity_type = 2;
 		
+		$agentInfo = $this->_getAgentInfo();
+		
+		$brokerEntityInfo = $agentInfo->broker_entity_info;
+		
 		$check_1 = ($broker_entity_type == 1) ? 'checked="checked"' : '';
 		$check_2 = ($broker_entity_type == 2) ? 'checked="checked"' : '';
 		$check_3 = ($broker_entity_type == 3) ? 'checked="checked"' : '';
@@ -72,7 +50,7 @@ class JFormFieldBrokerEntityType extends JFormFieldList
 				</fieldset>';
 		
 		$html .= '<div class="clr"></div>';
-		$html .= '<div id="broker_entity_type_1" class="broker-entity">
+		$html .= '<div id="div_broker_entity_type_1" class="broker-entity">
 					<label>Brokerage Firm</label>
 					<input type="text" />
 					<label>License Number</label>
@@ -81,7 +59,9 @@ class JFormFieldBrokerEntityType extends JFormFieldList
 		
 		$html .= '<div class="clr"></div>';
 		
-		$html .= '<div id="broker_entity_type_2" class="broker-entity">
+		$borough = $this->_getBorough();
+		
+		$html .= '<div id="div_broker_entity_type_2" class="broker-entity">
 					<label>Name of company</label>
 					<input type="text" />
 					<label>Number of apartments <br>you manage</label>
@@ -100,7 +80,7 @@ class JFormFieldBrokerEntityType extends JFormFieldList
 					<label>Unit number</label>
 					<input type="text" />
 					<label>Borough</label>
-					<input type="text" />
+					'.$borough.'
 					<label>Property registration <br>number</label>
 					<input type="text" />
 				</div>';
@@ -112,8 +92,91 @@ class JFormFieldBrokerEntityType extends JFormFieldList
 		return $html;
 	}
 	
-	private function _getAgentInfo($agentId)
+	private function _getAgentInfo()
 	{
+		$id = JRequest::getVar('id');
 		
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+		
+		$query->select('*')->from('#__retal_agents')->where('id = ' . (int) $id);
+		
+		$db->setQuery($query);
+		$rec = $db->loadObject();
+		
+		if ($db->getErrorMsg())
+			die ($db->getErrorMsg());
+		
+		return $rec;		
+	}
+	
+	private function _getBorough($catId = 0)
+	{
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+		
+		$agentInfo = $this->_getAgentInfo();
+		
+		$query->select('*')
+				->from('#__categories')
+				->where('published = 1')
+				->where('extension = "com_rental"')
+				->where('parent_id = 1')
+		;
+		
+		$db->setQuery($query);
+		$rs = $db->loadObjectList();
+		
+		if ($db->getErrorMsg())
+			die ($db->getErrorMsg());
+		
+		$html = '<select>';
+		
+		foreach ($rs as $cat)
+		{
+			$selected = ($cat->id == $catId) ? 'selected="selected"' : '';
+			$html .= '<option value="'.$cat->id.'" '.$selected.'>' . $cat->title . '</option>';
+		}
+		
+		$html .= '</select>';
+		
+		return $html;
 	}
 }
+
+?>
+
+<script type="text/javascript">
+<!--
+window.addEvent('domready', function(){
+
+	var entity = $$('#jform_broker_entity_type input[type="radio"]');
+	
+	entity.addEvent('click', function(){
+		showEntityOption(this.get('value'));
+	});
+
+	var checkVal = $$('#jform_broker_entity_type input[type="radio"]:checked').get('value');
+
+	showEntityOption(checkVal);
+
+	function showEntityOption(checkVal)
+	{
+		$$('.broker-entity').set('styles', {'display': 'none'});
+		
+		if (checkVal == 1)
+			$('div_broker_entity_type_1').set('styles', {'display': 'block'});
+		else
+		{
+			if (checkVal == 2)
+				$('landlord-name').set('styles', {'display': 'block'});
+			else
+				$('landlord-name').set('styles', {'display': 'none'});
+			
+			$('div_broker_entity_type_2').set('styles', {'display': 'block'});
+		}
+	}
+});
+
+//-->
+</script>

@@ -147,26 +147,17 @@ class RentalModelBroker extends JModel
 		
 		$broker_entity_info = array();
 		
-		switch ($broker['broker_entity_type'])
-		{
-			case 1:
-				$broker_entity_info = array(
-					'brokerage_firm_other'	=> $broker['brokerage_firm_other'],
-					'license_number'		=> $broker['license_number'],
-										);
-				break;
-			case 2:
-				$broker_entity_info = array(
-					'landlord_meta_attributes_company_name' => $broker['landlord_meta_attributes']['company_name'],
-					'landlord_meta_attributes_apartments_managed' => $broker['landlord_meta_attributes']['apartments_managed'],
-				);
-				break;
-			case 3:
-				$broker_entity_info = array(
-					
-				);
-				break;
-		}
+		$broker_entity_info = array(
+				'broker_brokerage_firm_other'									=> $broker['brokerage_firm_other'],
+				'broker_license_number'											=> $broker['license_number'],
+				'broker_landlord_meta_attributes_company_name' 					=> $broker['landlord_meta_attributes']['company_name'],
+				'broker_landlord_meta_attributes_apartments_managed' 			=> $broker['landlord_meta_attributes']['apartments_managed'],
+				'broker_landlord_meta_attributes_landlord_name'					=> $broker['landlord_meta_attributes']['landlord_name'],
+				'broker_landlord_meta_attributes_apartment_street_address'		=> $broker['landlord_meta_attributes']['apartment_street_address'],
+				'broker_landlord_meta_attributes_apartment_unit_number'			=> $broker['landlord_meta_attributes']['apartment_unit_number'],
+				'broker_landlord_meta_attributes_apartment_borough_id'			=> $broker['landlord_meta_attributes']['apartment_borough_id'],
+				'broker_landlord_meta_attributes_property_registration_number'	=> $broker['landlord_meta_attributes']['property_registration_number']
+		);
 		
 		$broker_entity_info = serialize($brocker_entity_info);
 		
