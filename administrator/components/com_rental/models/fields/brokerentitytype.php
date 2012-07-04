@@ -31,17 +31,19 @@ class JFormFieldBrokerEntityType extends JFormFieldList
 {
 	public function getInput()
 	{
-		$broker_entity_type = 2;
-		
 		$agentInfo = $this->_getAgentInfo();
 		
-		$brokerEntityInfo = $agentInfo->broker_entity_info;
+		$broker_entity_type = $agentInfo->broker_entity_type;
+		
+		$brokerEntityInfo = unserialize($agentInfo->broker_entity_info);
+		
+// 		var_dump($brokerEntityInfo);
 		
 		$check_1 = ($broker_entity_type == 1) ? 'checked="checked"' : '';
 		$check_2 = ($broker_entity_type == 2) ? 'checked="checked"' : '';
 		$check_3 = ($broker_entity_type == 3) ? 'checked="checked"' : '';
 		
-		$html = '<div style="float: left;">';
+		$html = '<div style="float: left; width: 450px;">';
 		
 		$html .= '<fieldset id="jform_broker_entity_type" class="radio inputbox">
 				<input type="radio" value="1" name="jform[entity_type]" id="broker_entity_type_1" '.$check_1.'> <label>Broker/salesperson</label>
@@ -52,9 +54,9 @@ class JFormFieldBrokerEntityType extends JFormFieldList
 		$html .= '<div class="clr"></div>';
 		$html .= '<div id="div_broker_entity_type_1" class="broker-entity">
 					<label>Brokerage Firm</label>
-					<input type="text" />
+					<input type="text" name="jform[brokerage_firm_other]" value="'.$brokerEntityInfo['broker_brokerage_firm_other'].'" />
 					<label>License Number</label>
-					<input type="text" />
+					<input type="text" name="jform[license_number]" value="'.$brokerEntityInfo['broker_license_number'].'" />
 				</div>';
 		
 		$html .= '<div class="clr"></div>';
@@ -63,7 +65,7 @@ class JFormFieldBrokerEntityType extends JFormFieldList
 		
 		$html .= '<div id="div_broker_entity_type_2" class="broker-entity">
 					<label>Name of company</label>
-					<input type="text" />
+					<input type="text" name="jform[landlord_meta_attributes][company_name]" value="'.$brokerEntityInfo['landlord_meta_attributes']['company_name'].'" />
 					<label>Number of apartments <br>you manage</label>
 					<input type="text" />
 					<label style="font-weight: bold;">
@@ -71,18 +73,16 @@ class JFormFieldBrokerEntityType extends JFormFieldList
 					</label>
 					<div id="landlord-name">
 						<label>Landlord name</label>
-						<input type="text" />
+						<input type="text" name="jform[landlord_meta_attributes][landlord_name]" value="'.$brokerEntityInfo['landlord_meta_attributes']['landlord_name'].'" />
 					</div>
 					<label>Street address</label>
-					<input type="text" />
+					<input type="text" name="jform[landlord_meta_attributes][apartment_street_address]" value="'.$brokerEntityInfo['landlord_meta_attributes']['apartment_street_address'].'" />
 					<label>Unit number</label>
-					<input type="text" />
-					<label>Unit number</label>
-					<input type="text" />
+					<input type="text" name="jform[landlord_meta_attributes][apartment_unit_number]" value="'.$brokerEntityInfo['landlord_meta_attributes']['apartment_unit_number'].'" />
 					<label>Borough</label>
 					'.$borough.'
 					<label>Property registration <br>number</label>
-					<input type="text" />
+					<input type="text" name="jform[landlord_meta_attributes][property_registration_number]" value="'.$brokerEntityInfo['landlord_meta_attributes']['property_registration_number'].'" />
 				</div>';
 		
 		$html .= '<div class="clr"></div>';
@@ -130,7 +130,7 @@ class JFormFieldBrokerEntityType extends JFormFieldList
 		if ($db->getErrorMsg())
 			die ($db->getErrorMsg());
 		
-		$html = '<select>';
+		$html = '<select name="jform[landlord_meta_attributes][apartment_borough_id]">';
 		
 		foreach ($rs as $cat)
 		{
