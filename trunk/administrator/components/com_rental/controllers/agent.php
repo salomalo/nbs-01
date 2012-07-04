@@ -39,13 +39,13 @@ class RentalControllerAgent extends JControllerForm
 	{
 		// Initialise variables.
 		$user		= JFactory::getUser();
-		$categoryId	= JArrayHelper::getValue($data, 'catid', JRequest::getInt('filter_category_id'), 'int');
+// 		$categoryId	= JArrayHelper::getValue($data, 'catid', JRequest::getInt('filter_category_id'), 'int');
 		$allow		= null;
 
-		if ($categoryId) {
-			// If the category has been passed in the URL check it.
-			$allow	= $user->authorise('core.create', $this->option.'.category.'.$categoryId);
-		}
+// 		if ($categoryId) {
+// 			// If the category has been passed in the URL check it.
+// 			$allow	= $user->authorise('core.create', $this->option.'.category.'.$categoryId);
+// 		}
 
 		if ($allow === null) {
 			// In the absense of better information, revert to the component permissions.
@@ -71,9 +71,9 @@ class RentalControllerAgent extends JControllerForm
 		$recordId	= (int) isset($data[$key]) ? $data[$key] : 0;
 		$categoryId = 0;
 
-		if ($recordId) {
-			$categoryId = (int) $this->getModel()->getItem($recordId)->catid;
-		}
+// 		if ($recordId) {
+// 			$categoryId = (int) $this->getModel()->getItem($recordId)->catid;
+// 		}
 
 		if ($categoryId) {
 			// The category has been set. Check the category permissions.

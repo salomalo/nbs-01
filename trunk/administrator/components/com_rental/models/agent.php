@@ -31,10 +31,6 @@ class RentalModelAgent extends JModelAdmin
 	 */
 	protected $text_prefix = 'COM_RENTAL_AGENT';
 
-	
-	
-	
-
 	/**
 	 * Returns a reference to the a Table object, always creating it.
 	 *
@@ -123,5 +119,59 @@ class RentalModelAgent extends JModelAdmin
 		
 		$condition[] = 'state >= 0';
 		return $condition;
+	}
+	
+	public function save($data)
+	{
+		$post = JRequest::get('post');
+		
+		$d = $post['jform'];
+		
+		$data['entity_type'] = $entity_type = $d['entity_type'];
+		
+		if ($entity_type == 1)
+			$broker_entity_info = array(
+					'broker_brokerage_firm_other'									=> $d['brokerage_firm_other'],
+					'broker_license_number'											=> $d['license_number'],
+					'broker_landlord_meta_attributes_company_name' 					=> '',
+					'broker_landlord_meta_attributes_apartments_managed' 			=> '',
+					'broker_landlord_meta_attributes_landlord_name'					=> '',
+					'broker_landlord_meta_attributes_apartment_street_address'		=> '',
+					'broker_landlord_meta_attributes_apartment_unit_number'			=> '',
+					'broker_landlord_meta_attributes_apartment_borough_id'			=> '',
+					'broker_landlord_meta_attributes_property_registration_number'	=> ''
+			);
+		elseif ($entity_type == 2)		
+			$broker_entity_info = array(
+					'broker_brokerage_firm_other'									=> '',
+					'broker_license_number'											=> '',
+					'broker_landlord_meta_attributes_company_name' 					=> $d['landlord_meta_attributes']['company_name'],
+					'broker_landlord_meta_attributes_apartments_managed' 			=> $d['landlord_meta_attributes']['apartments_managed'],
+					'broker_landlord_meta_attributes_landlord_name'					=> $d['landlord_meta_attributes']['landlord_name'],
+					'broker_landlord_meta_attributes_apartment_street_address'		=> $d['landlord_meta_attributes']['apartment_street_address'],
+					'broker_landlord_meta_attributes_apartment_unit_number'			=> $d['landlord_meta_attributes']['apartment_unit_number'],
+					'broker_landlord_meta_attributes_apartment_borough_id'			=> $d['landlord_meta_attributes']['apartment_borough_id'],
+					'broker_landlord_meta_attributes_property_registration_number'	=> $d['landlord_meta_attributes']['property_registration_number']
+			);
+		else			
+			$broker_entity_info = array(
+					'broker_brokerage_firm_other'									=> '',
+					'broker_license_number'											=> '',
+					'broker_landlord_meta_attributes_company_name' 					=> $d['landlord_meta_attributes']['company_name'],
+					'broker_landlord_meta_attributes_apartments_managed' 			=> $d['landlord_meta_attributes']['apartments_managed'],
+					'broker_landlord_meta_attributes_landlord_name'					=> '',
+					'broker_landlord_meta_attributes_apartment_street_address'		=> $d['landlord_meta_attributes']['apartment_street_address'],
+					'broker_landlord_meta_attributes_apartment_unit_number'			=> $d['landlord_meta_attributes']['apartment_unit_number'],
+					'broker_landlord_meta_attributes_apartment_borough_id'			=> $d['landlord_meta_attributes']['apartment_borough_id'],
+					'broker_landlord_meta_attributes_property_registration_number'	=> $d['landlord_meta_attributes']['property_registration_number']
+			);
+		
+		var_dump($broker_entity_info); die;
+		
+		$data['broker_entity_info'] = serialize($broker_entity_info);
+		
+		$result = parent::save($data);
+		
+		return $result;
 	}
 }
