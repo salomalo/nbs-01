@@ -92,3 +92,5 @@ CREATE TABLE IF NOT EXISTS `jos_retal_agents` (
   `language` char(7) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Set user is agent' AUTO_INCREMENT=2 ;
+
+-- Thêm trường file_upload varchar(255) vào bảng #__retal_agents

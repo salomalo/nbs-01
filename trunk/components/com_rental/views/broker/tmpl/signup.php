@@ -22,6 +22,8 @@ $user		= $post['user'];
 $broker 	= $post['broker'];
 $errorEmail = $session->get('error_email');
 $billing_information = $post['billing_information'];
+
+var_dump($user);
 ?>
 <div id="main">
   <div class="headMessage"> <span class="contactUs">
@@ -88,7 +90,7 @@ $billing_information = $post['billing_information'];
         <div class="rowLine" id="name">
           <label for="user_first_name">First Name</label>
           <input type="text" size="23" value="<?php echo $user['first_name']; ?>" name="user[first_name]" id="user_first_name" class="text idleField">
-          <?php if ($user['first_name'] == ''): ?>
+          <?php if (isset($user) && $user['first_name'] == ''): ?>
         	<div class="formError">can't be blank</div>
         	<?php endif; ?>
           <div class="clear"></div>
@@ -96,7 +98,7 @@ $billing_information = $post['billing_information'];
         <div class="rowLine">
           <label for="user_last_name">Last Name</label>
           <input type="text" size="23" value="<?php echo $user['last_name']; ?>" name="user[last_name]" id="user_last_name" class="text idleField">
-          <?php if ($user['last_name'] == ''): ?>
+          <?php if (isset($user) && $user['last_name'] == ''): ?>
         <div class="formError">can't be blank</div>
         <?php endif; ?>
           <div class="clear"></div>
@@ -107,7 +109,7 @@ $billing_information = $post['billing_information'];
           want us to auto-import your listings daily, use the <strong>same email address</strong> for both 
           that and your Naked account. </span>
           <input type="text" size="23" value="<?php echo $user['email']; ?>" name="user[email]" id="user_email" class="text idleField">
-          <?php if ($user['email'] == ''): ?>
+          <?php if (isset($user) && $user['email'] == ''): ?>
         <div class="formError">can't be blank</div>
         <?php elseif ($errorEmail == 'INVALID'): ?>
         <div class="formError">should look like an email address</div>
@@ -125,7 +127,7 @@ $billing_information = $post['billing_information'];
           <?php 
           $phoneError = array();
           
-          if ($user['phone_area'] == '' || $user['phone_prefix'] == '' || $user['phone_sufix'] == ''): 
+          if (isset($user) &&  ($user['phone_area'] == '' || $user['phone_prefix'] == '' || $user['phone_sufix'] == '')): 
           	if ($user['phone_area'] == '') 		$phoneError[] = 'Phone area';
           	if ($user['phone_prefix'] == '') 	$phoneError[] = 'Phone prefix';
           	if ($user['phone_sufix'] == '') 	$phoneError[] = 'Phone sufix';
@@ -142,7 +144,7 @@ $billing_information = $post['billing_information'];
         <div class="rowLine">
           <label for="user_password">Password</label>
           <input type="password" size="20" name="user[password]" id="user_password" class="text idleField">
-          <?php if (strlen($user['password']) < 4): ?>
+          <?php if (isset($user) && strlen($user['password']) < 4): ?>
         <div class="formError">is too short (minimum is 4 characters)</div>
         <?php endif; ?>
           <div class="clear"></div>
@@ -270,7 +272,6 @@ $billing_information = $post['billing_information'];
 							'discover' 			=> 'Discover',
 							'visa' 				=> 'Visa',
 							'american_express' 	=> 'American Express',
-							
           				);
           ?>
           <select tabindex="1" name="billing_information[credit_card_type]" id="billing_information_credit_card_type">
@@ -283,7 +284,7 @@ $billing_information = $post['billing_information'];
         <div class="rowLine">
           <label>Card Number</label>
           <input type="text" tabindex="2" size="20" value="<?php echo $billing_information['credit_card_number'];?>" name="billing_information[credit_card_number]" id="billing_information_credit_card_number" class="idleField">
-          <?php if ( $billing_information['credit_card_number']== ''): ?>
+          <?php if (isset($billing_information) && $billing_information['credit_card_number']== ''): ?>
         <div class="formError">can't be blank</div>
         <?php endif; ?>
           <div class="clear"></div>
@@ -291,7 +292,7 @@ $billing_information = $post['billing_information'];
         <div class="rowLine"> <span class=" help">Please enter your name exactly as it appears on your card</span>
           <label>Cardholder's First Name</label>
           <input type="text" tabindex="3" size="20" value="<?php echo $billing_information['credit_card_first_name'];?>" name="billing_information[credit_card_first_name]" id="billing_information_credit_card_first_name" class="idleField">
-          <?php if ( $billing_information['credit_card_first_name']== ''): ?>
+          <?php if (isset($billing_information) && $billing_information['credit_card_first_name']== ''): ?>
         <div class="formError">can't be blank</div>
         <?php endif; ?>
           <div class="clear"></div>
@@ -299,7 +300,7 @@ $billing_information = $post['billing_information'];
         <div class="rowLine">
           <label>Cardholder's Last Name</label>
           <input type="text" tabindex="4" size="20" value="<?php echo $billing_information['credit_card_last_name'];?>" name="billing_information[credit_card_last_name]" id="billing_information_credit_card_last_name" class="idleField">
-          <?php if ( $billing_information['credit_card_last_name']== ''): ?>
+          <?php if (isset($billing_information) && $billing_information['credit_card_last_name']== ''): ?>
         <div class="formError">can't be blank</div>
         <?php endif; ?>
           <div class="clear"></div>
@@ -324,7 +325,7 @@ $billing_information = $post['billing_information'];
         <div class="rowLine">
           <label for="cardCVC">CVC <span title="On MasterCard and Visa, this is the last 3 digits AFTER the credit card number in the signature area of the card. On American Express cards, it's the 4-digit  number above the credit card number on either the right or the left side of the card." class="calm tooltip mouseover">what's this?</span></label>
           <input type="text" tabindex="7" size="3" value="<?php echo $billing_information['credit_card_verification_value']; ?>" name="billing_information[credit_card_verification_value]" id="billing_information_credit_card_verification_value" class="idleField">
-          <?php if ( $billing_information['credit_card_verification_value']== ''): ?>
+          <?php if (isset($billing_information) && $billing_information['credit_card_verification_value']== ''): ?>
         <div class="formError">can't be blank</div>
         <?php endif; ?>
           <div class="clear"></div>
@@ -333,7 +334,7 @@ $billing_information = $post['billing_information'];
         <div class="rowLine">
           <label for="billAddress">Street Address</label>
           <input type="text" tabindex="8" size="20" value="<?php echo $billing_information['billing_address_address']; ?>" name="billing_information[billing_address_address]" id="billing_information_billing_address_address" class="idleField">
-          <?php if ( $billing_information['billing_address_address']== ''): ?>
+          <?php if (isset($billing_information) && $billing_information['billing_address_address']== ''): ?>
         <div class="formError">can't be blank</div>
         <?php endif; ?>
           <div class="clear"></div>
@@ -341,7 +342,7 @@ $billing_information = $post['billing_information'];
         <div class="rowLine">
           <label for="billZip">Zip</label>
           <input type="text" tabindex="11" size="5" value="<?php echo $billing_information['billing_address_zip']; ?>" name="billing_information[billing_address_zip]" id="billing_information_billing_address_zip" class="idleField">
-          <?php if ( $billing_information['billing_address_zip']== ''): ?>
+          <?php if (isset($billing_information) && $billing_information['billing_address_zip']== ''): ?>
         <div class="formError">can't be blank</div>
         <?php endif; ?>
           <div class="clear"></div>

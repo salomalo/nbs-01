@@ -94,8 +94,10 @@ JHtml::_('behavior.formvalidation');
 				<li><?php echo $this->form->getLabel('neighborhood_ids'); ?>
 				<?php echo $this->form->getInput('neighborhood_ids'); ?></li>
 				
+				<?php /*
 				<li><?php echo $this->form->getLabel('state'); ?>
 				<?php echo $this->form->getInput('state'); ?></li>
+				*/ ?>
 
 				<li><?php echo $this->form->getLabel('id'); ?>
 				<?php echo $this->form->getInput('id'); ?></li>
