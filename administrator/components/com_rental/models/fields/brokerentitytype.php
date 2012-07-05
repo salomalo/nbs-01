@@ -61,28 +61,28 @@ class JFormFieldBrokerEntityType extends JFormFieldList
 		
 		$html .= '<div class="clr"></div>';
 		
-		$borough = $this->_getBorough();
+		$borough = $this->_getBorough($brokerEntityInfo['broker_landlord_meta_attributes_apartment_borough_id']);
 		
 		$html .= '<div id="div_broker_entity_type_2" class="broker-entity">
 					<label>Name of company</label>
-					<input type="text" name="jform[landlord_meta_attributes][company_name]" value="'.$brokerEntityInfo['landlord_meta_attributes']['company_name'].'" />
+					<input type="text" name="jform[landlord_meta_attributes][company_name]" value="'.$brokerEntityInfo['broker_landlord_meta_attributes_company_name'].'" />
 					<label>Number of apartments <br>you manage</label>
-					<input type="text" />
+					<input type="text" name="jform[landlord_meta_attributes][apartments_managed]" value="'.$brokerEntityInfo['broker_landlord_meta_attributes_apartments_managed'].'" />
 					<label style="font-weight: bold;">
 						Info on one apartment you will advertise
 					</label>
 					<div id="landlord-name">
 						<label>Landlord name</label>
-						<input type="text" name="jform[landlord_meta_attributes][landlord_name]" value="'.$brokerEntityInfo['landlord_meta_attributes']['landlord_name'].'" />
+						<input type="text" name="jform[broker_landlord_meta_attributes][landlord_name]" value="'.$brokerEntityInfo['broker_landlord_meta_attributes_landlord_name'].'" />
 					</div>
 					<label>Street address</label>
-					<input type="text" name="jform[landlord_meta_attributes][apartment_street_address]" value="'.$brokerEntityInfo['landlord_meta_attributes']['apartment_street_address'].'" />
+					<input type="text" name="jform[broker_landlord_meta_attributes][apartment_street_address]" value="'.$brokerEntityInfo['broker_landlord_meta_attributes_apartment_street_address'].'" />
 					<label>Unit number</label>
-					<input type="text" name="jform[landlord_meta_attributes][apartment_unit_number]" value="'.$brokerEntityInfo['landlord_meta_attributes']['apartment_unit_number'].'" />
+					<input type="text" name="jform[broker_landlord_meta_attributes][apartment_unit_number]" value="'.$brokerEntityInfo['broker_landlord_meta_attributes_apartment_unit_number'].'" />
 					<label>Borough</label>
 					'.$borough.'
 					<label>Property registration <br>number</label>
-					<input type="text" name="jform[landlord_meta_attributes][property_registration_number]" value="'.$brokerEntityInfo['landlord_meta_attributes']['property_registration_number'].'" />
+					<input type="text" name="jform[broker_landlord_meta_attributes][property_registration_number]" value="'.$brokerEntityInfo['broker_landlord_meta_attributes_property_registration_number'].'" />
 				</div>';
 		
 		$html .= '<div class="clr"></div>';
