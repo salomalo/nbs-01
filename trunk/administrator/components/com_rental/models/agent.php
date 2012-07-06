@@ -125,6 +125,44 @@ class RentalModelAgent extends JModelAdmin
 	{
 		$post = JRequest::get('post');
 		
+		//Retrieve file details from uploaded file, sent from upload form
+		$file = JRequest::getVar('file_upload', null, 'files', 'array');
+		
+		$uploadPath = JPATH_ROOT . DS . "uploads" . DS . 'images' . DS;
+		
+		$post = JRequest::get('post');
+		
+		//if delete file
+		if (isset($post['del_file_upload']) && $post['del_file_upload'] == 1)
+		{
+			@unlink($uploadPath . $post['old_file_upload']);
+			$data['file_upload'] = '';
+		}
+		
+		if ($file['name'])
+		{
+			//Import filesystem libraries. Perhaps not necessary, but does not hurt
+			jimport('joomla.filesystem.file');
+		
+			//Clean up filename to get rid of strange characters like spaces etc
+			$filename = JFile::makeSafe($file['name']);
+		
+			//Set up the source and destination of the file
+			$src = $file['tmp_name'];
+			$dest = $uploadPath . $filename;
+				
+			@mkdir($uploadPath, 0777, true);
+				
+			//delete file before upload
+			if (isset($post['old_file_upload']))
+				@unlink($uploadPath . $post['old_file_upload']);
+				
+			$fileUpload = JFile::upload($src, $dest);
+				
+			if ($fileUpload)
+				$data['file_upload'] = $filename;
+		}
+		
 		$d = $post['jform'];
 		
 		$data['broker_entity_type'] = $entity_type = $d['entity_type'];

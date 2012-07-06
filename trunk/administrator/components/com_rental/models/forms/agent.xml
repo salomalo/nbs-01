@@ -42,16 +42,6 @@
 		<field name="broker_entity_type" type="brokerentitytype"
 			label="COM_RENTAL_FIELD_BROKER_ENTITY_TYPE_LABEL" 
 			description="COM_RENTAL_FIELD_BROKER_ENTITY_TYPE_DESC" />
-			 
-		<field name="brokerage_firm_other" type="text"
-			label="COM_RENTAL_FIELD_BROKERAGE_FIRM_OTHER_LABEL" 
-			description ="COM_RENTAL_FIELD_BROKERAGE_FIRM_OTHER_DESC" 
-			 />
-
-		<field name="license_number" type="text"
-			label="COM_RENTAL_FIELD_LICENSE_NUMBER_LABEL" 
-			description ="COM_RENTAL_FIELD_LICENSE_NUMBER_DESC" 
-			 />
 
 		<field name="my_web_site" type="text"
 			label="COM_RENTAL_FIELD_MY_WEB_SITE_LABEL" 
@@ -117,6 +107,9 @@
 			label="COM_RENTAL_FIELD_NEIGHBORHOOD_LABEL" 
 			description ="COM_RENTAL_FIELD_NEIGHBORHOOD_DESC" 
 			 />
+			 
+		<field name="file_upload" type="file" label="File Upload"
+			description="Upload file to attach to content" class="inputbox" size="45" />
 		
 		<field name="state" type="list"
 			label="JSTATUS" description="COM_RENTAL_FIELD_STATE_DESC"
