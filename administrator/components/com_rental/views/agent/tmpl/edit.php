@@ -94,6 +94,22 @@ JHtml::_('behavior.formvalidation');
 				<li><?php echo $this->form->getLabel('neighborhood_ids'); ?>
 				<?php echo $this->form->getInput('neighborhood_ids'); ?></li>
 				
+				<li><?php echo $this->form->getLabel('file_upload'); ?>
+				<input type="file" name="file_upload" size="10" />
+				
+				</li>
+				
+				<?php if ($this->item->file_upload): ?>
+				<li>
+					<label>&nbsp;</label>
+					<span style="float: left; line-height: 25px;">
+						<?php echo $this->item->file_upload; ?> <br>
+						<input type="checkbox" name="del_file_upload" value="1"> Delete file
+						<input type="hidden" name="old_file_upload" value="<?php echo $this->item->file_upload; ?>">
+					</span>
+				</li>
+				<?php endif; ?>
+				
 				<?php /*
 				<li><?php echo $this->form->getLabel('state'); ?>
 				<?php echo $this->form->getInput('state'); ?></li>
