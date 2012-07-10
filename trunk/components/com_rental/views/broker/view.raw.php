@@ -139,8 +139,11 @@ class RentalViewBroker extends JView
 			//if reg done
 			if ($result === true)
 			{
-				//set session new user
-			
+				//unset session errors & post
+				$session->set('errors', null);
+				$session->set('post', null);
+				
+				//set session new user			
 				$session->set('SESSION_NEW_USER', 1);
 			
 				//TODO: login with email & password user provided when reg

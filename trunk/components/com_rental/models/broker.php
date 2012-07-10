@@ -132,7 +132,7 @@ class RentalModelBroker extends JModel
 		$username = $user['email'];
 		$userId = $this->getUserId($username);
 	
-		//Active user
+// 		Active user
 		$activeUser = new stdClass();
 		$activeUser->id = $userId;
 		$activeUser->block = 0;
@@ -159,7 +159,7 @@ class RentalModelBroker extends JModel
 				'broker_landlord_meta_attributes_property_registration_number'	=> $broker['landlord_meta_attributes']['property_registration_number']
 		);
 		
-		$broker_entity_info = serialize($brocker_entity_info);
+		$broker_entity_info = serialize($broker_entity_info);
 		
 		$neighborhood = serialize($broker['neighborhood_ids']);
 	

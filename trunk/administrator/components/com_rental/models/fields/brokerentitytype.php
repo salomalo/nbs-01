@@ -168,7 +168,7 @@ window.addEvent('domready', function(){
 			$('div_broker_entity_type_1').set('styles', {'display': 'block'});
 		else
 		{
-			if (checkVal == 2)
+			if (checkVal == 3)
 				$('landlord-name').set('styles', {'display': 'block'});
 			else
 				$('landlord-name').set('styles', {'display': 'none'});
