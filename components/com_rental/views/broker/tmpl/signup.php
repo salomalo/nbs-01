@@ -22,8 +22,6 @@ $user		= $post['user'];
 $broker 	= $post['broker'];
 $errorEmail = $session->get('error_email');
 $billing_information = $post['billing_information'];
-
-var_dump($user);
 ?>
 <div id="main">
   <div class="headMessage"> <span class="contactUs">
@@ -153,14 +151,17 @@ var_dump($user);
       <fieldset class="main">
         <h2 class=" ">Your Professional Information</h2>
         <div id="brokerEntityChoices" class="rowSingle">
+        	<?php 
+        	$broker_entity_type = $broker['entity_type'];
+        	?>
           <label class="radio">
-            <input type="radio" value="1" name="broker[entity_type]" id="broker_entity_type_1" checked="checked">
+            <input type="radio" value="1" name="broker[entity_type]" id="broker_entity_type_1" <?php if (!isset($broker['entity_type']) || $broker_entity_type == 1): ?>checked="checked"<?php endif;?>>
             Broker/salesperson</label>
           <label class="radio">
-            <input type="radio" value="2" name="broker[entity_type]" id="broker_entity_type_2">
+            <input type="radio" value="2" name="broker[entity_type]" id="broker_entity_type_2" <?php if ($broker_entity_type == 2): ?>checked="checked"<?php endif;?>>
             Landlord</label>
           <label class="radio">
-            <input type="radio" value="3" name="broker[entity_type]" id="broker_entity_type_3">
+            <input type="radio" value="3" name="broker[entity_type]" id="broker_entity_type_3" <?php if ($broker_entity_type == 3): ?>checked="checked"<?php endif;?>>
             Management company</label>
           <div class="clear"></div>
         </div>
@@ -188,28 +189,28 @@ var_dump($user);
         <div class="hidden" id="landlordProfileDetails" style="display: none;">
           <div class="rowLine">
             <label for="broker_landlord_meta_attributes_company_name">Name of company</label>
-            <input type="text" size="20" name="broker[landlord_meta_attributes][company_name]" id="broker_landlord_meta_attributes_company_name" class="text idleField">
+            <input type="text" size="20" name="broker[landlord_meta_attributes][company_name]" value="<?php echo $broker['landlord_meta_attributes']['company_name'];?>" id="broker_landlord_meta_attributes_company_name" class="text idleField">
             <div class="clear"></div>
           </div>
           <div class="rowLine">
             <label for="broker_landlord_meta_attributes_apartments_managed">Number of apartments you manage</label>
-            <input type="text" size="5" name="broker[landlord_meta_attributes][apartments_managed]" id="broker_landlord_meta_attributes_apartments_managed" class="text idleField">
+            <input type="text" size="5" name="broker[landlord_meta_attributes][apartments_managed]" value="<?php echo $broker['landlord_meta_attributes']['apartments_managed'];?>" id="broker_landlord_meta_attributes_apartments_managed" class="text idleField">
             <div class="clear"></div>
           </div>
           <h2>Info on one apartment you will advertise</h2>
           <div class="rowLine hidden" style="display: none;">
             <label for="broker_landlord_meta_attributes_landlord_name">Landlord name</label>
-            <input type="text" size="20" name="broker[landlord_meta_attributes][landlord_name]" id="broker_landlord_meta_attributes_landlord_name" class="text idleField">
+            <input type="text" size="20" name="broker[landlord_meta_attributes][landlord_name]" value="<?php echo $broker['landlord_meta_attributes']['landlord_name'];?>" id="broker_landlord_meta_attributes_landlord_name" class="text idleField">
             <div class="clear"></div>
           </div>
           <div class="rowLine"> <span class="help">We need the address for verification purposes. It will not be displayed to renters.</span>
             <label for="broker_landlord_meta_attributes_apartment_street_address">Street address</label>
-            <input type="text" size="20" name="broker[landlord_meta_attributes][apartment_street_address]" id="broker_landlord_meta_attributes_apartment_street_address" class="text idleField">
+            <input type="text" size="20" name="broker[landlord_meta_attributes][apartment_street_address]" value="<?php echo $broker['landlord_meta_attributes']['apartment_street_address'];?>" id="broker_landlord_meta_attributes_apartment_street_address" class="text idleField">
             <div class="clear"></div>
           </div>
           <div class="rowLine">
             <label for="broker_landlord_meta_attributes_apartment_unit_number">Unit number</label>
-            <input type="text" size="5" name="broker[landlord_meta_attributes][apartment_unit_number]" id="broker_landlord_meta_attributes_apartment_unit_number" class="text idleField">
+            <input type="text" size="5" name="broker[landlord_meta_attributes][apartment_unit_number]" value="<?php echo $broker['landlord_meta_attributes']['apartment_unit_number'];?>" id="broker_landlord_meta_attributes_apartment_unit_number" class="text idleField">
             <div class="clear"></div>
           </div>
           <div class="rowLine">
@@ -224,7 +225,7 @@ var_dump($user);
           </div>
           <div class="rowLine">
             <label for="broker_landlord_meta_attributes_property_registration_number">Property registration number</label>
-            <input type="text" size="20" name="broker[landlord_meta_attributes][property_registration_number]" id="broker_landlord_meta_attributes_property_registration_number" class="text idleField">
+            <input type="text" size="20" name="broker[landlord_meta_attributes][property_registration_number]" value="<?php echo $broker['landlord_meta_attributes']['property_registration_number'];?>" id="broker_landlord_meta_attributes_property_registration_number" class="text idleField">
             <div class="clear"></div>
           </div>
         </div>
