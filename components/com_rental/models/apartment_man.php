@@ -93,6 +93,11 @@ class RentalModelApartment_man extends JModelForm
 	protected function loadFormData()
 	{
 		$data = (array)JFactory::getApplication()->getUserState('com_rental.apartment_man.data', array());
+		
+		if (empty($data)) {
+			$data = $this->getItem();
+		}
+		
 		return $data;
 	}
 
