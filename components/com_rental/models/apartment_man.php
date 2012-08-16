@@ -116,7 +116,14 @@ class RentalModelApartment_man extends JModelForm
 				$db = $this->getDbo();
 				$query = $db->getQuery(true);
 
-				$query->select('*')->from('#__rental_apartments');
+				$query->select('*')->from('#__rental_apartments')->where('id = ' . (int) $pk);
+				$db->setQuery($query);
+				
+				$data = $db->loadObject();
+				
+				$data->amenities = $this->_getAmenities($data->id);
+				
+				var_dump($data);
 
 				$this->_item[$pk] = $data;
 			}
@@ -130,5 +137,61 @@ class RentalModelApartment_man extends JModelForm
 		
   		return $this->_item[$pk];
 
+	}
+	
+	private function _getAmenities($apartmentId)
+	{
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+	
+		$query->select('amenities_id')
+				->from('#__retal_apartment_amenities')
+				->where('apartment_id = ' . (int) $apartmentId);
+	
+		$db->setQuery($query);
+		$amenities = $db->loadResultArray();
+	
+		return $amenities;
+	}
+	
+	private function _saveAmenities($data)
+	{
+		$db = JFactory::getDbo();
+	
+		$amenities = array();
+	
+		if (isset($data['amenities']))
+			$amenities = $data['amenities'];
+	
+		//delete all amenities before save
+		$query = $db->getQuery(true);
+	
+		$query->delete('#__retal_apartment_amenities')
+				->where('apartment_id = ' . (int) $data['id']);
+	
+		$db->setQuery($query);
+		$db->query();
+	
+		if ($db->getErrorMsg())
+			die($db->getErrorMsg());
+	
+		if (!empty($amenities))
+		{
+			$query = $db->getQuery(true);
+				
+			//insert
+			$query->insert('#__retal_apartment_amenities (apartment_id, amenities_id)');
+				
+			foreach ($amenities as $amenity)
+			{
+				$query->values($data['id'] . ',' . $amenity);
+			}
+				
+			$db->setQuery($query);
+			$db->query();
+				
+			if ($db->getErrorMsg())
+				die($db->getErrorMsg());
+		}
 	}
 }
