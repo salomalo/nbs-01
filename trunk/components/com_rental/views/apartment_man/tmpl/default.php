@@ -25,7 +25,7 @@ JHtml::_('behavior.formvalidation');
 	}
 </script>
 
-<form action="<?php echo JRoute::_('index.php?option=com_rental&layout=edit&id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="apartment-form" class="form-validate" enctype="multipart/form-data">
+<form action="<?php echo JRoute::_('index.php?option=com_rental'); ?>" method="post" name="adminForm" id="apartment-form" class="form-validate" enctype="multipart/form-data">
 	<div class="width-60 fltlft">
 		<fieldset class="adminform">
 			<legend><?php echo empty($this->item->id) ? JText::_('COM_RENTAL_NEW_APARTMENT') : JText::sprintf('COM_RENTAL_APARTMENT_DETAILS', $this->item->id); ?></legend>
@@ -163,9 +163,14 @@ JHtml::_('behavior.formvalidation');
 		</fieldset>
 
 	<?php echo JHtml::_('sliders.end'); ?>
-	<input type="hidden" name="task" value="" />
+	<input type="hidden" name="task" value="apartment_man.save" />
 	<?php echo JHtml::_('form.token'); ?>
 </div>
 
 <div class="clr"></div>
+
+<div>
+	<button type="submit">Save</button>
+	<button type="button">Cancel</button>
+</div>
 </form>

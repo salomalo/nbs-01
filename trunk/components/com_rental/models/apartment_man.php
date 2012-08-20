@@ -100,6 +100,21 @@ class RentalModelApartment_man extends JModelForm
 		
 		return $data;
 	}
+	
+	public function save($data)
+	{
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+		
+		$update = ($data['id']) ? true : false;
+		
+		if ($update)
+		{
+			$query->update('#__rental_appartments');
+		}
+		
+		return true;
+	}
 
 	/**
 	 * Gets a list of apartment_mans
@@ -128,7 +143,7 @@ class RentalModelApartment_man extends JModelForm
 				
 				$data->amenities = $this->_getAmenities($data->id);
 				
-				var_dump($data);
+//				var_dump($data);
 
 				$this->_item[$pk] = $data;
 			}
