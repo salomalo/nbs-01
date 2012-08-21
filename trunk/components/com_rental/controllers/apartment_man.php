@@ -8,7 +8,7 @@ class RentalControllerApartment_man extends JController
 		
 		$data = $post['jform'];
 		
-		$model = $this->getModel();
+		$model = $this->getModel('Apartment_man', 'RentalModel');
 		$result = $model->save($data);
 		
 		$link = '';
@@ -17,13 +17,13 @@ class RentalControllerApartment_man extends JController
 		
 		if ($result)
 		{
-			$link = JRoute::_('index.php?option=com_deal&view=apartments_man');			
+			$link = JRoute::_('index.php?option=com_rental&view=apartments_man', false);			
 			$msg = 'Save Success !';
 			$type = 'message';
 		}
 		else
 		{
-			$link = JRoute::_('index.php?option=com_deal&view=apartment_man&id=' . $post['id']);			
+			$link = JRoute::_('index.php?option=com_rental&view=apartment_man&id=' . $post['id'], false);			
 			$msg = 'Save Failed !';
 			$type = 'warning';
 		}		

@@ -103,15 +103,181 @@ class RentalModelApartment_man extends JModelForm
 	
 	public function save($data)
 	{
-		$db = JFactory::getDbo();
-		$query = $db->getQuery(true);
+		$result = $this->_save($data);
 		
-		$update = ($data['id']) ? true : false;
+		$itemId = $this->getState($this->getName().'.id');
+		$record = $this->getItem($itemId);
 		
-		if ($update)
+		if ($result)
 		{
-			$query->update('#__rental_appartments');
+			$db = JFactory::getDbo();
+			
+			//save amenities
+			$this->_saveAmenities($data);
+			
+			$post = JRequest::get('post');
+			
+			$uploadPath 		= JPATH_ROOT . DS . 'images' . DS . 'com_rental' . DS . 'upload' . DS;
+				
+			//upload file
+			$imagesUpload = $this->uploadFiles('img-' . $record->id, $uploadPath);
+				
+			$delImage = isset($post['jform']['del_image']) ? $post['jform']['del_image'] : null;
+				
+			//get old images
+			$oldImages = unserialize($record->images);
+			
+			$listImg = array();
+			
+			//get list images
+			if(is_array($oldImages))
+			{			
+				foreach ($oldImages as $oldImg)
+				{
+					$listImg[] = $oldImg['image'];
+				}
+			}
+				
+			if(is_array($oldImages) && is_array($delImage))
+			{
+				foreach ($delImage as $img)
+				{
+					if(in_array($img, $listImg))
+					{
+						//search key by value
+						$delKey = array_search($img, $listImg);
+			
+						//remove image
+						@unlink($uploadPath . $img);
+			
+						//unset in old image
+						unset($oldImages[$delKey]);
+					}
+				}
+			}
+				
+			$oldImages = (is_array($oldImages)) ? $oldImages : array();
+				
+			//set image to update
+			$images = (is_array($imagesUpload)) ? array_merge($oldImages, $imagesUpload) : $oldImages;
+				
+			//save image
+			$query = "UPDATE #__rental_apartments SET images = '".serialize($images)."' WHERE id = " . (int) $record->id;
+			$db->setQuery($query);
+				
+			$db->query();
+			
+			if ($db->getErrorMsg())
+				die($db->getErrorMsg());
 		}
+		
+		return $result;
+	}
+	
+	function uploadFiles($fileName, $uploadPath)
+	{
+		//require upload file
+		require_once JPATH_COMPONENT_ADMINISTRATOR . DS . 'helpers/upload.class.php';
+	
+		//define upload path
+		$uploadPathMore = date('Y') . DS . date('m') . DS . date('d') . DS;
+		$uploadPath .= $uploadPathMore;
+	
+		//echo $uploadPath; die;
+	
+		$files = JRequest::get('files');
+		$post = JRequest::get('post');
+	
+		$files = $files['jform'];
+			
+		$name = array();
+		$data = array();
+	
+		foreach ($post['jform']['images']['type'] as $key => $type)
+		{
+				
+			if($files['name']['images'][$key] != '' && !$files['error']['images'][$key])
+			{
+				//set image name
+				$imageName = $fileName . '-' . time() . '.' . end(explode('.', $files['name']['images'][$key]));
+	
+				//upload file
+				$upload = upload::file($files, 'images', $uploadPath, $imageName, $key, false);
+	
+				//if upload OK
+				if(is_array($upload) && $upload['result'] == 'OK')
+				{
+					$data[] = array( 'image' => str_replace(DS, '/', $uploadPathMore) . $upload['file_name'], 'type' => $type );
+				}
+				else
+				{
+					JError::raiseNotice('UPLOAD_ERROR', 'Upload Error');
+				}
+			}
+		}
+	
+		//$data = serialize($data);
+	
+		return $data;
+	}
+
+	public function _save($data)
+	{
+		// Initialise variables;
+		$dispatcher = JDispatcher::getInstance();
+		$table = $this->getTable('Apartment', 'RentalTable');
+		$key = $table->getKeyName();
+		$pk = (!empty($data[$key])) ? $data[$key] : (int) $this->getState($this->getName() . '.id');
+		$isNew = true;
+
+		// Allow an exception to be thrown.
+		try
+		{
+			// Load the row if saving an existing record.
+			if ($pk > 0)
+			{
+				$table->load($pk);
+				$isNew = false;
+			}
+
+			// Bind the data.
+			if (!$table->bind($data))
+			{
+				$this->setError($table->getError());
+				return false;
+			}
+
+			// Check the data.
+			if (!$table->check())
+			{
+				$this->setError($table->getError());
+				return false;
+			}
+
+			// Store the data.
+			if (!$table->store())
+			{
+				$this->setError($table->getError());
+				return false;
+			}
+
+			// Clean the cache.
+			$this->cleanCache();
+		}
+		catch (Exception $e)
+		{
+			$this->setError($e->getMessage());
+
+			return false;
+		}
+
+		$pkName = $table->getKeyName();
+
+		if (isset($table->$pkName))
+		{
+			$this->setState($this->getName() . '.id', $table->$pkName);
+		}
+		$this->setState($this->getName() . '.new', $isNew);
 		
 		return true;
 	}

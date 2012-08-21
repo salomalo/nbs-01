@@ -30,6 +30,20 @@ class RentalViewApartment_man extends JView
 		$this->form		= $this->get('Form');
 		$this->item		= $this->get('Item');
 		
+		// Check user
+		$user = JFactory::getUser();
+		
+		if ($user->guest)
+		{
+			$return = base64_encode(JRoute::_('index.php?option=com_rental&view=apartments_man', false));
+			
+			$link = JRoute::_('index.php?option=com_users&view=login&return='. $return, false);
+			
+			JFactory::getApplication()->redirect($link);
+			
+			exit();
+		}
+		
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseError(500, implode("\n", $errors));
