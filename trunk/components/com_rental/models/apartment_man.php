@@ -220,15 +220,41 @@ class RentalModelApartment_man extends JModelForm
 	
 		return $data;
 	}
+	
+	private function _checkPermission($itemId = 0)
+	{
+		$db = JFactory::getDbo();		
+		$query = $db->getQuery(true);
+		
+		$userId = JFactory::getUser()->id;
+		
+		$query->select('*')
+				->from('#__rental_apartments')
+				->where('id = ' . $itemId)
+				->where('agent_id = (SELECT id FROM #__retal_agents WHERE user_id = '.$userId.')')
+			;
+		
+//		echo str_replace('#__', 'jos_', $query);
+		
+		$db->setQuery($query);
+		$obj = $db->loadObject();
+		
+		if ($db->getErrorMsg())
+		{
+			var_dump($db->getErrorMsg());
+			return false;
+		}
+		
+		return $obj;
+	}
 
 	public function _save($data)
 	{
 		// Initialise variables;
-		$dispatcher = JDispatcher::getInstance();
-		$table = $this->getTable('Apartment', 'RentalTable');
-		$key = $table->getKeyName();
-		$pk = (!empty($data[$key])) ? $data[$key] : (int) $this->getState($this->getName() . '.id');
-		$isNew = true;
+		$table	= $this->getTable('Apartment', 'RentalTable');
+		$key	= $table->getKeyName();
+		$pk		= (!empty($data[$key])) ? $data[$key] : (int) $this->getState($this->getName() . '.id');
+		$isNew	= true;
 
 		// Allow an exception to be thrown.
 		try
@@ -238,6 +264,14 @@ class RentalModelApartment_man extends JModelForm
 			{
 				$table->load($pk);
 				$isNew = false;
+			}
+			
+			if (!$isNew)
+			{
+				$checkPermission = $this->_checkPermission($pk);
+				
+				if (!$checkPermission)
+					die('Error when check permission !');
 			}
 
 			// Bind the data.

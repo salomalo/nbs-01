@@ -23,7 +23,7 @@ class RentalControllerApartment_man extends JController
 		}
 		else
 		{
-			$link = JRoute::_('index.php?option=com_rental&view=apartment_man&id=' . $post['id'], false);			
+			$link = JRoute::_('index.php?option=com_rental&view=apartment_man&id=' . $data['id'], false);			
 			$msg = 'Save Failed !';
 			$type = 'warning';
 		}		
