@@ -37,6 +37,13 @@ class RentalModelApartments_man extends JModelList
 		
 		$post = JRequest::get('post');
 		
+		$user = JFactory::getUser();
+		
+		if ($user->guest)
+		{
+			exit();
+		}
+		
 		#var_dump($post); die;
 		
 		$data = isset($post['jform']) ? $post['jform'] : array();
@@ -53,6 +60,9 @@ class RentalModelApartments_man extends JModelList
 		
 		$query->select('CONCAT(agent.first_name, " ", agent.last_name) AS agent, agent.id AS agent_id');
 		$query->join('INNER', '#__retal_agents AS agent ON agent.id = a.agent_id');
+		
+		// check user
+		$query->where('agent.id = (SELECT id FROM #__retal_agents WHERE user_id = ' . (int) $user->id . ')');
 		
 		//filter
 		$nullDate	= $db->Quote($db->getNullDate());
@@ -99,7 +109,7 @@ class RentalModelApartments_man extends JModelList
 		if (isset($data['move_date']) && $data['move_date'] != '')
 			$query->where('(a.available_on = '.$nullDate.' OR a.available_on >= '.$nowDate.')');
 		
-		//echo $query;
+//		echo str_replace('#__', 'jos_', $query);
 		
 		return $query;
 	}
