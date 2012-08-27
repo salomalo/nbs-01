@@ -12,6 +12,8 @@
 // no direct access
 defined('_JEXEC') or die;
 
+$isBroker = JRequest::getInt('is_broker', 0);
+
 require_once JPATH_COMPONENT_SITE . DS . 'helpers' . DS . 'facebooksdk' . DS . 'facebook.php';
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
@@ -50,14 +52,14 @@ if ($userFB) {
   	$loginUrl	= $facebook->getLoginUrl(
   		array(
   			'scope' => 'email, publish_stream',
-  			'redirect_uri' => JRoute::_(JURI::root() . 'index.php?option=com_profile&task=customer.fbregistration', false)
+  			'redirect_uri' => JRoute::_(JURI::root() . 'index.php?option=com_rental&task=user_man.create_fb_user', false)
   		)
 	);
 }
 $loginUrl	= $facebook->getLoginUrl(
   		array(
   			'scope' => 'email, publish_stream',
-  			'redirect_uri' => JRoute::_(JURI::root() . 'index.php?option=com_profile&task=customer.fbregistration', false)
+  			'redirect_uri' => JRoute::_(JURI::root() . 'index.php?option=com_rental&task=user_man.create_fb_user', false)
   		)
 	);
 ?>
@@ -65,10 +67,6 @@ $loginUrl	= $facebook->getLoginUrl(
   <h1>Log in</h1>
   <div class="block bgBlue curve clearfix">
     <form method="post" id="new_user_session_1336617616" class="new_user_session" action="/user_session" accept-charset="UTF-8">
-      <div style="margin:0;padding:0;display:inline">
-        <input type="hidden" value="✓" name="utf8">
-        <input type="hidden" value="FMMkutNs1Rl3JU3ZLjwl+l5+EYNdHqoqS95L8NSndUQ=" name="authenticity_token">
-      </div>
       <div class="row">
         <label for="user_session_email_Address">Email address</label>
         <input type="text" size="25" name="user_session[email]" id="username" class="text idleField">
@@ -80,6 +78,7 @@ $loginUrl	= $facebook->getLoginUrl(
       <div class="loginOptions clearfix">
         <div class="checkboxCont">
           <input type="checkbox" id="rememberMe" value="1" name="user_session[remember_me]">
+		  <input type="hidden" name="user_session[is_broker]" value="<?php echo $isBroker; ?>" />
           <label for="rememberMe">remember me on this computer</label>
         </div>
       </div>
