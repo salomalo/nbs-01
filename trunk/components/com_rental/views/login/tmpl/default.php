@@ -17,9 +17,10 @@ require_once JPATH_COMPONENT_SITE . DS . 'helpers' . DS . 'facebooksdk' . DS . '
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 $Itemid = JRequest::getInt('Itemid');
 
+//domain gorent.com
 $facebook = new Facebook(array(
-	'appId'  => '344000379020006',
-  	'secret' => 'c921cbe6932b6fc4403f8388899b0b4f',
+	'appId'  => '419646791426412',
+  	'secret' => 'a7fb30ef35a96ece5e0f95e15878069b',
 ));
 
 $user 	= JFactory::getUser();
