@@ -12,8 +12,53 @@
 // no direct access
 defined('_JEXEC') or die;
 
+require_once JPATH_COMPONENT_SITE . DS . 'helpers' . DS . 'facebooksdk' . DS . 'facebook.php';
+
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 $Itemid = JRequest::getInt('Itemid');
+
+$facebook = new Facebook(array(
+	'appId'  => '344000379020006',
+  	'secret' => 'c921cbe6932b6fc4403f8388899b0b4f',
+));
+
+$user 	= JFactory::getUser();
+$userFB = $facebook->getUser();
+
+$isLogedIn = false;
+$fbMe	= null;
+if ($user->id) {
+	$isLogedIn = true;
+} else {
+	if ($userFB) {
+		try {
+	    	// Proceed knowing you have a logged in user who's authenticated.
+	    	$fbMe = $facebook->api('/me');
+	  	} catch (FacebookApiException $e) {
+	    	$userFB = null;
+	  	}
+	}
+}
+
+$logoutUrl= '';
+$loginUrl = '';
+
+if ($userFB) {
+	$logoutUrl	= $facebook->getLogoutUrl();
+} else {
+  	$loginUrl	= $facebook->getLoginUrl(
+  		array(
+  			'scope' => 'email, publish_stream',
+  			'redirect_uri' => JRoute::_(JURI::root() . 'index.php?option=com_profile&task=customer.fbregistration', false)
+  		)
+	);
+}
+$loginUrl	= $facebook->getLoginUrl(
+  		array(
+  			'scope' => 'email, publish_stream',
+  			'redirect_uri' => JRoute::_(JURI::root() . 'index.php?option=com_profile&task=customer.fbregistration', false)
+  		)
+	);
 ?>
 <div class="clearfix" id="blueBox"> <span class="admin">Don't have an account? <a class="bold" data-tagged-trac="login|renter_signup" href="index.php?option=com_rental&view=signup<?php echo $Itemid?"&Itemid=".$Itemid:''?>">Sign Up </a></span>
   <h1>Log in</h1>
@@ -44,5 +89,5 @@ $Itemid = JRequest::getInt('Itemid');
   </div>
   <div class="block padLeft35">
     <div class="or wide">- or -</div>
-    <a class="btnFB wide" href="https://graph.facebook.com/oauth/authorize?client_id=149838751731831&amp;redirect_uri=https://www.nakedapartments.com/user_sessions/create&amp;scope=email,publish_stream"><span class=" ">login through facebook</span></a> </div>
+    <a class="btnFB wide" href="<?php echo $loginUrl; ?>"><span class=" ">login through facebook</span></a> </div>
 </div>
