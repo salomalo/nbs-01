@@ -69,16 +69,15 @@ $loginUrl	= $facebook->getLoginUrl(
     <form method="post" id="new_user_session_1336617616" class="new_user_session" action="/user_session" accept-charset="UTF-8">
       <div class="row">
         <label for="user_session_email_Address">Email address</label>
-        <input type="text" size="25" name="user_session[email]" id="username" class="text idleField">
+        <input type="text" size="25" name="username" id="username" class="text idleField">
       </div>
       <div class="row">
         <label for="user_session_password">Password</label>
-        <input type="password" size="25" name="user_session[password]" id="password" class="text idleField">
+        <input type="password" size="25" name="password" id="password" class="text idleField">
       </div>
       <div class="loginOptions clearfix">
         <div class="checkboxCont">
-          <input type="checkbox" id="rememberMe" value="1" name="user_session[remember_me]">
-		  <input type="hidden" name="user_session[is_broker]" value="<?php echo $isBroker; ?>" />
+          <input type="checkbox" id="rememberMe" value="1" name="remember">
           <label for="rememberMe">remember me on this computer</label>
         </div>
       </div>
