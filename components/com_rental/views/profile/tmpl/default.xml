@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Id: metadata.xml $ -->
 <metadata>
-	<layout title="com_rental_login_view_default_title" option="com_rental_login_view_default_option">
+	<layout title="com_rental_profile_view_default_title" option="com_rental_profile_view_default_option">
 		<message>
 			<![CDATA[com_rental_login_view_default_desc]]>
 		</message>
