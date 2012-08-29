@@ -15,6 +15,10 @@ defined('_JEXEC') or die;
 // Include dependancies
 jimport('joomla.application.component.controller');
 
+// domain: gorent.com
+define('CFG_FACEBOOK_API_ID', '419646791426412');
+define('CFG_FACEBOOK_API_SECRET', 'a7fb30ef35a96ece5e0f95e15878069b');
+
 //require util class
 require_once JPATH_COMPONENT_ADMINISTRATOR . DS . 'helpers/util.class.php';
 

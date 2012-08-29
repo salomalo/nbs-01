@@ -1,5 +1,7 @@
 <?php
 
+require_once JPATH_COMPONENT_SITE . DS . 'helpers' . DS . 'facebooksdk' . DS . 'facebook.php';
+
 class RentalControllerUser_man extends JController
 {
 	public function create_fb_user()
@@ -31,7 +33,7 @@ class RentalControllerUser_man extends JController
 		  	$loginUrl	= $facebook->getLoginUrl(
 		  		array(
 		  			'scope' => 'email, publish_stream',
-		  			'redirect_uri' => JRoute::_(JURI::root() . 'index.php?option=com_profile&task=customer.fbregistration', false)
+		  			'redirect_uri' => JRoute::_(JURI::root() . 'index.php?option=com_rental&task=user_man.create_fb_user', false)
 		  		)
 			);
 			// TODO REQUEST LOGIN BEFORE SAVE FB ACCOUNT
@@ -94,7 +96,11 @@ class RentalControllerUser_man extends JController
 			// Perform the log in.
 			if (true === $app->login($credentials)) {
 				// Success
-				$this->setRedirect(JRoute::_('index.php?option=com_profile&view=profile', false));				
+				$this->setRedirect(JRoute::_('index.php?option=com_rental&view=profile', false));	
+				
+				//set session
+				JFactory::getSession()->set('user_type', 'renter');
+				
 				return true;
 			}
 		}
@@ -114,7 +120,7 @@ class RentalControllerUser_man extends JController
 
 		// Populate the data array:
 		$data = array();
-		$data['username'] = JRequest::getVar('email', '', 'method', 'username');
+		$data['username'] = JRequest::getVar('username', '', 'method', 'username');
 		$data['password'] = JRequest::getString('password', '', 'post', JREQUEST_ALLOWRAW);
 
 		// Get the log in options.
@@ -137,7 +143,13 @@ class RentalControllerUser_man extends JController
 			$json['message'] 	= 'Chúc mừng bạn đăng nhập thành công';
 			
 			// set session user is broker or customer
+			$model = $this->getModel('User_man', 'RentalModel');
 			
+			// check user type
+			$userType = $model->checkUserType();
+			
+			// set session
+			JFactory::getSession()->set('user_type', $userType);
 			
 			$this->setRedirect(JRoute::_('index.php?option=com_rental&view=profile', false));
 		} else {
