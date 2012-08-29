@@ -21,9 +21,9 @@ $Itemid = JRequest::getInt('Itemid');
 
 //domain gorent.com
 $facebook = new Facebook(array(
-	'appId'  => '419646791426412',
-  	'secret' => 'a7fb30ef35a96ece5e0f95e15878069b',
-));
+			'appId'  => CFG_FACEBOOK_API_ID,
+		  	'secret' => CFG_FACEBOOK_API_SECRET,
+		));
 
 $user 	= JFactory::getUser();
 $userFB = $facebook->getUser();
@@ -66,7 +66,7 @@ $loginUrl	= $facebook->getLoginUrl(
 <div class="clearfix" id="blueBox"> <span class="admin">Don't have an account? <a class="bold" data-tagged-trac="login|renter_signup" href="index.php?option=com_rental&view=signup<?php echo $Itemid?"&Itemid=".$Itemid:''?>">Sign Up </a></span>
   <h1>Log in</h1>
   <div class="block bgBlue curve clearfix">
-    <form method="post" id="new_user_session_1336617616" class="new_user_session" action="/user_session" accept-charset="UTF-8">
+	  <form method="post" id="new_user_session" class="new_user_session" action="<?php echo JURI::base(); ?>/index.php" accept-charset="UTF-8">
       <div class="row">
         <label for="user_session_email_Address">Email address</label>
         <input type="text" size="25" name="username" id="username" class="text idleField">
@@ -81,6 +81,8 @@ $loginUrl	= $facebook->getLoginUrl(
           <label for="rememberMe">remember me on this computer</label>
         </div>
       </div>
+		  <input type="hidden" name="option" value="com_rental" />
+		  <input type="hidden" name="task" value="user_man.signin" />
       <a id="loginBtn" class="button login submitButton large" href="#"><span>Log In</span></a>
       <div class="clear"></div>
       <div class="help">Forget your password? <a id="resetPasswordBtn" href="/user_sessions/forgot_password">Reset it</a></div>

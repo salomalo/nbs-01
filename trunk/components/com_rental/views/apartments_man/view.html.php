@@ -36,10 +36,24 @@ class RentalViewApartments_man extends JView
 		
 		if ($user->guest)
 		{
-			$return = base64_encode(JRoute::_('index.php?option=com_rental&view=apartments_man', false));
+			//$return = base64_encode(JRoute::_('index.php?option=com_rental&view=apartments_man', false));
 			
-			$link = JRoute::_('index.php?option=com_users&view=login&return='. $return, false);
+			// set link to login
+			$link = JRoute::_('index.php?option=com_rental&view=login', false);
 			
+			// redirect
+			JFactory::getApplication()->redirect($link);
+			
+			exit();
+		}
+		
+		// only broker can login to this section
+		if (JFactory::getSession()->get('user_type') == 'renter')
+		{
+			// set link to profile
+			$link = JRoute::_('index.php?option=com_rental&view=profile', false);
+			
+			//redirect
 			JFactory::getApplication()->redirect($link);
 			
 			exit();

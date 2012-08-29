@@ -20,6 +20,29 @@ class RentalViewProfile extends JView
 
 	function display($tpl = null)
 	{
+		// check user
+		$user = JFactory::getUser();
+		
+		if ($user->guest)
+		{
+			$link = JRoute::_('index.php?option=com_rental&view=login', false);
+			JFactory::getApplication()->redirect($link);
+			
+			exit();
+		}
+		
+		// only renter can login to this section
+		if (JFactory::getSession()->get('user_type') == 'bloker')
+		{
+			// set link to profile
+			$link = JRoute::_('index.php?option=com_rental&view=apartments_man', false);
+			
+			//redirect
+			JFactory::getApplication()->redirect($link);
+			
+			exit();
+		}
+		
 		$this->_prepareDocument();
 
 		parent::display($tpl);

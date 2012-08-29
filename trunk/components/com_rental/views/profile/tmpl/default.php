@@ -13,4 +13,13 @@
 defined('_JEXEC') or die;
 ?>
 
-test now
+<h1>User Profile</h1>
+
+<div>Messages from landlords & brokers</div>
+
+<div>Review the brokers you've worked with!</div>
+
+<div>
+	<div>Suggested Apartments</div>
+	<div>Favorite Apartments</div>
+</div>
