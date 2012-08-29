@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="2.5" type="plugin" group="authentication">
 	<name>plg_authentication_facebook</name>
-	<author>Nguyen Van Cong</author>
+	<author>Je Team</author>
 	<creationDate>08 2012</creationDate>
 	<copyright>Copyright (C) 2005 - 2012 Open Source Matters. All rights reserved.</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-	<authorEmail>nguyenvancong@gli.vn</authorEmail>
+	<authorEmail>jeteam@jeteam.net</authorEmail>
 	<authorUrl>www.joomla.org</authorUrl>
 	<version>2.5.0</version>
-	<description>PLG_facebook_XML_DESCRIPTION</description>
+	<description>Plugin for facebook login</description>
 	<files>
 		<filename plugin="facebook">facebook.php</filename>
 		<filename>index.html</filename>
