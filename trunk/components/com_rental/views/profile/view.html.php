@@ -32,7 +32,7 @@ class RentalViewProfile extends JView
 		}
 		
 		// only renter can login to this section
-		if (JFactory::getSession()->get('user_type') == 'bloker')
+		if (JFactory::getSession()->get('user_type') == 'broker')
 		{
 			// set link to profile
 			$link = JRoute::_('index.php?option=com_rental&view=apartments_man', false);

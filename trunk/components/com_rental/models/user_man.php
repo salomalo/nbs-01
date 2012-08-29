@@ -20,7 +20,13 @@ class RentalModelUser_man extends JModel
 		$db->setQuery($query);
 		$checkUser = $db->loadObject();
 		
-		if ($checkUser->id)
+		if ($db->getErrorMsg())
+		{
+			var_dump($db->getErrorMsg());
+			die;
+		}
+		
+		if (isset($checkUser->id))
 			return 'renter';
 		else
 			return 'broker';

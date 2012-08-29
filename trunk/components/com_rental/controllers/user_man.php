@@ -151,7 +151,10 @@ class RentalControllerUser_man extends JController
 			// set session
 			JFactory::getSession()->set('user_type', $userType);
 			
-			$this->setRedirect(JRoute::_('index.php?option=com_rental&view=profile', false));
+			if ($userType == 'renter')
+				$this->setRedirect(JRoute::_('index.php?option=com_rental&view=profile', false));
+			else
+				$this->setRedirect(JRoute::_('index.php?option=com_rental&view=apartments_man', false));
 		} else {
 			// Login failed !
 			$json['error'] = 1;
