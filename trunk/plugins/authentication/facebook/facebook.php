@@ -8,7 +8,7 @@
 // No direct access
 defined('_JEXEC') or die;
 
-//require_once JPATH_COMPONENT_SITE . DS . 'helpers' . DS . 'facebooksdk' . DS . 'facebook.php';
+require_once JPATH_ROOT . DS . 'components' . DS . 'com_rental' . DS . 'helpers' . DS . 'facebooksdk' . DS . 'facebook.php';
 
 /**
  * Facebook Authentication Plugin
