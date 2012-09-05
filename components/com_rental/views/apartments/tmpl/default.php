@@ -291,7 +291,7 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
               		</a>
               	</span>
                 <div class="newCell listingDate"> about <?php echo $time; ?> <span class="calm">on site</span> </div>
-                <div class="newCell brokerCont"> <a href="<?php echo JRoute::_('index.php?option=com_rental&view=broker&layout=profile&id=' . (int) $item->agent_id);?>" title="View this broker's profile" class=" "><?php echo $item->agent; ?></a> <span class="noRating"></span> <span class="duplicates"><span class="dupes"><strong>3 other brokers</strong> offer a similar listing at this address</span></span> </div>
+                <div class="newCell brokerCont"> <a href="<?php echo JRoute::_('index.php?option=com_rental&view=broker_profile&id=' . (int) $item->agent_id);?>" title="View this broker's profile" class=" "><?php echo $item->agent; ?></a> <span class="noRating"></span> <span class="duplicates"><span class="dupes"><strong>3 other brokers</strong> offer a similar listing at this address</span></span> </div>
                 <div class="" data-id="<?php echo $item->id?>">
                   <div class="newCell amenities"> Need show amenities</div>
                 </div>
