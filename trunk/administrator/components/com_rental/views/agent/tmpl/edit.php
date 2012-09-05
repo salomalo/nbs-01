@@ -40,6 +40,9 @@ JHtml::_('behavior.formvalidation');
 				<li><?php echo $this->form->getLabel('last_name'); ?>
 				<?php echo $this->form->getInput('last_name'); ?></li>
 				
+				<li><?php echo $this->form->getLabel('file_upload'); ?>
+				<?php echo $this->form->getInput('file_upload'); ?></li>
+				
 				<li><?php echo $this->form->getLabel('phone_area'); ?>
 				<?php echo $this->form->getInput('phone_area'); ?></li>
 				
