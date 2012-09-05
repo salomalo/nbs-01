@@ -14,6 +14,11 @@
 			description ="COM_RENTAL_FIELD_USER_ID_DESC" 
 			 />
 
+		<field name="file_upload" type="media"
+			label="Image" 
+			description ="Select image to set avatar for broker" 
+			 />
+
 		<field name="first_name" type="text"
 			label="COM_RENTAL_FIELD_FIRST_NAME_LABEL" 
 			description ="COM_RENTAL_FIELD_FIRST_NAME_DESC" 
