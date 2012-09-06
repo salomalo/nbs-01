@@ -244,11 +244,11 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
             <tr>
               <th colspan="2"> <span class="small">SORT BY</span>
                 <ul>
-                  <li><a class="bold" href="/renter/listings/search?order=desc&amp;page=1&amp;sort=listing_date"> Time on Site </a></li>
-                  <li><a class="bold" href="/renter/listings/search?order=desc&amp;page=1&amp;sort=quality"> Quality Score </a></li>
-                  <li><a class=" " href="/renter/listings/search?order=asc&amp;page=1&amp;sort=neighborhood"> Neighborhood </a></li>
-                  <li><a class=" " href="/renter/listings/search?order=asc&amp;page=1&amp;sort=size"> Size </a></li>
-                  <li><a class=" " href="/renter/listings/search?order=asc&amp;page=1&amp;sort=rent"> Rent </a></li>
+					<li><a class="bold" href="<?php echo JRoute::_('index.php?option=com_rental&view=apartments&order=desc&sort=listing_date'); ?>"> Time on Site </a></li>
+                  <li><a class="bold" href="<?php echo JRoute::_('index.php?option=com_rental&view=apartments&order=desc&sort=quality'); ?>"> Quality Score </a></li>
+                  <li><a class=" " href="<?php echo JRoute::_('index.php?option=com_rental&view=apartments&order=desc&sort=neighborhood'); ?>"> Neighborhood </a></li>
+                  <li><a class=" " href="<?php echo JRoute::_('index.php?option=com_rental&view=apartments&order=desc&sort=size'); ?>"> Size </a></li>
+                  <li><a class=" " href="<?php echo JRoute::_('index.php?option=com_rental&view=apartments&order=desc&sort=rent'); ?>"> Rent </a></li>
                 </ul>
               </th>
             </tr>
