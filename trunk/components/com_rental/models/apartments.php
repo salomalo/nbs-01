@@ -99,6 +99,39 @@ class RentalModelApartments extends JModelList
 		if (isset($data['move_date']) && $data['move_date'] != '')
 			$query->where('(a.available_on = '.$nullDate.' OR a.available_on >= '.$nowDate.')');
 		
+		$order = JRequest::getVar('order', 'DESC');
+		$sort = JRequest::getVar('sort', null);
+		
+		$strOrder = 'a.id DESC';
+		
+		if ($sort)
+		{
+			switch ($sort) {
+				case 'listing_date':
+					$strOrder = '';
+					break;
+
+				case 'quality':
+					$strOrder = '';
+					break;
+
+				case 'neighborhood':
+					$strOrder = '';
+					break;
+
+				case 'size':
+					$strOrder = '';
+					break;
+				
+				case 'rent':
+					$strOrder = '';
+					break;
+			}
+		}
+		
+		if ($strOrder)
+			$query->order($strOrder);
+		
 		//echo $query;
 		
 		return $query;

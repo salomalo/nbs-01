@@ -89,16 +89,31 @@ defined('_JEXEC') or die;
     <h2>Selman's Apartments</h2>
     <table id="listingSERPTable">
       
-      <tr id="listing_876914_row1" class="listingRow" data-id="876914" data-latitude="40.761229" data-longitude="-73.997413">
+<?php 
+	foreach ($this->items as $item): 
+		$link = JRoute::_('index.php?option=com_rental&view=apartment&id=' . (int) $item->id);
+		$aboutTime = ( $now - strtotime($item->created) ) / (24 * 60 * 60);
+				
+		if ($aboutTime < 1)
+			$time = round($aboutTime * 60) . ' hours';
+		else
+			$time = round($aboutTime) . ' days';
+?>
+		
+<tr id="listing_876914_row1" class="listingRow" data-id="876914" data-latitude="40.761229" data-longitude="-73.997413">
   <td class="border thumbnail narrow">
     <a href="http://www.nakedapartments.com/rental/876914-2-bedroom-w-43-hells-kitchen"><img alt="Thumb" src="http://s3.amazonaws.com/nakedapartments/images/10400461/thumb.gif?1342542662" /></a>
   </td>
   
   <td class="border flag">
-    <span class="listingTitle"><a href="http://www.nakedapartments.com/rental/876914-2-bedroom-w-43-hells-kitchen">2br, Hell's Kitchen, $6,000</a></span>
+    <span class="listingTitle">
+			<a href="<?php echo $link; ?>">
+				<?php echo intval($this->escape($item->bedrooms)) . ', ' . $this->escape($item->retal_location_title) . ', $' . $this->escape($item->price); ?>
+			</a>
+	</span>
 
     <div class="newCell listingDate">
-      4 days
+	<?php echo $aboutTime; ?>
       <span class="calm">on site</span>
     </div>
     
@@ -109,6 +124,7 @@ defined('_JEXEC') or die;
     
   </td>
 </tr>
+<?php endforeach; ?>
 
     </table>
 </div>
