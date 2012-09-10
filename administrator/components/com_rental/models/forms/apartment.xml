@@ -60,6 +60,7 @@
 		<field name="description" type="editor"
 			label="COM_RENTAL_FIELD_DESCRIPTION_LABEL" 
 			description ="COM_RENTAL_FIELD_DESCRIPTION_DESC" 
+			filter="JComponentHelper::filterText" buttons="true"
 			 />
 
 		<field name="address" type="text"
