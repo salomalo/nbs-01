@@ -39,7 +39,11 @@ class RentalModelApartments extends JModelList
 		
 		#var_dump($post); die;
 		
-		$data = isset($post['jform']) ? $post['jform'] : array();
+		$data = JRequest::get('get');
+		
+		var_dump($data);
+		
+//		$data = isset($post['jform']) ? $post['jform'] : array();
 		
 		$query->select(
 			'a.*'
@@ -59,26 +63,26 @@ class RentalModelApartments extends JModelList
 		$nowDate	= $db->Quote(JFactory::getDate()->toSql());
 		
 		//neighborhood
-		if (isset($data['location']) && !empty($data['location']))
+		if (isset($data['nids']) && $data['nids'] != '')
 		{
-			$locs = implode(',', $data['location']);
+			// $locs = implode(',', $data['location']);
 			
-			$query->where('a.location_id IN ('.$locs.')');
+			$query->where('a.location_id IN ('.$data['nids'].')');
 		}
 		else
 		{
-			if (isset($post['bid']))
+			if (isset($data['bid']) && $data['bid'] != '')
 			{
 				//get all locations
-				$query->where('a.location_id IN (SELECT id FROM #__retal_location WHERE catid = '. (int) $post['bid'].')');
+				$query->where('a.location_id IN (SELECT id FROM #__retal_location WHERE catid = '. (int) $data['bid'].')');
 			}
 		}
 		
-		if (isset($data['bedroom']) && !empty($data['bedroom']))
+		if (isset($data['bedroom']) && $data['bedroom'] != '')
 		{
-			$bedrooms = implode(',', $data['bedroom']);
+//			$bedrooms = implode(',', $data['bedroom']);
 			
-			$query->where('a.bedrooms IN ('.$bedrooms.')');
+			$query->where('a.bedrooms IN ('.$data['bedroom'].')');
 		}
 		
 		if (isset($data['min_rent']) && intval($data['min_rent']) > 0)
@@ -87,12 +91,12 @@ class RentalModelApartments extends JModelList
 		if (isset($data['max_rent']) && intval($data['max_rent']) > 0)
 			$query->where('a.price <= ' . intval($data['max_rent']));
 		
-		if (isset($data['amenity']) && !empty($data['amenity']))
+		if (isset($data['amenity']) && $data['amenity'] != '')
 		{
-			$amenities = implode(',', $data['amenity']);
+//			$amenities = implode(',', $data['amenity']);
 			
 			//$query->join('#__retal_apartment_amenities aa ON a.id = aa.apartment_id');
-			$query->where('a.id IN (SELECT apartment_id FROM #__retal_apartment_amenities WHERE amenities_id IN ('.$amenities.'))');
+			$query->where('a.id IN (SELECT apartment_id FROM #__retal_apartment_amenities WHERE amenities_id IN ('.$data['amenity'].'))');
 		}
 		
 		//move by
@@ -102,13 +106,13 @@ class RentalModelApartments extends JModelList
 		$order = JRequest::getVar('order', 'DESC');
 		$sort = JRequest::getVar('sort', null);
 		
-		$strOrder = 'a.id DESC';
+		$strOrder = '';
 		
 		if ($sort)
 		{
 			switch ($sort) {
 				case 'listing_date':
-					$strOrder = '';
+					$strOrder = 'a.created';
 					break;
 
 				case 'quality':
@@ -120,19 +124,23 @@ class RentalModelApartments extends JModelList
 					break;
 
 				case 'size':
-					$strOrder = '';
+					$strOrder = 'a.bedroom';
 					break;
 				
 				case 'rent':
-					$strOrder = '';
+					$strOrder = 'a.price';
 					break;
 			}
 		}
 		
-		if ($strOrder)
-			$query->order($strOrder);
+		if (!$strOrder)
+			$strOrder = 'a.id';
 		
-		//echo $query;
+		$strOrder .= ' ' . $order;
+		
+		$query->order($strOrder);
+		
+		echo $query;
 		
 		return $query;
 	}

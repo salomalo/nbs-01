@@ -74,10 +74,45 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
 // echo $moduleContents;
 
 //<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+$sort = JRequest::getVar('sort', '');
+
+$orderListingDate = (JRequest::getVar('order', '') == 'desc' && $sort == 'listing_date') ? 'asc' : 'desc';
+$orderQuality = (JRequest::getVar('order', '') == 'desc' && $sort == 'quality') ? 'asc' : 'desc';
+
+switch ($sort)
+{
+	case 'listing_date':
+		
+		break;
+	
+	case 'quality':
+		
+		break;
+	
+	case 'neighborhood':
+		
+		break;
+	
+	case 'size':
+		
+		break;
+	
+	case 'rent':
+		
+		break;
+	
+	default:
+		
+		break;
+}
 ?>
 
 <!-- BEGIN: filters -->
-<form name="frm-filter" method="post" action="<?php echo JRoute::_('index.php?option=com_rental&view=apartments&Itemid=' . JRequest::getInt('Itemid')); ?>">
+<form name="frm-filter" method="get" action="<?php echo JRoute::_('index.php?option=com_rental&view=apartments&Itemid=' . JRequest::getInt('Itemid')); ?>">
+	<input type="hidden" name="option" value="com_rental">
+	<input type="hidden" name="view" value="apartments">
+	<input type="hidden" name="Itemid" value="<?php echo JRequest::getInt('Itemid'); ?>">
 <div class="curveBottom" id="searchWrapperOuter">
   <div class="curveBottom" id="searchWrapper">
     <form method="get" action="/renter/listings/search" enctype="application/x-www-form-urlencoded" id="search">
@@ -128,7 +163,7 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
 	                $arrBedrooms = JEUtil::getBedrooms();
 	                foreach ($arrBedrooms as $key => $bedroom):
 	                ?>
-                  <li><input type="checkbox" name="jform[bedroom][]" value="<?php echo $key; ?>"><?php echo $bedroom; ?></li>
+                  <li><input type="checkbox" value="<?php echo $key; ?>"><?php echo $bedroom; ?></li>
                   <?php endforeach; ?>
                 </ul>
               </div>
@@ -139,16 +174,16 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
         </div>
         <div class="lastBox">
           <label>Rent</label>
-          <input type="text" size="6" name="jform[min_rent]" id="minRent" default="$" class="idleField">
+          <input type="text" size="6" name="min_rent" id="minRent" default="$" class="idleField">
           to </div>
         <div class="searchBox wide">
           <label>&nbsp;</label>
-          <input type="text" size="6" name="jform[max_rent]" id="maxRent" default="$" class="idleField">
+          <input type="text" size="6" name="max_rent" id="maxRent" default="$" class="idleField">
         </div>
         <div class="searchBox wide">
           <label>I want to move by</label>
           <div style="width: 125px;">
-            <input type="text" size="13" name="jform[move_date]" id="dateAvailable" default="" class="w16em dateformat-m-sl-d-sl-Y text hasDatepicker idleField">
+            <input type="text" size="13" name="move_date" id="dateAvailable" default="" class="w16em dateformat-m-sl-d-sl-Y text hasDatepicker idleField">
           </div>
         </div>
         <div id="searchBoxRenter"> <a class="button search submitButton" href="#"><span>Search</span></a>
@@ -161,10 +196,10 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
       <fieldset class="searchFilters" id="renterFilters">
         <div class="container1">
           <div class="searchBox">
-            <input type="checkbox" value="1" name="jform[photos]" id="photos" class="field text">
+            <input type="checkbox" value="1" name="photos" id="photos" class="field text">
             Must have photos </div>
           <div class="searchBox">
-            <input type="checkbox" value="1" name="jform[no_fee]" id="no_fee" class="field text">
+            <input type="checkbox" value="1" name="no_fee" id="no_fee" class="field text">
             No fee only </div>
         </div>
         <div class="container2">
@@ -180,7 +215,7 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
                   <div class="clear"></div>
                   <ul id="amenities">
                   	<?php foreach ($this->amenities as $amenity): ?>
-                    <li><input type="checkbox" name="jform[amenity][]" value="<?php echo $amenity->id; ?>"><?php echo $amenity->title; ?></li>
+                    <li><input type="checkbox" value="<?php echo $amenity->id; ?>"><?php echo $amenity->title; ?></li>
                     <?php endforeach; ?>
                   </ul>
                 </div>
@@ -201,16 +236,16 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
                   <div class="clear"></div>
                   <ul>
                     <li>
-                      <input type="checkbox" value="jform[dogs]">
+                      <input type="checkbox" value="dogs">
                       Dogs Ok</li>
                     <li>
-                      <input type="checkbox" value="jform[cats]">
+                      <input type="checkbox" value="cats">
                       Cats Ok</li>
                   </ul>
                 </div>
                 <div class="clear"></div>
               </div>
-              <input type="hidden" value="" name="jform[pets]" id="pets">
+              <input type="hidden" value="" name="pets" id="pets">
             </div>
           </div>
         </div>
@@ -227,7 +262,7 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
 <table id="listingSERPOuter">
   <tbody>
     <tr>
-      <td class="head" colspan="2"><h1>//TODO (n)  apartments</h1>
+		<td class="head" colspan="2"><h1><?php echo $this->total_items; ?>  apartments</h1>
         <div class="block"> </div>
         <div class="block"> <a href="/rental-agents" class="button blue HOF small"><span>Work with the top agents!</span></a> </div>
         <div class="resultsPagination"> 
@@ -244,8 +279,8 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
             <tr>
               <th colspan="2"> <span class="small">SORT BY</span>
                 <ul>
-					<li><a class="bold" href="<?php echo JRoute::_('index.php?option=com_rental&view=apartments&order=desc&sort=listing_date'); ?>"> Time on Site </a></li>
-                  <li><a class="bold" href="<?php echo JRoute::_('index.php?option=com_rental&view=apartments&order=desc&sort=quality'); ?>"> Quality Score </a></li>
+					<li><a class="bold" href="<?php echo JRoute::_('index.php?option=com_rental&view=apartments&order='.$orderListingDate.'&sort=listing_date'); ?>"> Time on Site </a></li>
+                  <li><a class="bold" href="<?php echo JRoute::_('index.php?option=com_rental&view=apartments&order='.$orderQuality.'&sort=quality'); ?>"> Quality Score </a></li>
                   <li><a class=" " href="<?php echo JRoute::_('index.php?option=com_rental&view=apartments&order=desc&sort=neighborhood'); ?>"> Neighborhood </a></li>
                   <li><a class=" " href="<?php echo JRoute::_('index.php?option=com_rental&view=apartments&order=desc&sort=size'); ?>"> Size </a></li>
                   <li><a class=" " href="<?php echo JRoute::_('index.php?option=com_rental&view=apartments&order=desc&sort=rent'); ?>"> Rent </a></li>
@@ -276,6 +311,7 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
 			?>
             <tr id="listing_<?php echo $item->id?>_row1" class="listingRow" data-id="<?php echo $item->id?>" data-latitude="<?php echo $item->latitude?>" data-longitude="<?php echo $item->longitude?>">
               <td class="border thumbnail">
+				  <?php echo $item->created; ?>
               	<a class=" " href="<?php echo $link?>">
               		<?php if ($defaultImage): ?>
 					<img src="<?php echo $thumb_90x68_url.$upload_url.$defaultImage['image']; ?>" width="90" height="68" />
@@ -287,7 +323,10 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
               <td class="border flag">
               	<span class="listingTitle">
               		<a class=" " href="<?php echo $link?>">
-              			<?php echo intval($this->escape($item->bedrooms)) . ', ' . $this->escape($item->retal_location_title) . ', $' . $this->escape($item->price); ?>
+              			<?php 
+						$bedrooms = intval($this->escape($item->bedrooms));
+						$br = ($bedrooms == 1) ? 'Studio' : ( ($bedrooms == 2) ? 'Loft' : ($bedrooms - 2) . 'br' );
+						echo $br . ', ' . $this->escape($item->retal_location_title) . ', $' . $this->escape($item->price); ?>
               		</a>
               	</span>
                 <div class="newCell listingDate"> about <?php echo $time; ?> <span class="calm">on site</span> </div>
@@ -310,6 +349,7 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
         <!-- end of table containing listings  --></td>
       <!-- cell containing map -->
       <td>
+		  <?php if (count($this->items) > 0): ?>
       	<div id="listingsMap" style="width: 450px; height: 400px; z-index: 1;"></div>
       	<div id="float-gmap">
 			<?php
@@ -318,6 +358,7 @@ $map->addCircle($geo_2['lat'], $geo_2['lng'], 2000, "Test 2", $opts);
 		$map->showMap(true);
 		?>
 		</div>
+		<?php endif; ?>
       </td>
     </tr>
   </tbody>
