@@ -2,14 +2,26 @@
 <!-- $Id: config.xml $ -->
 <config>
 	<fieldset name="component"
-		label="COM_RENTAL_FIELDSET_CONFIG_GMAP_OPTIONS_LABEL"
-		description="COM_RENTAL_FIELDSET_CONFIG_GMAP_OPTIONS_DESC">
+		label="Config"
+		description="Component config">
 		<field
 			id="cfg_gmap_key"
 			name="cfg_gmap_key"
 			type="text"
 			label="COM_RENTAL_FIELD_CFG_GMAP_KEY_LABEL"
 			description="COM_RENTAL_FIELD_CFG_GMAP_KEY_DESC"
+			class="inputbox" />
+			
+		<field
+			name="cfg_fb_api_id"
+			type="text"
+			label="Facebook API ID"
+			class="inputbox" />
+			
+		<field
+			name="cfg_fb_api_secret"
+			type="text"
+			label="Facebook API Secret"
 			class="inputbox" />
 	</fieldset>
 	
