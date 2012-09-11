@@ -41,8 +41,6 @@ class RentalModelApartments extends JModelList
 		
 		$data = JRequest::get('get');
 		
-		var_dump($data);
-		
 //		$data = isset($post['jform']) ? $post['jform'] : array();
 		
 		$query->select(
@@ -91,17 +89,55 @@ class RentalModelApartments extends JModelList
 		if (isset($data['max_rent']) && intval($data['max_rent']) > 0)
 			$query->where('a.price <= ' . intval($data['max_rent']));
 		
-		if (isset($data['amenity']) && $data['amenity'] != '')
+		if (isset($data['amids']) && $data['amids'] != '')
 		{
 //			$amenities = implode(',', $data['amenity']);
 			
 			//$query->join('#__retal_apartment_amenities aa ON a.id = aa.apartment_id');
-			$query->where('a.id IN (SELECT apartment_id FROM #__retal_apartment_amenities WHERE amenities_id IN ('.$data['amenity'].'))');
+			$query->where('a.id IN (SELECT apartment_id FROM #__retal_apartment_amenities WHERE amenities_id IN ('.$data['amids'].'))');
 		}
 		
-		//move by
 		if (isset($data['move_date']) && $data['move_date'] != '')
-			$query->where('(a.available_on = '.$nullDate.' OR a.available_on >= '.$nowDate.')');
+		{
+			//move by
+			$tmpDate = explode('/', $data['move_date']);
+			$moveDate = $tmpDate[2] . '-' . $tmpDate[0] . '-' . $tmpDate[1];
+			$query->where('(a.available_on = '.$nullDate.' OR a.available_on <= \''.$moveDate.'\')');
+		}
+		
+		if (isset($data['pets']) && $data['pets'] != '') 
+		{
+			$pets = explode(',', $data['pets']);
+
+			// allow pets
+			$dogs = false;
+			$cats = false;
+
+			if (in_array('cats', $pets))
+				$cats = true;
+
+			if (in_array('dogs', $pets))
+				$dogs = true;
+
+			$strAllowPets = '( pets = 2';
+
+			if ($dogs)
+			{
+				$strAllowPets .= ' OR pets LIKE "%3%" OR pets LIKE "%5%" ';
+			}
+
+			if ($cats)
+			{
+				$strAllowPets .= ' OR pets LIKE %4% OR pets LIKE %6% ';
+			}
+
+			$strAllowPets .= ' )';
+
+			$query->where($strAllowPets);
+		}
+		
+		if (isset($data['photos']))			
+			$query->where ('a.images != ""');
 		
 		$order = JRequest::getVar('order', 'DESC');
 		$sort = JRequest::getVar('sort', null);
@@ -140,7 +176,7 @@ class RentalModelApartments extends JModelList
 		
 		$query->order($strOrder);
 		
-		echo $query;
+//		echo $query;
 		
 		return $query;
 	}
