@@ -20,7 +20,6 @@ $Itemid = JRequest::getInt('Itemid');
 $upload_url			= JURI::root().'images/com_rental/upload/';
 $thumb_90x68_url 	= JURI::root().'img.php?w=90&h=68&q=90&src=';
 
-
 require_once(JPATH_COMPONENT_SITE . DS . 'helpers' . DS . 'simple-gmap-api' . DS . "simpleGMapAPI.php");
 require_once(JPATH_COMPONENT_SITE . DS . 'helpers' . DS . 'simple-gmap-api' . DS . "simpleGMapGeocoder.php");
 
@@ -80,32 +79,6 @@ $sort = JRequest::getVar('sort', '');
 $orderListingDate = (JRequest::getVar('order', '') == 'desc' && $sort == 'listing_date') ? 'asc' : 'desc';
 $orderQuality = (JRequest::getVar('order', '') == 'desc' && $sort == 'quality') ? 'asc' : 'desc';
 
-switch ($sort)
-{
-	case 'listing_date':
-		
-		break;
-	
-	case 'quality':
-		
-		break;
-	
-	case 'neighborhood':
-		
-		break;
-	
-	case 'size':
-		
-		break;
-	
-	case 'rent':
-		
-		break;
-	
-	default:
-		
-		break;
-}
 ?>
 
 <!-- BEGIN: filters -->
@@ -128,7 +101,7 @@ switch ($sort)
               <li data-id="<?php echo $category->id; ?>"><?php echo $category->title; ?></li>
               <?php endforeach; ?>
             </ul>
-            <input type="hidden" value="0" name="bid" id="bid">
+            <input type="hidden" value="<?php echo JRequest::getInt('bid'); ?>" name="bid" id="bid">
           </div>
         </div>
         <div class="searchBox wide">
@@ -145,7 +118,7 @@ switch ($sort)
               </div>
               <div class="clear"></div>
             </div>
-            <input type="hidden" value="" name="nids" id="nids">
+            <input type="hidden" value="<?php echo JRequest::getVar('nids'); ?>" name="nids" id="nids">
           </div>
         </div>
         <div class="searchBox wide">
@@ -161,29 +134,31 @@ switch ($sort)
                 <ul>
                 	 <?php 
 	                $arrBedrooms = JEUtil::getBedrooms();
+					$getBedrooms = explode(',', JRequest::getVar('aids'));
 	                foreach ($arrBedrooms as $key => $bedroom):
+						$checked = (in_array($key, $getBedrooms)) ? 'checked="checked"' : '';
 	                ?>
-                  <li><input type="checkbox" value="<?php echo $key; ?>"><?php echo $bedroom; ?></li>
+                  <li><input type="checkbox" value="<?php echo $key; ?>" <?php echo $checked; ?>><?php echo $bedroom; ?></li>
                   <?php endforeach; ?>
                 </ul>
               </div>
               <div class="clear"></div>
             </div>
-            <input type="hidden" value="0" name="aids" id="aids">
+            <input type="hidden" value="<?php echo JRequest::getVar('aids'); ?>" name="aids" id="aids">
           </div>
         </div>
         <div class="lastBox">
           <label>Rent</label>
-          <input type="text" size="6" name="min_rent" id="minRent" default="$" class="idleField">
+          <input type="text" size="6" name="min_rent" id="minRent" default="$" class="idleField" value="<?php echo JRequest::getVar('min_rent'); ?>">
           to </div>
         <div class="searchBox wide">
           <label>&nbsp;</label>
-          <input type="text" size="6" name="max_rent" id="maxRent" default="$" class="idleField">
+          <input type="text" size="6" name="max_rent" id="maxRent" default="$" class="idleField" value="<?php echo JRequest::getVar('max_rent');; ?>">
         </div>
         <div class="searchBox wide">
           <label>I want to move by</label>
           <div style="width: 125px;">
-            <input type="text" size="13" name="move_date" id="dateAvailable" default="" class="w16em dateformat-m-sl-d-sl-Y text hasDatepicker idleField">
+            <input type="text" size="13" name="move_date" id="dateAvailable" value="<?php echo JRequest::getVar('move_date');; ?>" default="" class="w16em dateformat-m-sl-d-sl-Y text hasDatepicker idleField">
           </div>
         </div>
         <div id="searchBoxRenter"> <a class="button search submitButton" href="#"><span>Search</span></a>
@@ -196,10 +171,14 @@ switch ($sort)
       <fieldset class="searchFilters" id="renterFilters">
         <div class="container1">
           <div class="searchBox">
-            <input type="checkbox" value="1" name="photos" id="photos" class="field text">
+			  <?php
+			  $photos = JRequest::getVar('photos', null);
+			  $no_fee = JRequest::getVar('no_fee', null);
+			  ?>
+			  <input type="checkbox" value="1" name="photos" id="photos" class="field text" <?php if ($photos) echo 'checked="checked"'; ?>>
             Must have photos </div>
           <div class="searchBox">
-            <input type="checkbox" value="1" name="no_fee" id="no_fee" class="field text">
+            <input type="checkbox" value="1" name="no_fee" id="no_fee" class="field text" <?php if ($no_fee) echo 'checked="checked"'; ?>>
             No fee only </div>
         </div>
         <div class="container2">
@@ -214,14 +193,18 @@ switch ($sort)
                   </div>
                   <div class="clear"></div>
                   <ul id="amenities">
-                  	<?php foreach ($this->amenities as $amenity): ?>
-                    <li><input type="checkbox" value="<?php echo $amenity->id; ?>"><?php echo $amenity->title; ?></li>
+                  	<?php 
+					$getA = explode(',', JRequest::getVar('amids'));
+					foreach ($this->amenities as $amenity): 
+						$checked = (in_array($amenity->id, $getA)) ? 'checked="checked"' : '';
+						?>
+                    <li><input type="checkbox" value="<?php echo $amenity->id; ?>" <?php echo $checked; ?>><?php echo $amenity->title; ?></li>
                     <?php endforeach; ?>
                   </ul>
                 </div>
                 <div class="clear"></div>
               </div>
-              <input type="hidden" value="0" name="amids" id="amids">
+              <input type="hidden" value="<?php echo JRequest::getVar('amids'); ?>" name="amids" id="amids">
             </div>
           </div>
           <div style="margin-left: 55px;" class="searchBox menu">
@@ -235,8 +218,13 @@ switch ($sort)
                   </div>
                   <div class="clear"></div>
                   <ul>
+					  <?php 
+					  $pets = JRequest::getVar('pets');
+					  
+					  $arrP = explode(',', $pets);
+					  ?>
                     <li>
-                      <input type="checkbox" value="dogs">
+						<input type="checkbox" value="dogs" <?php if (in_array('dogs', $arrP)) echo 'checked="checked"'; ?>>
                       Dogs Ok</li>
                     <li>
                       <input type="checkbox" value="cats">
@@ -245,7 +233,7 @@ switch ($sort)
                 </div>
                 <div class="clear"></div>
               </div>
-              <input type="hidden" value="" name="pets" id="pets">
+              <input type="hidden" value="<?php echo $pets; ?>" name="pets" id="pets">
             </div>
           </div>
         </div>
@@ -278,12 +266,25 @@ switch ($sort)
           <thead>
             <tr>
               <th colspan="2"> <span class="small">SORT BY</span>
+				  <?php
+				  $get = JRequest::get('get');
+				  
+				  $url = array();
+				  
+				  foreach ($get as $field => $var)
+				  {
+					  $url[] = $field.'='.$var;
+				  }
+				  
+				  $url = urlencode(implode('&', $url));
+				
+				  ?>
                 <ul>
-					<li><a class="bold" href="<?php echo JRoute::_('index.php?option=com_rental&view=apartments&order='.$orderListingDate.'&sort=listing_date'); ?>"> Time on Site </a></li>
-                  <li><a class="bold" href="<?php echo JRoute::_('index.php?option=com_rental&view=apartments&order='.$orderQuality.'&sort=quality'); ?>"> Quality Score </a></li>
-                  <li><a class=" " href="<?php echo JRoute::_('index.php?option=com_rental&view=apartments&order=desc&sort=neighborhood'); ?>"> Neighborhood </a></li>
-                  <li><a class=" " href="<?php echo JRoute::_('index.php?option=com_rental&view=apartments&order=desc&sort=size'); ?>"> Size </a></li>
-                  <li><a class=" " href="<?php echo JRoute::_('index.php?option=com_rental&view=apartments&order=desc&sort=rent'); ?>"> Rent </a></li>
+					<li><a class="bold" href="<?php echo JRoute::_('index.php?'.$url.'&order='.$orderListingDate.'&sort=listing_date'); ?>"> Time on Site </a></li>
+                  <li><a class="bold" href="<?php echo JRoute::_('index.php?'.$url.'&order='.$orderQuality.'&sort=quality'); ?>"> Quality Score </a></li>
+                  <li><a class=" " href="<?php echo JRoute::_('index.php?'.$url.'&order=desc&sort=neighborhood'); ?>"> Neighborhood </a></li>
+                  <li><a class=" " href="<?php echo JRoute::_('index.php?'.$url.'&order=desc&sort=size'); ?>"> Size </a></li>
+                  <li><a class=" " href="<?php echo JRoute::_('index.php?'.$url.'&order=desc&sort=rent'); ?>"> Rent </a></li>
                 </ul>
               </th>
             </tr>
@@ -311,7 +312,6 @@ switch ($sort)
 			?>
             <tr id="listing_<?php echo $item->id?>_row1" class="listingRow" data-id="<?php echo $item->id?>" data-latitude="<?php echo $item->latitude?>" data-longitude="<?php echo $item->longitude?>">
               <td class="border thumbnail">
-				  <?php echo $item->created; ?>
               	<a class=" " href="<?php echo $link?>">
               		<?php if ($defaultImage): ?>
 					<img src="<?php echo $thumb_90x68_url.$upload_url.$defaultImage['image']; ?>" width="90" height="68" />
