@@ -16,8 +16,15 @@ defined('_JEXEC') or die;
 jimport('joomla.application.component.controller');
 
 // domain: gorent.com
-define('CFG_FACEBOOK_API_ID', '419646791426412');
-define('CFG_FACEBOOK_API_SECRET', 'a7fb30ef35a96ece5e0f95e15878069b');
+$params = &JComponentHelper::getParams( 'com_rental' );
+
+//define('CFG_FACEBOOK_API_ID', '419646791426412');
+//define('CFG_FACEBOOK_API_SECRET', 'a7fb30ef35a96ece5e0f95e15878069b');
+
+define('CFG_FACEBOOK_API_ID', $params->get('cfg_fb_api_id'));
+define('CFG_FACEBOOK_API_SECRET', $params->get('cfg_fb_api_secret'));
+
+// print_r($params);
 
 //require util class
 require_once JPATH_COMPONENT_ADMINISTRATOR . DS . 'helpers/util.class.php';
