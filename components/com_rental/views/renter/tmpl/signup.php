@@ -15,6 +15,54 @@ defined('_JEXEC') or die;
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 $Itemid = JRequest::getInt('Itemid');
 
+require_once JPATH_COMPONENT_SITE . DS . 'helpers' . DS . 'facebooksdk' . DS . 'facebook.php';
+
+JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
+$Itemid = JRequest::getInt('Itemid');
+
+//domain gorent.com
+$facebook = new Facebook(array(
+			'appId'  => CFG_FACEBOOK_API_ID,
+		  	'secret' => CFG_FACEBOOK_API_SECRET,
+		));
+
+$user 	= JFactory::getUser();
+$userFB = $facebook->getUser();
+
+$isLogedIn = false;
+$fbMe	= null;
+if ($user->id) {
+	$isLogedIn = true;
+} else {
+	if ($userFB) {
+		try {
+	    	// Proceed knowing you have a logged in user who's authenticated.
+	    	$fbMe = $facebook->api('/me');
+	  	} catch (FacebookApiException $e) {
+	    	$userFB = null;
+	  	}
+	}
+}
+
+$logoutUrl= '';
+$loginUrl = '';
+
+if ($userFB) {
+	$logoutUrl	= $facebook->getLogoutUrl();
+} else {
+  	$loginUrl	= $facebook->getLoginUrl(
+  		array(
+  			'scope' => 'email, publish_stream',
+  			'redirect_uri' => JRoute::_(JURI::root() . 'index.php?option=com_rental&task=user_man.create_fb_user', false)
+  		)
+	);
+}
+$loginUrl	= $facebook->getLoginUrl(
+  		array(
+  			'scope' => 'email, publish_stream',
+  			'redirect_uri' => JRoute::_(JURI::root() . 'index.php?option=com_rental&task=user_man.create_fb_user', false)
+  		)
+	);
 ?>
 <div class="clearfix" id="blueBox"> <span class="admin curve">Have an account? <a class="bold" href="index.php?option=com_rental&view=renter&layout=login<?php echo $Itemid?"&Itemid=".$Itemid:''?>">log in</a></span>
   <h1>Sign up through...</h1>
@@ -24,7 +72,7 @@ $Itemid = JRequest::getInt('Itemid');
     </div>
     <div class="block or">or</div>
     <div class="block fb"> 
-    	<a class="btnFB" href="https://graph.facebook.com/oauth/authorize?client_id=149838751731831&amp;redirect_uri=https://www.nakedapartments.com/user_sessions/create&amp;scope=email,publish_stream">
+    	<a class="btnFB" href="<?php echo $loginUrl; ?>">
     		<span class=" ">facebook</span>
     	</a> 
     </div>
